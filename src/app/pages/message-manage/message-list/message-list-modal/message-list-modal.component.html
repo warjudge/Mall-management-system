@@ -1,0 +1,132 @@
+<div class="row">
+    <div class="col-md-12">
+        <nb-card class="mb-0">
+            <nb-card-header>
+                <span>{{ modalHeader }}</span>
+                <button class="close" aria-label="Close" (click)="closeModal()">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </nb-card-header>
+            <nb-card-body>
+                <form #o="ngForm" (ngSubmit)="onSubmit(o)">
+                    <div class="row">
+                        <div class="col-md-2 offset-md-1">
+                            <label>模板序号</label>
+                            <input type="text" disabled class="form-control" name="serialNumber"
+                                   [ngModel]="messageDetail&&messageDetail.serialNumber?messageDetail.serialNumber:''">
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-4 offset-md-1">
+                            <label>微信模板id</label>
+                            <input type="text" class="form-control" name="templateId"
+                                   [ngModel]="messageDetail&&messageDetail.templateId?messageDetail.templateId:''">
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-4 offset-md-1">
+                            <label>消息标题</label>
+                            <input type="text" class="form-control" name="title"
+                                   [ngModel]="messageDetail&&messageDetail.title?messageDetail.title:''">
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-4 offset-md-1">
+                            <div>消息详细内容</div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-2 offset-md-1">
+                            <input type="text" class="form-control" placeholder="" name="key1"
+                                   [ngModel]="messageDetail&&messageDetail.contentVo&&messageDetail.contentVo[0]?messageDetail.contentVo[0].key:''">
+                        </div>
+                        <div class="col-md-6">
+                            <input type="text" class="form-control" placeholder="" name="val1"
+                                   [ngModel]="messageDetail&&messageDetail.contentVo&&messageDetail.contentVo[0]?messageDetail.contentVo[0].val:''">
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-2 offset-md-1">
+                            <input type="text" class="form-control" placeholder="" name="key2"
+                                   [ngModel]="messageDetail&&messageDetail.contentVo&&messageDetail.contentVo[1]?messageDetail.contentVo[1].key:''">
+                        </div>
+                        <div class="col-md-6">
+                            <input type="text" class="form-control" placeholder="" name="val2"
+                                   [ngModel]="messageDetail&&messageDetail.contentVo&&messageDetail.contentVo[1]?messageDetail.contentVo[1].val:''">
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-2 offset-md-1">
+                            <input type="text" class="form-control" placeholder="" name="key3"
+                                   [ngModel]="messageDetail&&messageDetail.contentVo&&messageDetail.contentVo[2]?messageDetail.contentVo[2].key:''">
+                        </div>
+                        <div class="col-md-6">
+                            <input type="text" class="form-control" placeholder="" name="val3"
+                                   [ngModel]="messageDetail&&messageDetail.contentVo&&messageDetail.contentVo[2]?messageDetail.contentVo[2].val:''">
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-2 offset-md-1">
+                            <input type="text" class="form-control" placeholder="" name="key4"
+                                   [ngModel]="messageDetail&&messageDetail.contentVo&&messageDetail.contentVo[3]?messageDetail.contentVo[3].key:''">
+                        </div>
+                        <div class="col-md-6">
+                            <input type="text" class="form-control" placeholder="" name="val4"
+                                   [ngModel]="messageDetail&&messageDetail.contentVo&&messageDetail.contentVo[3]?messageDetail.contentVo[3].val:''">
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-2 offset-md-1">
+                            <input type="text" class="form-control" placeholder="" name="key5"
+                                   [ngModel]="messageDetail&&messageDetail.contentVo&&messageDetail.contentVo[4]?messageDetail.contentVo[4].key:''">
+                        </div>
+                        <div class="col-md-6">
+                            <input type="text" class="form-control" placeholder="" name="val5"
+                                   [ngModel]="messageDetail&&messageDetail.contentVo&&messageDetail.contentVo[4]?messageDetail.contentVo[4].val:''">
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-6 offset-md-1">
+                            <label>消息备注</label>
+                            <input type="text" class="form-control" name="remark"
+                                   [ngModel]="messageDetail&&messageDetail.remark?messageDetail.remark:''">
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-4 offset-md-1">
+                            <label>跳转链接</label>
+                            <input type="text" class="form-control" name="url"
+                                   [ngModel]="messageDetail&&messageDetail.url?messageDetail.url:''">
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-2 offset-md-1">
+                            <label>通知用户类型</label>
+                            <nb-checkbox name="userType" [value]="userType" ngModel>买家</nb-checkbox>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-2 offset-md-4">
+                            <button class="btn btn-hero-danger" *ngIf="!isEdit" type="button"
+                                    (click)="closeModal()">返回
+                            </button>
+                        </div>
+                        <div class="col-md-2 ">
+                            <button class="btn btn-hero-success" *ngIf="!isEdit" type="submit">保存修改
+                            </button>
+                        </div>
+
+                    </div>
+                </form>
+
+            </nb-card-body>
+        </nb-card>
+    </div>
+</div>

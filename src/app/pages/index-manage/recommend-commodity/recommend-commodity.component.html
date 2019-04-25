@@ -1,0 +1,80 @@
+<div class="row">
+    <div class="col-md-12">
+        <nb-card>
+            <nb-card-header>
+                推荐商品管理
+                <button class="close" aria-label="Close" (click)="refresh()">
+                    <div class="icon">
+                        <i class="eva-icon-container">
+                            <i [innerHTML]="icon | eva: { animationType: 'pulse' }"></i>
+                        </i>
+                    </div>
+                </button>
+            </nb-card-header>
+            <nb-card-body>
+                <form class="form" #f='ngForm' (ngSubmit)="onSubmit(f)">
+                    <div class="row" *ngIf="dataService.permissionData.GOODS.search">
+                        <div class="col-md-2 ">
+                            <label>启用时间</label>
+                            <input nbInput class="form-control" placeholder="选择时间" [owlDateTime]="formpicker"
+                                   [owlDateTimeTrigger]="formpicker" name="start" ngModel>
+                            <owl-date-time style="margin: 0" #formpicker></owl-date-time>
+
+                        </div>
+                        <div class="col-md-2">
+                            <label>-</label>
+                            <input nbInput class="form-control" placeholder="选择时间" [owlDateTime]="formpicker1"
+                                   [owlDateTimeTrigger]="formpicker1" name="end" ngModel>
+                            <owl-date-time style="margin: 0" #formpicker1></owl-date-time>
+                        </div>
+
+                        <!--<div class="col-md-2">-->
+                            <!--<label>栏位顺序</label>-->
+                            <!--<input type="text" class="form-control" name="sequence" ngModel-->
+                                   <!--onkeyup="this.value=this.value.replace(/\s+/g,'')"-->
+                                   <!--onafterpaste="this.value=this.value.replace(/\s+/g,'')">-->
+                        <!--</div>-->
+                        <!--<div class="col-md-2">-->
+                        <!--<label>栏位标题</label>-->
+                        <!--<input type="text" class="form-control" name="goodsName" [ngModel]="goodsName">-->
+                        <!--</div>-->
+                        <div class="col-md-2">
+                            <label>关联商品id</label>
+                            <input type="text" class="form-control" name="goodsId" ngModel
+                                   onkeyup="this.value=this.value.replace(/\s+/g,'')"
+                                   onafterpaste="this.value=this.value.replace(/\s+/g,'')">
+                        </div>
+                        <div class="col-md-2">
+                            <label>启用状态</label>
+                            <select class="form-control" name="state" ngModel>
+                                <option value="">全部</option>
+                                <option value="1">开启</option>
+                                <option value="0">关闭</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="row  mt-md-2">
+                        <div class="col-md-2">
+                            <button type="submit" class="btn btn-primary"
+                                    *ngIf="dataService.permissionData.GOODS.search">查询
+                            </button>
+                        </div>
+                        <div class="col-md-2">
+                            <button type="button" class="btn btn-primary" *ngIf="dataService.permissionData.GOODS.add"
+                                    (click)="addField()">添加推荐商品
+                            </button>
+                        </div>
+                    </div>
+
+                </form>
+            </nb-card-body>
+        </nb-card>
+        <nb-card>
+            <nb-card-body>
+                <ng2-smart-table [settings]="settings" [source]="source">
+                </ng2-smart-table>
+            </nb-card-body>
+        </nb-card>
+    </div>
+</div>

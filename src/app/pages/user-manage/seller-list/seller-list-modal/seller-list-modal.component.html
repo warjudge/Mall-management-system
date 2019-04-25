@@ -1,0 +1,365 @@
+<div class="row">
+    <div class="col-md-12">
+        <nb-card class="mb-0">
+            <nb-card-header>
+                <span>{{ modalHeader }}</span>
+                <button class="close" aria-label="Close" (click)="closeModal()">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </nb-card-header>
+            <nb-card-body>
+                <form #l="ngForm" (ngSubmit)="onSubmit(l)">
+                    <div class="row">
+                        <div class="col-md-2 offset-md-1">
+                            <label><span style="color: red">*</span>用户id</label>
+                            <input type="text" disabled class="form-control" name="userId"
+                                   [ngModel]="data&&data.userId?data.userId:''">
+                        </div>
+                        <div class="col-md-2">
+                            <label><span style="color: red">*</span>用户名</label>
+                            <input type="text" [disabled]="isEdit" class="form-control" name="nickName"
+                                   [ngModel]="data&&data.nickName?data.nickName:''">
+                        </div>
+                        <!--<div class="col-md-2">-->
+                        <!--<label>用户头像</label>-->
+                        <!--<div class="imgBorder">-->
+                        <!--<img [src]="data&&data.headPortraitUrl?data.headPortraitUrl:''" alt="">-->
+                        <!--</div>-->
+                        <!--&lt;!&ndash;<input type="text" disabled class="form-control" name="headPortrait" [ngModel]="data&&data.headPortrait?data.headPortrait:''">&ndash;&gt;-->
+                        <!--</div>-->
+                        <div class="col-md-2 position-relative offset-md-2">
+                            <label>用户头像</label>
+                            <div class="secondBorder position-absolute">
+                                <div class="imgBorder" *ngFor="let t of entrance[0].showFileList">
+                                    <button class="imgButton" type="button" (click)="delImg(t,'headPortraitUrl')">
+                                        &times;
+                                    </button>
+                                    <img src="{{ t.src }}" class="img">
+                                    <label class="imgName">{{t.name}}</label>
+                                </div>
+                                <div class="imgBorder" *ngIf="entrance[0].showFileList.length===0">
+                                    <img src="assets/images/add.png" class="add">
+                                    <input (change)="fileChange($event,'headPortraitUrl')" class="selectFile"
+                                           type="file"
+                                           placeholder="Upload file"
+                                           accept=".jpg,.gif,.png,.jpeg"/>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row mt-md-2">
+                        <div class="col-md-2 offset-md-1">
+                            <label><span style="color: red">*</span>真实姓名</label>
+                            <input type="text" [disabled]="isEdit" class="form-control" name="realName" disabled
+                                   [ngModel]="data&&data.realAuthData&&data.realAuthData.realNameCopy?data.realAuthData.realNameCopy:''">
+                        </div>
+                        <div class="col-md-2">
+                            <label><span style="color: red">*</span>身份证号</label>
+                            <input type="text" [disabled]="isEdit" class="form-control" name="idCard" disabled
+                                   [ngModel]="data&&data.realAuthData&&data.realAuthData.idCardCopy?data.realAuthData.idCardCopy:''">
+                        </div>
+                        <div class="col-md-2" *ngIf="!isEdit">
+                            <label class="d-block">&nbsp;</label>
+                            <button class="btn btn-hero-danger full-width" (click)="delIdCard()"
+                                    type="button">删除身份证绑定
+                            </button>
+                        </div>
+                    </div>
+
+
+                    <div class="row mt-md-2">
+                        <div class="col-md-2 offset-md-1">
+                            <label><span style="color: red">*</span>绑定手机号</label>
+                            <input type="text" [disabled]="isEdit" class="form-control" name="telephone"
+                                   [ngModel]="data&&data.telephone?data.telephone:''">
+                        </div>
+                        <div class="col-md-2">
+                            <label><span style="color: red">*</span>绑定微信号</label>
+                            <input type="text" [disabled]="isEdit" class="form-control" name="wechatNumber"
+                                   [ngModel]="data&&data.wechatNumber?data.wechatNumber:''">
+                        </div>
+                    </div>
+
+
+                    <div class="row mt-md-2">
+                        <div class="col-md-2 offset-md-1">
+                            <label>用户余额</label>
+                            <input type="text" [disabled]="isEdit" class="form-control" name="myAccount"
+                                   [ngModel]="data&&data.balance?data.balance:0">
+                        </div>
+                        <div class="col-md-2">
+                            <label><span style="color: red">*</span>用户身份</label>
+                            <input type="text" disabled class="form-control" value="卖家">
+                        </div>
+                        <div class="col-md-2">
+                            <label><span style="color: red">*</span>用户状态</label>
+                            <select class="form-control" [disabled]="isEdit" name="userStatus"
+                                    [ngModel]="data&&data.userStatus?data.userStatus:''">
+                                <option></option>
+                                <option value="NORMAL">正常</option>
+                                <option value="FROZENFUNDS">冻结资金</option>
+                                <!--<option value="FROZENLOGIN">冻结登录</option>-->
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="row mt-md-2">
+                        <div class="col-md-4 offset-md-1">
+                            <label>用户创建时间:{{data && data.createTime ? data.createTime : ''}}</label>
+                            <!--<input type="text" [disabled]="isEdit" class="form-control" name="createTime"-->
+                            <!--[ngModel]="data&&data.createTime?data.createTime:''">-->
+                        </div>
+                    </div>
+
+                    <div class="row mt-md-2">
+                        <div class="col-md-4 offset-md-1">
+                            <label><span style="color: red">*</span>个人卖家身份证正面</label>
+                            <div class="secondBorder">
+                                <div class="imgBorder" *ngFor="let t of entrance[1].showFileList">
+                                    <button class="imgButton" type="button" (click)="delImg(t,'idCardPositiveImg')">
+                                        &times;
+                                    </button>
+                                    <img src="{{ t.src }}" class="img">
+                                    <label class="imgName">{{t.name}}</label>
+                                </div>
+                                <div class="imgBorder" *ngIf="entrance[1].showFileList.length===0">
+                                    <img src="assets/images/add.png" class="add">
+                                    <input (change)="fileChange($event,'idCardPositiveImg')" class="selectFile"
+                                           type="file"
+                                           placeholder="Upload file"
+                                           accept=".jpg,.gif,.png,.jpeg"/>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <label><span style="color: red">*</span>个人卖家身份证反面</label>
+                            <div class="secondBorder">
+                                <div class="imgBorder" *ngFor="let t of entrance[2].showFileList">
+                                    <button class="imgButton" type="button" (click)="delImg(t,'idCardNegativeImg')">
+                                        &times;
+                                    </button>
+                                    <img src="{{ t.src }}" class="img">
+                                    <label class="imgName">{{t.name}}</label>
+                                </div>
+                                <div class="imgBorder" *ngIf="entrance[2].showFileList.length===0">
+                                    <img src="assets/images/add.png" class="add">
+                                    <input (change)="fileChange($event,'idCardNegativeImg')" class="selectFile"
+                                           type="file"
+                                           placeholder="Upload file"
+                                           accept=".jpg,.gif,.png,.jpeg"/>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row mt-md-4">
+                        <div class="col-md-2 offset-md-1">
+                            <label><span style="color: red">*</span>企业名称</label>
+                            <input type="text" [disabled]="isEdit" class="form-control" name="enterpriseName"
+                                   [ngModel]="data&&data.enterpriseName?data.enterpriseName:''">
+                        </div>
+                        <div class="col-md-2">
+                            <label><span style="color: red">*</span>法人姓名</label>
+                            <input type="text" [disabled]="isEdit" class="form-control" name="corporationName"
+                                   [ngModel]="data&&data.corporationName?data.corporationName:''">
+                        </div>
+                        <div class="col-md-4">
+                            <label><span style="color: red">*</span>企业营业执照</label>
+                            <div class="secondBorder">
+                                <div class="imgBorder" *ngFor="let t of entrance[3].showFileList">
+                                    <button class="imgButton" type="button" (click)="delImg(t,'businessLicenseImg')">
+                                        &times;
+                                    </button>
+                                    <img src="{{ t.src }}" class="img">
+                                    <label class="imgName">{{t.name}}</label>
+                                </div>
+                                <div class="imgBorder" *ngIf="entrance[3].showFileList.length===0">
+                                    <img src="assets/images/add.png" class="add">
+                                    <input (change)="fileChange($event,'businessLicenseImg')" class="selectFile"
+                                           type="file"
+                                           placeholder="Upload file"
+                                           accept=".jpg,.gif,.png,.jpeg"/>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row mt-md-4">
+                        <div class="col-md-4 offset-md-1">
+                            <label>法人身份证正面</label>
+                            <div class="secondBorder">
+                                <div class="imgBorder" *ngFor="let t of entrance[4].showFileList">
+                                    <button class="imgButton" type="button"
+                                            (click)="delImg(t,'corporationIdCardPositiveImg')">
+                                        &times;
+                                    </button>
+                                    <img src="{{ t.src }}" class="img">
+                                    <label class="imgName">{{t.name}}</label>
+                                </div>
+                                <div class="imgBorder" *ngIf="entrance[4].showFileList.length===0">
+                                    <img src="assets/images/add.png" class="add">
+                                    <input (change)="fileChange($event,'corporationIdCardPositiveImg')"
+                                           class="selectFile" type="file"
+                                           placeholder="Upload file"
+                                           accept=".jpg,.gif,.png,.jpeg"/>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <label>法人身份证反面</label>
+                            <div class="secondBorder">
+                                <div class="imgBorder" *ngFor="let t of entrance[5].showFileList">
+                                    <button class="imgButton" type="button"
+                                            (click)="delImg(t,'corporationIdCardNegativeImg')">
+                                        &times;
+                                    </button>
+                                    <img src="{{ t.src }}" class="img">
+                                    <label class="imgName">{{t.name}}</label>
+                                </div>
+                                <div class="imgBorder" *ngIf="entrance[5].showFileList.length===0">
+                                    <img src="assets/images/add.png" class="add">
+                                    <input (change)="fileChange($event,'corporationIdCardNegativeImg')"
+                                           class="selectFile" type="file"
+                                           placeholder="Upload file"
+                                           accept=".jpg,.gif,.png,.jpeg"/>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row mt-md-4">
+                        <div class="col-md-4 offset-md-1">
+                            <label>食品流通许可证/食品经营许可证</label>
+                            <div class="secondBorder">
+                                <div class="imgBorder" *ngFor="let t of entrance[6].showFileList">
+                                    <button class="imgButton" type="button"
+                                            (click)="delImg(t,'foodBusinessLicenseImg')">
+                                        &times;
+                                    </button>
+                                    <img src="{{ t.src }}" class="img">
+                                    <label class="imgName">{{t.name}}</label>
+                                </div>
+                                <div class="imgBorder" *ngIf="entrance[6].showFileList.length<1">
+                                    <img src="assets/images/add.png" class="add">
+                                    <input (change)="fileChange($event,'foodBusinessLicenseImg')" class="selectFile"
+                                           type="file"
+                                           placeholder="Upload file"
+                                           accept=".jpg,.gif,.png,.jpeg"/>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row mt-md-4">
+                        <!--<div class="col-md-2 offset-md-1">-->
+                        <!--<label>结算账户</label>-->
+                        <!--<input type="text" [disabled]="isEdit" class="form-control" name="userId" [ngModel]="data&&data.userId?data.userId:''">-->
+                        <!--</div>-->
+                        <div class="col-md-2 offset-md-1">
+                            <label>账户备注</label>
+                            <input type="text" [disabled]="isEdit" class="form-control" name="accountNote"
+                                   [ngModel]="data&&data.accountNote?data.accountNote:''">
+                        </div>
+                    </div>
+                    <div class="row mt-md-4">
+                        <div class="col-md-6 offset-md-1">
+                            <label class="fs font-weight-bold">用户银行管理</label>
+                        </div>
+                    </div>
+                    <div *ngIf="data">
+                        <div class="row mt-md-2" *ngFor="let item of data.banks;let index = index">
+                            <div class="col-md-2 offset-md-1">
+                                <label>提现银行</label>
+                                <input type="text" [disabled]="isEdit" [name]="index+'bank'" class="form-control"
+                                       placeholder="请输入提现银行" [(ngModel)]="item.bankName">
+                            </div>
+                            <div class="col-md-2">
+                                <label>银行卡号</label>
+                                <input type="text" [disabled]="isEdit" [name]="index+'bankNumber'" class="form-control"
+                                       placeholder="请输入银行卡号" [ngModel]="item.cardIdCopy"
+                                       (keyup)="bankCardChange($event,index)">
+                            </div>
+                            <div class="col-md-2" *ngIf="!isEdit">
+                                <label class="d-block">&nbsp;</label>
+                                <button class="btn btn-hero-danger" type="button" (click)="delBank(index)">删除银行</button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row mt-md-4" *ngIf="!isEdit">
+                        <div class="col-md-6 offset-md-1">
+                            <button class="btn btn-hero-primary" style="width: 100%" *ngIf="!isEdit" (click)="addBank()"
+                                    type="button">
+                                添加提现银行
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="row mt-md-4 ">
+                        <div class="col-md-6 offset-md-1">
+                            <label class="FontLarger font-weight-bold">退货地址管理</label>
+                        </div>
+                    </div>
+                    <div *ngIf="data">
+                        <div class="row mt-md-2" *ngFor="let item of data.returnAddressesCopy;let index = index">
+                            <div class="col-md-2 offset-md-1">
+                                <label>退货地址</label>
+                                <ngx-address [(ngModel)]="item.address.id" [options]="item.address.options"
+                                             [name]="index+'address'"></ngx-address>
+                            </div>
+                            <div class="col-md-2">
+                                <label>-</label>
+                                <input type="text" [disabled]="isEdit" [name]="index+'detail'" class="form-control"
+                                       placeholder="详细地址" [(ngModel)]="item.detail">
+                            </div>
+                            <div class="col-md-2">
+                                <label>-</label>
+                                <input type="text" [disabled]="isEdit" [name]="index+'mobileNumber'"
+                                       class="form-control"
+                                       placeholder="收货手机" [(ngModel)]="item.mobileNumber">
+                            </div>
+                            <div class="col-md-2">
+                                <label>-</label>
+                                <input type="text" [disabled]="isEdit" [name]="index+'receiver'" class="form-control"
+                                       placeholder="收件人" [(ngModel)]="item.receiver">
+                            </div>
+                            <div class="col-md-2" *ngIf="!isEdit">
+                                <label class="d-block">&nbsp;</label>
+                                <button class="btn btn-hero-danger" type="button" (click)="delAddress(index)">删除地址
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row mt-md-4" *ngIf="!isEdit">
+                        <div class="col-md-6  offset-md-1">
+                            <button class="btn btn-hero-primary"
+                                    style="width: 100%"
+                                    (click)="addAddress()" type="button">添加退货地址
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-12">
+                            <label>登录历史</label>
+                            <ng2-smart-table [settings]="settings" [source]="source"></ng2-smart-table>
+                        </div>
+                    </div>
+
+                    <div class="row mt-md-2">
+                        <div class="col-md-2 offset-md-4">
+                            <button class="btn btn-hero-danger" (click)="closeModal()"
+                                    type="button">返回
+                            </button>
+                        </div>
+                        <div class="col-md-2 ">
+                            <button class="btn btn-hero-success" *ngIf="!isEdit" type="submit">保存修改
+                            </button>
+                        </div>
+                    </div>
+                </form>
+
+            </nb-card-body>
+        </nb-card>
+    </div>
+</div>

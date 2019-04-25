@@ -1,0 +1,149 @@
+<div class="row">
+    <div class="col-md-12">
+        <nb-card>
+            <nb-card-header>
+                合伙人列表
+                <button class="close" aria-label="Close" (click)="refresh()">
+                    <div class="icon">
+                        <i class="eva-icon-container">
+                            <i [innerHTML]="icon | eva: { animationType: 'pulse' }"></i>
+                        </i>
+                    </div>
+                </button>
+            </nb-card-header>
+            <nb-card-body>
+                <form class="form" #f='ngForm' (ngSubmit)="onSubmit(f,'search')">
+
+                    <div class="row" *ngIf="dataService.permissionData.MEMBER.search">
+                        <div class="col-md-2 ">
+                            <label>用户创建时间</label>
+                            <input nbInput class="form-control" placeholder="选择时间" [owlDateTime]="formpicker"
+                                   [owlDateTimeTrigger]="formpicker" ngModel name="createTimeLower">
+                            <owl-date-time style="margin: 0" #formpicker></owl-date-time>
+                        </div>
+                        <div class="col-md-2">
+                            <label>-</label>
+                            <input nbInput class="form-control" placeholder="选择时间" [owlDateTime]="formpicker1"
+                                   [owlDateTimeTrigger]="formpicker1" ngModel name="createTimeUpper">
+                            <owl-date-time style="margin: 0" #formpicker1></owl-date-time>
+                        </div>
+                        <div class="col-md-2">
+                            <label>用户id</label>
+                            <input type="text" class="form-control" placeholder="" ngModel name="userIdLike"
+                                   onkeyup="this.value=this.value.replace(/\s+/g,'')"
+                                   onafterpaste="this.value=this.value.replace(/\s+/g,'')">
+                        </div>
+                        <div class="col-md-2">
+                            <label>用户名</label>
+                            <input type="text" class="form-control" placeholder="" ngModel name="userNameLike"
+                                   onkeyup="this.value=this.value.replace(/\s+/g,'')"
+                                   onafterpaste="this.value=this.value.replace(/\s+/g,'')">
+                        </div>
+                        <div class="col-md-1">
+                            <label>用户余额</label>
+                            <input type="number" class="form-control" placeholder="100" ngModel name="remainMoneyLower"
+                                   onkeyup="this.value=this.value.replace(/[^\d.]/g,'')"
+                                   onafterpaste="this.value=this.value.replace(/[^\d.]/g,'')">
+                        </div>
+                        <div class="col-md-1">
+                            <label>-</label>
+                            <input type="number" class="form-control" placeholder="200" ngModel name="remainMoneyUpper"
+                                   onkeyup="this.value=this.value.replace(/[^\d.]/g,'')"
+                                   onafterpaste="this.value=this.value.replace(/[^\d.]/g,'')">
+                        </div>
+                    </div>
+
+                    <div class="row mt-md-2" *ngIf="dataService.permissionData.MEMBER.search">
+                        <div class="col-md-1">
+                            <label>会员返佣</label>
+                            <input type="number" class="form-control" placeholder="100" ngModel name="dealerProfitLower"
+                                   onkeyup="this.value=this.value.replace(/[^\d.]/g,'')"
+                                   onafterpaste="this.value=this.value.replace(/[^\d.]/g,'')">
+                        </div>
+                        <div class="col-md-1">
+                            <label>-</label>
+                            <input type="number" class="form-control" placeholder="200" ngModel name="dealerProfitUpper"
+                                   onkeyup="this.value=this.value.replace(/[^\d.]/g,'')"
+                                   onafterpaste="this.value=this.value.replace(/[^\d.]/g,'')">
+                        </div>
+                        <div class="col-md-1">
+                            <label>推荐返佣</label>
+                            <input type="number" class="form-control" placeholder="100" ngModel name="recommendProfitLower"
+                                   onkeyup="this.value=this.value.replace(/[^\d.]/g,'')"
+                                   onafterpaste="this.value=this.value.replace(/[^\d.]/g,'')">
+                        </div>
+                        <div class="col-md-1">
+                            <label>-</label>
+                            <input type="number" class="form-control" placeholder="200" ngModel name="recommendProfitUpper"
+                                   onkeyup="this.value=this.value.replace(/[^\d.]/g,'')"
+                                   onafterpaste="this.value=this.value.replace(/[^\d.]/g,'')">
+                        </div>
+                        <div class="col-md-1">
+                            <label>推广返佣</label>
+                            <input type="number" class="form-control" placeholder="100" ngModel name="promotionProfitLower"
+                                   onkeyup="this.value=this.value.replace(/[^\d.]/g,'')"
+                                   onafterpaste="this.value=this.value.replace(/[^\d.]/g,'')">
+                        </div>
+                        <div class="col-md-1">
+                            <label>-</label>
+                            <input type="number" class="form-control" placeholder="200" ngModel name="promotionProfitUpper"
+                                   onkeyup="this.value=this.value.replace(/[^\d.]/g,'')"
+                                   onafterpaste="this.value=this.value.replace(/[^\d.]/g,'')">
+                        </div>
+                        <div class="col-md-1">
+                            <label>培训费</label>
+                            <input type="number" class="form-control" placeholder="100" ngModel name="trainingProfitLower"
+                                   onkeyup="this.value=this.value.replace(/[^\d.]/g,'')"
+                                   onafterpaste="this.value=this.value.replace(/[^\d.]/g,'')">
+                        </div>
+                        <div class="col-md-1">
+                            <label>-</label>
+                            <input type="number" class="form-control" placeholder="200" ngModel name="trainingProfitUpper"
+                                   onkeyup="this.value=this.value.replace(/[^\d.]/g,'')"
+                                   onafterpaste="this.value=this.value.replace(/[^\d.]/g,'')">
+                        </div>
+                        <div class="col-md-1">
+                            <label>团队返佣</label>
+                            <input type="number" class="form-control" placeholder="100" ngModel name="teamProfitLower"
+                                   onkeyup="this.value=this.value.replace(/[^\d.]/g,'')"
+                                   onafterpaste="this.value=this.value.replace(/[^\d.]/g,'')">
+                        </div>
+                        <div class="col-md-1">
+                            <label>-</label>
+                            <input type="number" class="form-control" placeholder="200" ngModel name="teamProfitUpper"
+                                   onkeyup="this.value=this.value.replace(/[^\d.]/g,'')"
+                                   onafterpaste="this.value=this.value.replace(/[^\d.]/g,'')">
+                        </div>
+                        <div class="col-md-2">
+                            <label>用户状态</label>
+                            <select class="form-control" ngModel name="userStateEquals">
+                                <option></option>
+                                <option>正常</option>
+                                <option>冻结资金</option>
+                                <!--<option>冻结登录</option>-->
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-2">
+                            <button type="submit" class="btn btn-primary mt-4"
+                                    *ngIf="dataService.permissionData.MEMBER.search">查询
+                            </button>
+                        </div>
+                        <div class="col-md-2">
+                            <button type="button" class="btn btn-primary mt-4" (click)="onSubmit(f,'export')"
+                                    *ngIf="dataService.permissionData.MEMBER.output">导出报表
+                            </button>
+                        </div>
+                    </div>
+                </form>
+            </nb-card-body>
+        </nb-card>
+        <nb-card>
+            <nb-card-body>
+                <ng2-smart-table [settings]="settings" [source]="source"></ng2-smart-table>
+            </nb-card-body>
+        </nb-card>
+    </div>
+</div>

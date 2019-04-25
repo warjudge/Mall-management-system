@@ -1,0 +1,45 @@
+.tree-border {
+  .custom-row {
+    display: flex;
+    align-items: center;
+    //padding: 1.5rem 0;
+    position: relative;
+  }
+
+  .custom-button {
+    width: 2rem;
+    height: 2rem;
+    padding: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.5rem;
+    border: none;
+    background-color: #00c7c7;
+    border-radius: 100%;
+    color: #FFFFFF;
+    font-weight: bolder;
+
+    .custom-icon {
+      font-size: 1.5rem;
+    }
+  }
+
+  .custom-button-group {
+    position: absolute;
+    right: 0;
+  }
+
+  .custom-input {
+    max-width: 200px;
+  }
+
+  .item-img {
+    width: 3.5rem;
+    height: 3.5rem;
+  }
+
+  .border-radius {
+    border-radius: 10px;
+  }
+}

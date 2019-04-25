@@ -1,0 +1,101 @@
+<div class="row">
+    <div class="col-md-12">
+        <nb-card>
+            <nb-card-header>
+                仓库管理
+                <button class="close" aria-label="Close" (click)="refresh()">
+                    <div class="icon">
+                        <i class="eva-icon-container">
+                            <i [innerHTML]="icon | eva: { animationType: 'pulse' }"></i>
+                        </i>
+                    </div>
+                </button>
+            </nb-card-header>
+            <nb-card-body>
+                <form #f="ngForm" (ngSubmit)="onSubmit(f,'search')" class="form">
+
+                    <div class="row" *ngIf="dataService.permissionData.GOODS.search">
+                        <div class="col-md-2 ">
+                            <label>仓库创建时间</label>
+                            <input nbInput class="form-control" ngModel name="createTimeLower" placeholder="选择时间"
+                                   [owlDateTime]="formpicker"
+                                   [owlDateTimeTrigger]="formpicker">
+                            <owl-date-time style="margin: 0" #formpicker></owl-date-time>
+                        </div>
+                        <div class="col-md-2">
+                            <label>-</label>
+                            <input nbInput class="form-control" ngModel name="createTimeUpper" placeholder="选择时间"
+                                   [owlDateTime]="formpicker1"
+                                   [owlDateTimeTrigger]="formpicker1">
+                            <owl-date-time style="margin: 0" #formpicker1></owl-date-time>
+                        </div>
+                    </div>
+
+
+                    <div class="row mt-md-2" *ngIf="dataService.permissionData.GOODS.search">
+                        <div class="col-md-2">
+                            <label>仓库序号</label>
+                            <input type="text" ngModel name="idEquals" class="form-control" placeholder="仓库序号"
+                                   onkeyup="this.value=this.value.replace(/\s+/g,'')"
+                                   onafterpaste="this.value=this.value.replace(/\s+/g,'')">
+                        </div>
+                        <div class="col-md-2">
+                            <label>仓库名称</label>
+                            <input type="text" ngModel name="warehouseNameLike" class="form-control" placeholder="仓库名称"
+                                   onkeyup="this.value=this.value.replace(/\s+/g,'')"
+                                   onafterpaste="this.value=this.value.replace(/\s+/g,'')">
+                        </div>
+                        <div class="col-md-2">
+                            <label>用户ID</label>
+                            <input type="text" ngModel name="userIdEquals" class="form-control" placeholder="用户ID"
+                                   onkeyup="this.value=this.value.replace(/\s+/g,'')"
+                                   onafterpaste="this.value=this.value.replace(/\s+/g,'')">
+                        </div>
+                        <div class="col-md-2">
+                            <label>仓库总库存</label>
+                            <input type="tel" min="0" ngModel name="sumCountLower" class="form-control"
+                                   placeholder="仓库总库存"
+                                   onkeyup="this.value=this.value.replace(/[^\d]/g,'');this.value = this.value.replace(/^0{2,}/g, '0'); this.value=this.value.replace(/^0(\d+)/g,'$1');"
+                                   onafterpaste="this.value=this.value.replace(/[^\d]/g,'');this.value = this.value.replace(/^0{2,}/g, '0'); this.value=this.value.replace(/^0*(\d*)/g,'$1');">
+                        </div>
+                        <div class="col-md-2">
+                            <label>-</label>
+                            <input type="tel" min="0" ngModel name="sumCountUpper" class="form-control"
+                                   placeholder="仓库总库存"
+                                   onkeyup="this.value=this.value.replace(/[^\d]/g,'');this.value = this.value.replace(/^0{2,}/g, '0'); this.value=this.value.replace(/^0(\d+)/g,'$1');"
+                                   onafterpaste="this.value=this.value.replace(/[^\d]/g,'');this.value = this.value.replace(/^0{2,}/g, '0'); this.value=this.value.replace(/^0*(\d*)/g,'$1');">
+                        </div>
+                    </div>
+
+
+                    <div class="row">
+                        <div class="col-md-2">
+                            <button type="submit" class="btn btn-primary mt-4"
+                                    *ngIf="dataService.permissionData.GOODS.search">查询
+                            </button>
+                        </div>
+                        <div class="col-md-2">
+                            <button class="btn btn-primary mt-4" type="button"
+                                    *ngIf="dataService.permissionData.GOODS.output" (click)="onSubmit(f,'export')">导出报表
+                            </button>
+                        </div>
+                        <div class="col-md-2">
+                            <button class="btn btn-primary mt-4" type="button"
+                                    *ngIf="dataService.permissionData.GOODS.add" (click)="create()">创建仓库
+                            </button>
+                        </div>
+                    </div>
+
+
+                    <!--<nb-checkbox>Remember me</nb-checkbox>-->
+                </form>
+            </nb-card-body>
+        </nb-card>
+        <nb-card>
+            <nb-card-body>
+                <ng2-smart-table [settings]="settings" [source]="source">
+                </ng2-smart-table>
+            </nb-card-body>
+        </nb-card>
+    </div>
+</div>

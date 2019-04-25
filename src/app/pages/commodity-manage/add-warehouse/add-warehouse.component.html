@@ -1,0 +1,60 @@
+<div class="row">
+    <div class="col-md-12">
+        <nb-card class="mb-0">
+            <nb-card-header>
+                <span>{{ modalHeader }}</span>
+                <button class="close" aria-label="Close" (click)="closeModal()">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </nb-card-header>
+            <nb-card-body>
+                <form #f="ngForm" (ngSubmit)="onSubmit(f)">
+                    <div class="row">
+                        <div class="col-md-2 offset-md-3 d-flex align-items-md-center">
+                            <div>仓库名称</div>
+                        </div>
+                        <div class="col-md-4">
+                            <input name="warehouseName" ngModel type="text" class="form-control" placeholder="仓库名称"/>
+                        </div>
+                    </div>
+                    <div class="row mt-md-3">
+                        <div class="col-md-2 offset-md-3 d-flex align-items-md-center">
+                            <div>用户ID</div>
+                        </div>
+                        <div class="col-md-4">
+                            <input name="seller" [(ngModel)]="defaultUid" type="text" class="form-control"
+                                   placeholder="用户ID" disabled (change)="updateUser($event)"/>
+
+                        </div>
+                    </div>
+                    <div class="row mt-md-3">
+                        <div class="col-md-2 offset-md-3 d-flex align-items-md-center">
+                            <div>仓库备注</div>
+                        </div>
+                        <div class="col-md-4">
+                            <input name="remarks" ngModel type="text" class="form-control" placeholder="仓库备注"/>
+                        </div>
+                    </div>
+
+
+                    <div class="row mt-md-4">
+                        <div class="col-md-2 offset-md-4 d-flex justify-content-center align-items-md-center">
+                            <button nbButton hero class="btn btn-primary full-width" status="info" (click)="cancel()">
+                                取消
+                            </button>
+                        </div>
+                        <div class="col-md-2 d-flex justify-content-center align-items-md-center">
+                            <!--<button nbButton hero class="btn btn-primary full-width" *ngIf="!isEdit" (click)="goToEdit()">-->
+                            <!--编辑-->
+                            <!--</button>-->
+                            <button nbButton hero class="btn btn-success full-width" status="success"
+                                    type="submit">保存
+                            </button>
+
+                        </div>
+                    </div>
+                </form>
+            </nb-card-body>
+        </nb-card>
+    </div>
+</div>

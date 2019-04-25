@@ -1,0 +1,118 @@
+<div class="row">
+    <div class="col-md-12">
+        <nb-card class="mb-0">
+            <nb-card-header>
+                <span>{{ modalHeader }}</span>
+                <button class="close" aria-label="Close" (click)="closeModal()">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </nb-card-header>
+            <nb-card-body>
+                <form #d="ngForm" (ngSubmit)="onSubmit(d)">
+                    <div class="row mt-md-2">
+                        <div class="col-md-2 offset-md-1">
+                            <label><span
+                                    style="color: red;">*</span>广告位置:{{positionData && positionData.name ? positionData.name : ''}}
+                            </label>
+
+                        </div>
+                        <div class="col-md-2 ">
+                            <label>广告长度:{{positionData && positionData.length ? positionData.length : ''}}</label>
+                        </div>
+                        <div class="col-md-2">
+                            <label>广告宽度:{{positionData && positionData.width ? positionData.width : ''}}</label>
+                        </div>
+                        <div class="col-md-2">
+                            <label>广告展示顺序:{{positionData && (positionData.seq !== '') ? positionData.seq : ''}}</label>
+                        </div>
+                        <div class="col-md-2 ">
+                            <label>样式:{{positionData && positionData.location ? positionData.location : ''}}</label>
+                        </div>
+                    </div>
+
+                    <div class="row mt-md-2">
+                        <div class="col-md-4 offset-md-1">
+                            <label><span style="color: red;">*</span>广告标题</label>
+                            <input type="text" name="advertName" class="form-control"
+                                   [ngModel]="adData&&adData.advertName?adData.advertName:''">
+                        </div>
+                    </div>
+
+                    <div class="row mt-md-2">
+                        <div class="col-md-4 offset-md-1 ">
+                            <label>广告图片</label>
+                            <div class="secondBorder ">
+                                <div class="imgBorder" *ngFor="let t of entrance[0].showFileList">
+                                    <button class="imgButton" type="button" (click)="delImg(t,'advertImgUrl')">
+                                        &times;
+                                    </button>
+                                    <img src="{{ t.src }}" class="img">
+                                    <label class="imgName">{{t.name}}</label>
+                                </div>
+                                <div class="imgBorder" *ngIf="entrance[0].showFileList.length===0">
+                                    <img src="assets/images/add.png" class="add">
+                                    <input (change)="fileChange($event,'advertImgUrl')" class="selectFile" type="file"
+                                           placeholder="Upload file"
+                                           accept=".jpg,.gif,.png,.jpeg"/>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row mt-md-4">
+                        <div class="col-md-3 offset-md-1">
+                            <label>跳转链接(商品id或活动id)</label>
+                            <input type="text" name="advertLinkUrl"
+                                   [ngModel]="adData&&adData.advertLinkUrl?adData.advertLinkUrl:''" class="form-control"
+                                   placeholder="">
+                        </div>
+                    </div>
+
+                    <div class="row mt-md-2">
+                        <div class="col-md-2 offset-md-1">
+                            <label>启用时间</label>
+                            <input nbInput class="form-control" placeholder="Form Picker"
+                                   [owlDateTime]="formpicker1"
+                                   [owlDateTimeTrigger]="formpicker1" name="formpicker1"
+                                   [ngModel]="adData&&adData.start?adData.start:''">
+                            <owl-date-time style="margin: 0" #formpicker1></owl-date-time>
+
+                        </div>
+                        <div class="col-md-2">
+                            <label>-</label>
+                            <input nbInput class="form-control" placeholder="Form Picker"
+                                   [owlDateTime]="formpicker2"
+                                   [owlDateTimeTrigger]="formpicker2" name="formpicker2"
+                                   [ngModel]="adData&&adData.end?adData.end:''">
+                            <owl-date-time style="margin: 0" #formpicker2></owl-date-time>
+                        </div>
+                    </div>
+
+                    <div class="row mt-md-2">
+                        <div class="col-md-4 offset-md-1">
+                            <label>启用状态</label>
+                            <select class="form-control" name="isEnabled"
+                                    [ngModel]="adData&&adData.isEnabled?''+adData.isEnabled:'0'">
+                                <option></option>
+                                <option value="1">开启</option>
+                                <option value="0">关闭</option>
+                            </select>
+                        </div>
+                    </div>
+
+
+                    <div class="row mt-md-4">
+                        <div class="col-md-2 offset-md-4 d-flex justify-content-center">
+                            <button class="btn btn-hero-danger" type="button" (click)="closeModal()" *ngIf="!isEdit">返回
+                            </button>
+                        </div>
+                        <div class="col-md-2 d-flex justify-content-center">
+                            <button class="btn btn-hero-success" *ngIf="!isEdit" type="submit">保存</button>
+                        </div>
+                    </div>
+                </form>
+
+            </nb-card-body>
+        </nb-card>
+    </div>
+</div>

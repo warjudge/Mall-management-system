@@ -1,0 +1,65 @@
+<div class="row">
+    <div class="col-md-12">
+        <nb-card class="mb-0">
+            <nb-card-header>
+                <span>{{ modalHeader }}</span>
+                <button class="close" aria-label="Close" (click)="closeModal()">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </nb-card-header>
+            <nb-card-body>
+
+                <div class="row">
+                    <div class="col-md-2 offset-md-1">
+                        <label>订单创建时间</label>
+                        <input type="text" disabled class="form-control"
+                               [ngModel]="fundsDetail&&fundsDetail.createTime?fundsDetail.createTime:''">
+                    </div>
+                    <div class="col-md-3">
+                        <label>订单号</label>
+                        <input type="text" disabled class="form-control"
+                               [ngModel]="fundsDetail&&fundsDetail.orderId?fundsDetail.orderId:''">
+                    </div>
+                    <div class="col-md-2">
+                        <label>用户ID</label>
+                        <input type="text" disabled class="form-control"
+                               [ngModel]="fundsDetail&&fundsDetail.userId?fundsDetail.userId:''">
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-2 offset-md-1">
+                        <label>订单状态</label>
+                        <input type="text" disabled class="form-control"
+                               [ngModel]="fundsDetail&&fundsDetail.orderStatus?fundsDetail.orderStatus:''">
+                    </div>
+                    <div class="col-md-2">
+                        <label>订单总金额</label>
+                        <input type="text" disabled class="form-control"
+                               [ngModel]="fundsDetail&&fundsDetail.totalPrice?fundsDetail.totalPrice:''">
+                    </div>
+                    <div class="col-md-2">
+                        <label>购买数量</label>
+                        <input type="text" disabled class="form-control"
+                               [ngModel]="fundsDetail&&fundsDetail.totalPurchaseQuantity?fundsDetail.totalPurchaseQuantity:''">
+                    </div>
+                </div>
+
+                <div class="row mt-md-3">
+                    <div class="col-md-12">
+                        <ng2-smart-table [settings]="settings" [source]="source"></ng2-smart-table>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-2 offset-md-4">
+                        <button nbButton hero class="btn btn-danger full-width" *ngIf="!isEdit" (click)="closeModal()">
+                            返回
+                        </button>
+                    </div>
+                </div>
+
+            </nb-card-body>
+        </nb-card>
+    </div>
+</div>

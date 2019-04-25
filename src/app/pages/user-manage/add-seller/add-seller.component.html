@@ -1,0 +1,322 @@
+<div class="row">
+    <div class="col-md-12">
+        <nb-card class="mb-0">
+            <nb-card-header>
+                <span>{{ modalHeader }}</span>
+                <button class="close" aria-label="Close" (click)="closeModal()">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </nb-card-header>
+            <nb-card-body>
+
+                <div class="row">
+                    <div class="col-md-2 offset-md-1">
+                        <label><span style="color: red">*</span>用户id</label>
+                        <input type="text" class="form-control" placeholder="xxx">
+                    </div>
+                    <div class="col-md-2">
+                        <label><span style="color: red">*</span>用户名</label>
+                        <input type="text" class="form-control" placeholder="">
+                    </div>
+                    <div class="col-md-2">
+                        <label>用户头像</label>
+                        <input type="text" class="form-control" placeholder="">
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-2 offset-md-1">
+                        <label><span style="color: red">*</span>真实姓名</label>
+                        <input type="text" class="form-control" placeholder="xxx">
+                    </div>
+                    <div class="col-md-2">
+                        <label><span style="color: red">*</span>身份证号</label>
+                        <input type="text" class="form-control" placeholder="xxx">
+                    </div>
+                </div>
+
+
+                <div class="row">
+                    <div class="col-md-2 offset-md-1">
+                        <label><span style="color: red">*</span>绑定手机号</label>
+                        <input type="text" class="form-control" placeholder="133">
+                    </div>
+                    <div class="col-md-2">
+                        <label><span style="color: red">*</span>绑定微信号</label>
+                        <input type="text" class="form-control" placeholder="xxx">
+                    </div>
+                </div>
+
+
+                <div class="row">
+                    <div class="col-md-2 offset-md-1">
+                        <label>用户余额</label>
+                        <input type="text" class="form-control" placeholder="xxx">
+                    </div>
+                    <div class="col-md-2">
+                        <label><span style="color: red">*</span>用户身份</label>
+                        <input type="text" class="form-control" placeholder="卖家">
+                    </div>
+                    <div class="col-md-2">
+                        <label><span style="color: red">*</span>用户状态</label>
+                        <select class="form-control">
+                            <option></option>
+                            <option>正常</option>
+                            <option>冻结资金</option>
+                            <option>冻结登录</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-2 offset-md-1">
+                        <label><span style="color: red">*</span>用户创建时间</label>
+                        <input nbInput class="form-control" placeholder="Form Picker" [owlDateTime]="formpicker"
+                               [owlDateTimeTrigger]="formpicker">
+                        <owl-date-time style="margin: 0" #formpicker></owl-date-time>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-4 offset-md-1">
+                        <label><span style="color: red">*</span>个人卖家身份证正面</label>
+                        <div class="secondBorder">
+                            <div class="imgBorder" *ngFor="let t of showFileList">
+                                <button class="imgButton" (click)="delImg(t)">
+
+                                </button>
+                                <img src="{{ t.src }}" class="img">
+                                <label class="imgName">{{t.name}}</label>
+                            </div>
+                            <div class="imgBorder">
+                                <img src="assets/images/add.png" class="add">
+                                <input (change)="fileChange($event)" class="selectFile" type="file"
+                                       placeholder="Upload file"
+                                       accept=".jpg,.gif,.png,.jpeg"/>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <label><span style="color: red">*</span>个人卖家身份证反面</label>
+                        <div class="secondBorder">
+                            <div class="imgBorder" *ngFor="let t of showFileList">
+                                <button class="imgButton" (click)="delImg(t)">
+
+                                </button>
+                                <img src="{{ t.src }}" class="img">
+                                <label class="imgName">{{t.name}}</label>
+                            </div>
+                            <div class="imgBorder">
+                                <img src="assets/images/add.png" class="add">
+                                <input (change)="fileChange($event)" class="selectFile" type="file"
+                                       placeholder="Upload file"
+                                       accept=".jpg,.gif,.png,.jpeg"/>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-2 offset-md-1">
+                        <label><span style="color: red">*</span>企业名称</label>
+                        <input type="text" class="form-control" placeholder="返佣总金额">
+                    </div>
+                    <div class="col-md-2">
+                        <label><span style="color: red">*</span>法人姓名</label>
+                        <input type="text" class="form-control" placeholder="推荐返佣">
+                    </div>
+                    <div class="col-md-4">
+                        <label><span style="color: red">*</span>企业营业执照</label>
+                        <div class="secondBorder">
+                            <div class="imgBorder" *ngFor="let t of showFileList">
+                                <button class="imgButton" (click)="delImg(t)">
+
+                                </button>
+                                <img src="{{ t.src }}" class="img">
+                                <label class="imgName">{{t.name}}</label>
+                            </div>
+                            <div class="imgBorder">
+                                <img src="assets/images/add.png" class="add">
+                                <input (change)="fileChange($event)" class="selectFile" type="file"
+                                       placeholder="Upload file"
+                                       accept=".jpg,.gif,.png,.jpeg"/>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-4 offset-md-1">
+                        <label>法人身份证正面</label>
+                        <div class="secondBorder">
+                            <div class="imgBorder" *ngFor="let t of showFileList">
+                                <button class="imgButton" (click)="delImg(t)">
+
+                                </button>
+                                <img src="{{ t.src }}" class="img">
+                                <label class="imgName">{{t.name}}</label>
+                            </div>
+                            <div class="imgBorder">
+                                <img src="assets/images/add.png" class="add">
+                                <input (change)="fileChange($event)" class="selectFile" type="file"
+                                       placeholder="Upload file"
+                                       accept=".jpg,.gif,.png,.jpeg"/>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <label>法人身份证反面</label>
+                        <div class="secondBorder">
+                            <div class="imgBorder" *ngFor="let t of showFileList">
+                                <button class="imgButton" (click)="delImg(t)">
+
+                                </button>
+                                <img src="{{ t.src }}" class="img">
+                                <label class="imgName">{{t.name}}</label>
+                            </div>
+                            <div class="imgBorder">
+                                <img src="assets/images/add.png" class="add">
+                                <input (change)="fileChange($event)" class="selectFile" type="file"
+                                       placeholder="Upload file"
+                                       accept=".jpg,.gif,.png,.jpeg"/>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-4 offset-md-1">
+                        <label>食品流通许可证/食品经营许可证</label>
+                        <div class="secondBorder">
+                            <div class="imgBorder" *ngFor="let t of showFileList">
+                                <button class="imgButton" (click)="delImg(t)">
+
+                                </button>
+                                <img src="{{ t.src }}" class="img">
+                                <label class="imgName">{{t.name}}</label>
+                            </div>
+                            <div class="imgBorder">
+                                <img src="assets/images/add.png" class="add">
+                                <input (change)="fileChange($event)" class="selectFile" type="file"
+                                       placeholder="Upload file"
+                                       accept=".jpg,.gif,.png,.jpeg"/>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-2 offset-md-1">
+                        <label>结算账户</label>
+                        <input type="text" class="form-control" placeholder="xxx">
+                    </div>
+                    <div class="col-md-2">
+                        <label>账户备注</label>
+                        <input type="text" class="form-control" placeholder="xxx">
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-2 offset-md-1">
+                        <label><span style="color: red">*</span>提现银行1</label>
+                        <input type="text" class="form-control" placeholder="xxx">
+                    </div>
+                    <div class="col-md-2">
+                        <label><span style="color: red">*</span>银行卡号</label>
+                        <input type="text" class="form-control" placeholder="xxx">
+                    </div>
+                    <div class="col-md-1">
+                        <label>-</label>
+                        <button nbButton hero class="btn btn-danger full-width">添加提现银行</button>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-2 offset-md-1">
+                        <label>提现银行2</label>
+                        <input type="text" class="form-control" placeholder="xxx">
+                    </div>
+                    <div class="col-md-2">
+                        <label>银行卡号</label>
+                        <input type="text" class="form-control" placeholder="xxx">
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-1 offset-md-1">
+                        <label><span style="color: red">*</span>退货地址1</label>
+                        <input type="text" class="form-control" placeholder="省">
+                    </div>
+                    <div class="col-md-1">
+                        <label>-</label>
+                        <input type="text" class="form-control" placeholder="市">
+                    </div>
+                    <div class="col-md-1">
+                        <label>-</label>
+                        <input type="text" class="form-control" placeholder="区">
+                    </div>
+                    <div class="col-md-1">
+                        <label>-</label>
+                        <input type="text" class="form-control" placeholder="详细地址">
+                    </div>
+                    <div class="col-md-1">
+                        <label>-</label>
+                        <input type="text" class="form-control" placeholder="收货手机">
+                    </div>
+                    <div class="col-md-1">
+                        <label>-</label>
+                        <input type="text" class="form-control" placeholder="收件人">
+                    </div>
+                    <div class="col-md-1">
+                        <label>-</label>
+                        <button nbButton hero class="btn btn-danger full-width">添加退货地址</button>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-1 offset-md-1">
+                        <label>退货地址2</label>
+                        <input type="text" class="form-control" placeholder="省">
+                    </div>
+                    <div class="col-md-1">
+                        <label>-</label>
+                        <input type="text" class="form-control" placeholder="市">
+                    </div>
+                    <div class="col-md-1">
+                        <label>-</label>
+                        <input type="text" class="form-control" placeholder="区">
+                    </div>
+                    <div class="col-md-1">
+                        <label>-</label>
+                        <input type="text" class="form-control" placeholder="详细地址">
+                    </div>
+                    <div class="col-md-1">
+                        <label>-</label>
+                        <input type="text" class="form-control" placeholder="收货手机">
+                    </div>
+                    <div class="col-md-1">
+                        <label>-</label>
+                        <input type="text" class="form-control" placeholder="收件人">
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-12">
+                        <label>登录历史</label>
+                        <ng2-smart-table [settings]="settings" [source]="source"
+                                         (deleteConfirm)="onDeleteConfirm($event)">
+                        </ng2-smart-table>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-2 offset-md-4">>
+                        <button nbButton hero class="btn btn-danger full-width">添加</button>
+
+                    </div>
+                    <div class="col-md-2">
+                        <button nbButton hero class="btn btn-danger full-width">返回</button>
+                    </div>
+                </div>
+
+            </nb-card-body>
+        </nb-card>
+    </div>
+</div>

@@ -1,0 +1,9 @@
+//.window-mode.with-scroll .nb-theme-default .cdk-overlay-container {
+//z-index: 2040 !important;
+//}
+//.window-mode.with-scroll .cdk-overlay-container .cdk-overlay-connected-position-bounding-box{
+//  z-index: 2040 !important;
+//}
+.cdk-overlay-container div.cdk-overlay-connected-position-bounding-box {
+  z-index: 2050 !important;
+}

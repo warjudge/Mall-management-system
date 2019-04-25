@@ -1,0 +1,68 @@
+<div class="row">
+    <div class="col-md-12">
+        <nb-card class="mb-0">
+            <nb-card-header>
+                <span>{{ modalHeader }}</span>
+                <button class="close" aria-label="Close" (click)="closeModal()">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </nb-card-header>
+            <nb-card-body>
+                <div class="row">
+                    <div class="col-md-2 offset-md-1">
+                        <label>用户名</label>
+                        <input type="text" disabled class="form-control" placeholder="订单号">
+                    </div>
+                    <div class="col-md-2">
+                        <label>用户昵称</label>
+                        <input type="text" disabled class="form-control" placeholder="支付单号">
+                    </div>
+                    <div class="col-md-2">
+                        <label>余额状态</label>
+                        <select class="form-control" disabled="!isEdit">
+                            <option></option>
+                            <option>锁定</option>
+                            <option>未锁定</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-2 offset-md-1">
+                        <label>用户余额</label>
+                        <input type="text" disabled class="form-control" placeholder="">
+                    </div>
+                    <div class="col-md-2">
+                        <label>锁定金额</label>
+                        <input type="text" disabled class="form-control" placeholder="10">
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-12">
+                        <label>操作历史</label>
+                        <ng2-smart-table [settings]="settings" [source]="source"
+                                         (deleteConfirm)="onDeleteConfirm($event)">
+                        </ng2-smart-table>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-2 offset-md-4">
+                        <button nbButton hero class="btn btn-danger full-width" *ngIf="!isEdit">删除</button>
+                        <button nbButton hero class="btn btn-danger full-width" *ngIf="isEdit">取消</button>
+
+                    </div>
+                    <div class="col-md-2">
+                        <button nbButton hero class="btn btn-primary full-width" *ngIf="!isEdit" (click)="goToEdit()">
+                            编辑
+                        </button>
+                        <button nbButton hero class="btn btn-primary full-width" *ngIf="isEdit">保存</button>
+
+                    </div>
+                </div>
+
+            </nb-card-body>
+        </nb-card>
+    </div>
+</div>

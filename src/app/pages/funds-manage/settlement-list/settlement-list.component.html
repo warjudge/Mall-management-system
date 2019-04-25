@@ -1,0 +1,84 @@
+<div class="row">
+    <div class="col-md-12">
+        <nb-card>
+            <nb-card-header>
+                结算明细(买家会员)
+                <button class="close" aria-label="Close" (click)="refresh()">
+                    <div class="icon">
+                        <i class="eva-icon-container">
+                            <i [innerHTML]="icon | eva: { animationType: 'pulse' }"></i>
+                        </i>
+                    </div>
+                </button>
+            </nb-card-header>
+            <nb-card-body>
+                <form #f="ngForm" (ngSubmit)="onSubmit(f,'search')">
+
+                    <div class="row" *ngIf="dataService.permissionData.FUNDS.search">
+                        <div class="col-md-2 ">
+                            <label>结算周期时间</label>
+                            <input nbInput class="form-control" placeholder="选择时间" [owlDateTime]="formpicker"
+                                   [owlDateTimeTrigger]="formpicker" name="createTimeLower" ngModel>
+                            <owl-date-time style="margin: 0" [pickerType]="'calendar'" #formpicker></owl-date-time>
+                        </div>
+                        <div class="col-md-2">
+                            <label>-</label>
+                            <input nbInput class="form-control" placeholder="选择时间" [owlDateTime]="formpicker1"
+                                   [owlDateTimeTrigger]="formpicker1" name="createTimeUpper" ngModel>
+                            <owl-date-time style="margin: 0" #formpicker1></owl-date-time>
+                        </div>
+                    </div>
+
+
+                    <div class="row" *ngIf="dataService.permissionData.FUNDS.search">
+                        <div class="col-md-2">
+                            <label>结算单号</label>
+                            <input type="text" class="form-control" name="settleNumberLike" ngModel>
+                        </div>
+                        <div class="col-md-2">
+                            <label>用户ID</label>
+                            <input type="text" class="form-control" name="userIdLike" ngModel>
+                        </div>
+                    </div>
+
+                    <div class="row" *ngIf="dataService.permissionData.FUNDS.search">
+                        <div class="col-md-2">
+                            <label>结算状态</label>
+                            <select class="form-control" name="settleStatusEquals" ngModel>
+                                <option value="">全部</option>
+                                <option value="已结算">已结算</option>
+                                <option value="未结算">未结算</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-2">
+                            <button type="submit" class="btn btn-primary mt-4"
+                                    *ngIf="dataService.permissionData.FUNDS.search">查询
+                            </button>
+                        </div>
+                        <div class="col-md-2">
+                            <button type="button" class="btn btn-primary mt-4"
+                                    *ngIf="dataService.permissionData.FUNDS.output"
+                                    (click)="onSubmit(f,'export')">导出报表
+                            </button>
+                        </div>
+                        <div class="col-md-2">
+                            <button type="button" class="btn btn-primary mt-4"
+                                    *ngIf="dataService.permissionData.FUNDS.edit" (click)="batchSettle()">批量结算
+                            </button>
+                        </div>
+                    </div>
+
+                </form>
+            </nb-card-body>
+        </nb-card>
+        <nb-card>
+            <nb-card-body>
+                <ng2-smart-table [settings]="settings" [source]="source" (userRowSelect)="onUserRowSelect($event)">
+                </ng2-smart-table>
+            </nb-card-body>
+        </nb-card>
+    </div>
+</div>

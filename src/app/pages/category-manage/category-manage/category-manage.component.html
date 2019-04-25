@@ -1,0 +1,264 @@
+<div class="row">
+    <div class="col-md-12">
+        <nb-card>
+            <nb-card-header>
+                商品类目
+                <button class="close" aria-label="Close" (click)="refresh()">
+                    <div class="icon">
+                        <i class="eva-icon-container">
+                            <i [innerHTML]="icon | eva: { animationType: 'pulse' }"></i>
+                        </i>
+                    </div>
+                </button>
+            </nb-card-header>
+            <nb-card-body>
+                <form #f="ngForm" (ngSubmit)="onSubmit(f)" *ngIf="dataService.permissionData.CATEGORY.search">
+                    <div class="row">
+                        <div class="col-md-2 ">
+                            <label>前台类目名称</label>
+                            <input nbInput class="form-control" name="frontName" ngModel placeholder="前台类目名称">
+                        </div>
+                        <div class="col-md-2 ">
+                            <label>后台类目名称</label>
+                            <input nbInput class="form-control" name="categoryName" ngModel placeholder="后台类目名称">
+                        </div>
+                        <div class="col-md-2 ">
+                            <label>类目编码</label>
+                            <input nbInput class="form-control" name="categoryCode" ngModel placeholder="类目编码">
+                        </div>
+                        <div class="col-md-2">
+                            <label class="d-block">&nbsp;</label>
+                            <button hero class="btn btn-primary" type="submit" status="primary">搜索</button>
+                        </div>
+                    </div>
+                </form>
+                <div class="tree-border row">
+                    <div class="col-md-12">
+                        <div class="py-md-2 mt-md-2 ">
+                            <div class="row">
+                                <div class="col-md-3 d-flex align-items-md-center">
+                                    {{list.name}}
+                                </div>
+                                <div class="col-md-3 offset-md-6 d-flex justify-content-end align-items-md-center">
+                                    <button class="btn btn-success mr-md-2"
+                                            *ngIf="dataService.permissionData.CATEGORY.add"
+                                            (click)="addChild(list.id,'main')">
+                                        添加主类目
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                        <div *ngIf="list.show===true">
+                            <div class="col-md-12" *ngFor="let item of list.categorys">
+                                <div class="row custom-row mt-md-2 py-md-2 border border-radius">
+                                    <button class="custom-button ml-md-4"
+                                            *ngIf="item.categorys&&item.categorys.length !== 0"
+                                            (click)="showList(item)">
+                                        <!--{{item.show === true || !item.categorys || (item.categorys && item.categorys.length === 0) ? '-' : '+'}}-->
+                                        {{item.show === false && item.categorys && item.categorys.length !== 0 ? '+' : (item.categorys && item.categorys.length !== 0 ? '-' : '')}}
+                                    </button>
+                                    <img src="{{item.categoryIconUrl}}" class="item-img ml-md-2">
+                                    <div class="ml-md-2">
+                                        后台:{{item.categoryName}}
+                                    </div>
+                                    <div class="ml-md-2">
+                                        前台:{{item.frontName}}
+                                    </div>
+                                    <div class="ml-md-2">
+                                        编码:{{item.categoryCode}}
+                                    </div>
+                                    <div class="custom-button-group d-flex align-items-center">
+                                        <!--<div class="mr-md-1">推荐:</div>-->
+                                        <!--<ui-switch [(ngModel)]="item.recommend" (change)="onChange($event,item)"-->
+                                        <!--class="mr-md-2"></ui-switch>-->
+                                        <button class="btn btn-success mr-md-2"
+                                                *ngIf="dataService.permissionData.CATEGORY.add"
+                                                (click)="addChild(item.id,'')">添加子类目
+                                        </button>
+                                        <button class="btn btn-success mr-md-2"
+                                                *ngIf="dataService.permissionData.CATEGORY.edit"
+                                                (click)="editCategory(item)">编辑
+                                        </button>
+                                        <button class="btn btn-danger mr-md-2"
+                                                *ngIf="dataService.permissionData.CATEGORY.delete"
+                                                (click)="del(item.id)">删除类目
+                                        </button>
+                                    </div>
+                                </div>
+                                <div *ngIf="item.show===true">
+                                    <div *ngFor="let item1 of item.categorys" class="pl-md-4">
+                                        <div class="row custom-row py-md-2 mt-md-2 border border-radius">
+                                            <button class="custom-button ml-md-4"
+                                                    *ngIf="item1.categorys&&item1.categorys.length !== 0"
+                                                    (click)="showList(item1)">
+                                                <!--{{item1.show === true || !item1.categorys || (item1.categorys && item.categorys.length === 0) ? '-' : '+'}}-->
+                                                {{item1.show === false && item1.categorys && item1.categorys.length !== 0 ? '+' : (item1.categorys && item1.categorys.length !== 0 ? '-' : '')}}
+                                            </button>
+                                            <img src="{{item1.categoryIconUrl}}" class="item-img ml-md-2">
+                                            <div class="ml-md-2">
+                                                后台:{{item1.categoryName}}
+                                            </div>
+                                            <div class="ml-md-2">
+                                                前台:{{item1.frontName}}
+                                            </div>
+                                            <div class="ml-md-2">
+                                                编码:{{item1.categoryCode}}
+                                            </div>
+                                            <div class="custom-button-group d-flex align-items-center">
+                                                <div class="mr-md-1">推荐:</div>
+                                                <ui-switch [(ngModel)]="item1.recommend"
+                                                           (change)="onChange($event,item1)"
+                                                           class="mr-md-2"></ui-switch>
+                                                <button class="btn btn-success mr-md-2"
+                                                        *ngIf="dataService.permissionData.CATEGORY.add"
+                                                        (click)="addChild(item1.id,'')">
+                                                    添加子类目
+                                                </button>
+                                                <button class="btn btn-success mr-md-2"
+                                                        *ngIf="dataService.permissionData.CATEGORY.edit"
+                                                        (click)="editCategory(item1)">编辑
+                                                </button>
+                                                <button class="btn btn-danger mr-md-2"
+                                                        *ngIf="dataService.permissionData.CATEGORY.delete"
+                                                        (click)="del(item1.id)">删除类目
+                                                </button>
+                                            </div>
+                                        </div>
+                                        <div *ngIf="item1.show===true">
+                                            <div *ngFor="let item2 of item1.categorys" class="pl-md-4">
+                                                <div class="row custom-row py-md-2 mt-md-2 border border-radius">
+                                                    <button class="custom-button ml-md-4"
+                                                            *ngIf="item2.categorys&&item2.categorys.length !== 0"
+                                                            (click)="showList(item2)">
+                                                        <!--{{item2.show === true || !item2.categorys || (item2.categorys && item.categorys.length === 0) ? '-' : '+'}}-->
+                                                        {{item2.show === false && item2.categorys && item2.categorys.length !== 0 ? '+' : (tem2.categorys && item2.categorys.length !== 0 ? '-' : '')}}
+                                                    </button>
+                                                    <img src="{{item2.categoryIconUrl}}" class="item-img ml-md-2">
+                                                    <div class="ml-md-2">
+                                                        后台:{{item2.categoryName}}
+                                                    </div>
+                                                    <div class="ml-md-2">
+                                                        前台:{{item2.frontName}}
+                                                    </div>
+                                                    <div class="ml-md-2">
+                                                        编码:{{item2.categoryCode}}
+                                                    </div>
+                                                    <div class="custom-button-group d-flex align-items-center">
+                                                        <div class="mr-md-1">推荐:</div>
+                                                        <ui-switch [(ngModel)]="item2.recommend"
+                                                                   class="mr-md-2"></ui-switch>
+                                                        <button class="btn btn-success mr-md-2"
+                                                                *ngIf="dataService.permissionData.CATEGORY.add"
+                                                                (click)="addChild(item2.id,'')">
+                                                            添加子类目
+                                                        </button>
+                                                        <button class="btn btn-success mr-md-2"
+                                                                *ngIf="dataService.permissionData.CATEGORY.edit"
+                                                                (click)="editCategory(item2)">编辑
+                                                        </button>
+                                                        <button class="btn btn-danger mr-md-2"
+                                                                *ngIf="dataService.permissionData.CATEGORY.delete"
+                                                                (click)="del(item2.id)">
+                                                            删除类目
+                                                        </button>
+                                                    </div>
+                                                </div>
+                                                <div *ngIf="item2.show===true">
+                                                    <div *ngFor="let item3 of item2.categorys" class="pl-md-4">
+                                                        <div class="row custom-row py-md-2 mt-md-2 border border-radius">
+                                                            <button class="custom-button ml-md-4"
+                                                                    *ngIf="item3.categorys&&item3.categorys.length !== 0"
+                                                                    (click)="showList(item3)">
+                                                                <!--{{item3.show === true || !item3.categorys || (item3.categorys && item.categorys.length === 0) ? '-' : '+'}}-->
+                                                                {{item3.show === false && item3.categorys && item3.categorys.length !== 0 ? '+' : (item3.categorys && item3.categorys.length !== 0 ? '-' : '')}}
+                                                            </button>
+                                                            <img src="{{item3.categoryIconUrl}}"
+                                                                 class="item-img ml-md-2">
+                                                            <div class="ml-md-2">
+                                                                后台:{{item3.categoryName}}
+                                                            </div>
+                                                            <div class="ml-md-2">
+                                                                前台:{{item3.frontName}}
+                                                            </div>
+                                                            <div class="ml-md-2">
+                                                                编码:{{item3.categoryCode}}
+                                                            </div>
+                                                            <div class="custom-button-group">
+                                                                <button class="btn btn-success mr-md-2"
+                                                                        *ngIf="dataService.permissionData.CATEGORY.add"
+                                                                        (click)="addChild(item3.id,'')">添加子类目
+                                                                </button>
+                                                                <button class="btn btn-success mr-md-2"
+                                                                        *ngIf="dataService.permissionData.CATEGORY.edit"
+                                                                        (click)="editCategory(item3)">编辑
+                                                                </button>
+                                                                <button class="btn btn-danger mr-md-2"
+                                                                        *ngIf="dataService.permissionData.CATEGORY.delete"
+                                                                        (click)="del(item3.id)">删除类目
+                                                                </button>
+                                                            </div>
+                                                        </div>
+                                                        <div *ngIf="item3.show===true">
+                                                            <div *ngFor="let item4 of item3.categorys" class="pl-md-4">
+                                                                <div class="row custom-row py-md-2 mt-md-2 border border-radius">
+                                                                    <button class="custom-button ml-md-4"
+                                                                            *ngIf="item4.categorys&&item4.categorys.length !== 0"
+                                                                            (click)="showList(item4)">
+                                                                        <!--{{item4.show === true || !item4.categorys || (item.categorys && item4.categorys.length === 0) ? '-' : '+'}}-->
+                                                                        {{item4.show === false && item4.categorys && item4.categorys.length !== 0 ? '+' : (item4.categorys && item4.categorys.length !== 0 ? '-' : '')}}
+                                                                    </button>
+                                                                    <img src="{{item4.categoryIconUrl}}"
+                                                                         class="item-img ml-md-2">
+                                                                    <div class="ml-md-2">
+                                                                        后台:{{item4.categoryName}}
+                                                                    </div>
+                                                                    <div class="ml-md-2">
+                                                                        前台:{{item4.frontName}}
+                                                                    </div>
+                                                                    <div class="ml-md-2">
+                                                                        编码:{{item4.categoryCode}}
+                                                                    </div>
+                                                                    <div class="custom-button-group">
+                                                                        <button class="btn btn-success mr-md-2"
+                                                                                *ngIf="dataService.permissionData.CATEGORY.edit"
+                                                                                (click)="editCategory(item4)">编辑
+                                                                        </button>
+                                                                        <button class="btn btn-danger mr-md-2"
+                                                                                *ngIf="dataService.permissionData.CATEGORY.delete"
+                                                                                (click)="del(item4.id)">删除类目
+                                                                        </button>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+
+                                                    </div>
+                                                </div>
+
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+                <!--<div class="row mt-2">-->
+                <!--<div class="col-md-5">-->
+                <!--<button type="submit" class="btn btn-primary">查询</button>-->
+                <!--<button type="submit" class="btn btn-primary ml-2">导出报表</button>-->
+                <!--<button type="submit" class="btn btn-primary ml-2" (click)="add()">创建商品</button>-->
+                <!--</div>-->
+                <!--</div>-->
+
+
+            </nb-card-body>
+        </nb-card>
+
+
+    </div>
+</div>

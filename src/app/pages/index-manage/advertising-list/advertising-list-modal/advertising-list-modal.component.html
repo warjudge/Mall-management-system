@@ -1,0 +1,89 @@
+<div class="row">
+    <div class="col-md-12">
+        <nb-card class="mb-0">
+            <nb-card-header>
+                <span>{{ modalHeader }}</span>
+                <button class="close" aria-label="Close" (click)="closeModal()">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </nb-card-header>
+            <nb-card-body>
+
+                <form #d="ngForm" (ngSubmit)="onSubmit(d)">
+                    <div class="row">
+                        <div class="col-md-4 offset-md-1">
+                            <label>广告位id：{{data && data.id ? data.id : ''}}</label>
+                            <!--<input type="text" name="id" disabled class="form-control"-->
+                            <!--[ngModel]="data&&data.id?data.id:''">-->
+                        </div>
+                    </div>
+
+                    <div class="row mt-md-2">
+                        <div class="col-md-4 offset-md-1">
+                            <label><span style="color: red">*</span>广告位标题</label>
+                            <input type="text" name="name" class="form-control"
+                                   [ngModel]="data&&data.name?data.name:''">
+                        </div>
+                    </div>
+
+                    <div class="row mt-md-2">
+                        <div class="col-md-2 offset-md-1">
+                            <label><span style="color: red">*</span>广告长度</label>
+                            <input name="length" class="form-control" [ngModel]="data&&data.length?data.length:''"
+                                   oninput="value=value.replace(/[^\d]/g,'')" maxlength="9">
+                        </div>
+                        <div class="col-md-2">
+                            <label><span style="color: red">*</span>广告宽度</label>
+                            <input name="width" class="form-control" [ngModel]="data&&data.width?data.width:''"
+                                   oninput="value=value.replace(/[^\d]/g,'')" maxlength="9">
+                        </div>
+                        <div class="col-md-2">
+                            <label><span style="color: red">*</span>顺序</label>
+                            <input name="seq" class="form-control" [ngModel]="data&&(data.seq!=='')?data.seq:''"
+                                   oninput="value=value.replace(/[^\d]/g,'')" maxlength="9">
+                        </div>
+                    </div>
+
+                    <div class="row mt-md-2">
+                        <div class="col-md-4 offset-md-1">
+                            <label><span style="color: red">*</span>样式</label>
+                            <select class="form-control" name="location"
+                                    [ngModel]="data&&data.location?data.location:''">
+                                <option></option>
+                                <option>轮播</option>
+                                <option>左</option>
+                                <option>右上</option>
+                                <option>右下</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="row mt-md-2">
+                        <div class="col-md-4 offset-md-1">
+                            <label>备注</label>
+                            <input type="text" name="remarks" class="form-control" placeholder="请输入备注信息"
+                                   [ngModel]="data&&data.remarks?data.remarks:''">
+                        </div>
+                    </div>
+                    <!--<div class="row">-->
+                    <!--<div class="col-md-2 offset-md-1">-->
+                    <!--<label>接口</label>-->
+                    <!--<input type="text" name="inter" disabled class="form-control" [ngModel]="data&&data.inter?data.inter:''">-->
+                    <!--</div>-->
+                    <!--</div>-->
+
+                    <div class="row mt-md-4">
+                        <div class="col-md-2 offset-md-4">
+                            <button class="btn btn-hero-danger" type="button" *ngIf="!isEdit"
+                                    (click)="closeModal()">返回
+                            </button>
+                        </div>
+                        <div class="col-md-2 ">
+                            <button class="btn btn-hero-success" *ngIf="!isEdit" type="submit">保存修改</button>
+                        </div>
+                    </div>
+                </form>
+
+            </nb-card-body>
+        </nb-card>
+    </div>
+</div>

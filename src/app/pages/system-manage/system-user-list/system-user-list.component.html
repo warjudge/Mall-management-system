@@ -1,0 +1,62 @@
+<div class="row">
+    <div class="col-md-12">
+        <nb-card>
+            <nb-card-header>
+                用户权益
+                <button class="close" aria-label="Close" (click)="refresh()">
+                    <div class="icon">
+                        <i class="eva-icon-container">
+                            <i [innerHTML]="icon | eva: { animationType: 'pulse' }"></i>
+                        </i>
+                    </div>
+                </button>
+            </nb-card-header>
+            <nb-card-body>
+                <form class="form">
+
+                    <div class="row" *ngIf="dataService.permissionData.BGINDEX.search">
+                        <div class="col-md-2 ">
+                            <label>运营者创建时间</label>
+                            <input nbInput class="form-control" placeholder="选择时间" [owlDateTime]="formpicker"
+                                   [owlDateTimeTrigger]="formpicker">
+                            <owl-date-time style="margin: 0" #formpicker></owl-date-time>
+                        </div>
+                        <div class="col-md-2 ">
+                            <label>-</label>
+                            <input nbInput class="form-control" placeholder="选择时间" [owlDateTime]="formpicker1"
+                                   [owlDateTimeTrigger]="formpicker1">
+                            <owl-date-time style="margin: 0" #formpicker1></owl-date-time>
+                        </div>
+                        <div class="col-md-2">
+                            <label>运营者名称</label>
+                            <input type="text" class="form-control" placeholder="xxx">
+                        </div>
+                    </div>
+
+
+                    <div class="row">
+                        <div class="col-md-2">
+                            <button type="submit" class="btn btn-primary mt-4"
+                                    *ngIf="dataService.permissionData.BGINDEX.search">查询
+                            </button>
+                        </div>
+                        <div class="col-md-2">
+                            <button class="btn btn-primary mt-4" *ngIf="dataService.permissionData.BGINDEX.add"
+                                    (click)="createSystemUser()">创建运营者
+                            </button>
+                        </div>
+                    </div>
+
+
+                    <!--<nb-checkbox>Remember me</nb-checkbox>-->
+                </form>
+            </nb-card-body>
+        </nb-card>
+        <nb-card>
+            <nb-card-body>
+                <ng2-smart-table [settings]="settings" [source]="source">
+                </ng2-smart-table>
+            </nb-card-body>
+        </nb-card>
+    </div>
+</div>

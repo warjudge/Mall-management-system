@@ -1,0 +1,567 @@
+<div class="row">
+    <div class="col-md-12">
+        <nb-card class="mb-0">
+            <nb-card-header>
+                <span>{{ modalHeader }}</span>
+                <button class="close" aria-label="Close" (click)="closeModal()">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </nb-card-header>
+            <nb-card-body>
+                <div class="row py-md-3">
+                    <div class="col-md-4 offset-md-1">
+                        订单编号：{{orderDetail && orderDetail[0] && orderDetail[0].orderId ? orderDetail[0].orderId : ''}}
+                    </div>
+                    <div class="col-md-4 offset-md-1">
+                        卖家ID：{{orderDetail && orderDetail[0] && orderDetail[0].sellerUserId ? orderDetail[0].sellerUserId : ''}}
+                    </div>
+                </div>
+                <div class="row py-md-3 bg-light">
+                    <div class="col-md-5">
+                        <div class="row">
+                            <div class="col-md-6 d-flex justify-content-center align-items-center">
+                                商品标题
+                            </div>
+                            <div class="col-md-2 d-flex justify-content-center align-items-center">
+                                商品状态
+                            </div>
+                            <div class="col-md-2 d-flex justify-content-center align-items-center">
+                                单价
+                            </div>
+                            <div class="col-md-2 d-flex justify-content-center align-items-center">
+                                数量
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-2">
+                        <div class="row">
+                            <div class="col-md-4">
+                                总价
+                            </div>
+                            <div class="col-md-8">
+                                订单状态
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-5">
+                        <div class="row">
+                            <div class="col-md-2">
+                                会员返佣
+                            </div>
+                            <div class="col-md-2">
+                                推荐返佣
+                            </div>
+                            <div class="col-md-2">
+                                推广返佣
+                            </div>
+                            <div class="col-md-3">
+                                培训费
+                            </div>
+                            <div class="col-md-3">
+                                团队返佣
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+                <div class="row border-top border-left">
+                    <div class="col-md-5">
+                        <div class="row" *ngFor="let item of orderDetail;let i = index">
+                            <div class="col-md-6 py-md-3 border-right border-bottom">
+                                <div class="row">
+                                    <div class="col-md-3 d-flex justify-content-center align-items-center">
+                                        <img *ngIf="item.goodsImg.indexOf('?')===-1"
+                                             src="{{item.goodsImg+'?imageView2/1/w/64/h/64/q/75|imageslim'}}">
+                                        <img *ngIf="item.goodsImg.indexOf('?')!==-1"
+                                             src="{{item.goodsImg+'&imageView2/1/w/64/h/64/q/75|imageslim'}}">
+                                    </div>
+                                    <div class="col-md-9 d-flex justify-content-start align-items-center">
+                                        {{item.goodsTitle}}
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-2 py-md-3 d-flex justify-content-center flex-column  align-items-center border-right border-bottom">
+                                <!--<div *ngIf="item.goodsStatus==='NOTPAY'">待支付</div>-->
+                                <!--<div *ngIf="item.goodsStatus==='CANCEL'">已取消</div>-->
+                                <!--<div *ngIf="item.goodsStatus==='FAILURE'">交易失败</div>-->
+                                <!--<div *ngIf="item.goodsStatus==='NOTSEND'">待发货</div>-->
+                                <!--<div *ngIf="item.goodsStatus==='REFUNDABLE'">可申请退款</div>-->
+                                <!--<div *ngIf="item.goodsStatus==='AGAINREFUNDABLE'">可再次申请退款</div>-->
+                                <!--<div *ngIf="item.goodsStatus==='APPLYREFUND'">已申请退款</div>-->
+                                <!--<div *ngIf="item.goodsStatus==='AGREEREFUND'">已同意退款</div>-->
+                                <!--<div *ngIf="item.goodsStatus==='REFUNDSUCCESS'">退款成功</div>-->
+                                <!--<div *ngIf="item.goodsStatus==='REFUNDFAIL'">退款失败</div>-->
+                                <!--<div *ngIf="item.goodsStatus==='DELIVERY'">已发货</div>-->
+                                <!--<div *ngIf="item.goodsStatus==='RECEIVED'">买家已收货</div>-->
+                                <!--<div *ngIf="item.goodsStatus==='RETURNABLE'">可申请退货</div>-->
+                                <!--<div *ngIf="item.goodsStatus==='APPLYRETURN'">已申请退货</div>-->
+                                <!--<div *ngIf="item.goodsStatus==='AGAINRETURNABLE'">可再次申请退货</div>-->
+                                <!--<div *ngIf="item.goodsStatus==='AGREERETURN'">已同意退货</div>-->
+                                <!--<div *ngIf="item.goodsStatus==='APPLYRETURNNUMBER'">已填写退货单号</div>-->
+                                <!--<div *ngIf="item.goodsStatus==='CONFIRMRECEIVED'">卖家已签收</div>-->
+                                <!--<div *ngIf="orderDetail&&orderDetail[i]&&orderDetail[i].goodsStatus==='NOTPAY'">待支付</div>-->
+                                <!--<div *ngIf="orderDetail&&orderDetail[i]&&orderDetail[i].goodsStatus==='CANCEL'">未支付取消</div>-->
+                                <!--<div *ngIf="orderDetail&&orderDetail[i]&&orderDetail[i].goodsStatus==='NOTSEND'">待发货</div>-->
+                                <!--<div *ngIf="orderDetail&&orderDetail[i]&&orderDetail[i].goodsStatus==='REFUNDABLE'">可申请退款</div>-->
+                                <!--<div *ngIf="orderDetail&&orderDetail[i]&&orderDetail[i].goodsStatus==='APPLYREFUND'">已申请退款</div>-->
+                                <!--<div *ngIf="orderDetail&&orderDetail[i]&&orderDetail[i].goodsStatus==='REFUSEREFUND'">已拒绝退款</div>-->
+                                <!--<div *ngIf="orderDetail&&orderDetail[i]&&orderDetail[i].goodsStatus==='AGREEREFUND'">已同意退款</div>-->
+                                <!--<div *ngIf="orderDetail&&orderDetail[i]&&orderDetail[i].goodsStatus==='SUCCESSREFUND'">退款成功</div>-->
+                                <!--<div *ngIf="orderDetail&&orderDetail[i]&&orderDetail[i].goodsStatus==='FAILREFUND'">退款失败</div>-->
+                                <!--<div *ngIf="orderDetail&&orderDetail[i]&&orderDetail[i].goodsStatus==='DELIVERY'">已发货</div>-->
+                                <!--<div *ngIf="orderDetail&&orderDetail[i]&&orderDetail[i].goodsStatus==='RETURNABLE'">可申请退货</div>-->
+                                <!--<div *ngIf="orderDetail&&orderDetail[i]&&orderDetail[i].goodsStatus==='APPLYRETURN'">已申请退货</div>-->
+                                <!--<div *ngIf="orderDetail&&orderDetail[i]&&orderDetail[i].goodsStatus==='REFUSERETURN'">已拒绝退货</div>-->
+                                <!--<div *ngIf="orderDetail&&orderDetail[i]&&orderDetail[i].goodsStatus==='AGREERETURN'">已同意退货</div>-->
+                                <!--<div *ngIf="orderDetail&&orderDetail[i]&&orderDetail[i].goodsStatus==='APPLYRETURNNUMBER'">买家已发货</div>-->
+                                <!--<div *ngIf="orderDetail&&orderDetail[i]&&orderDetail[i].goodsStatus==='CONFIRMRECEIVED'">卖家已签收</div>-->
+                                <!--<div *ngIf="orderDetail&&orderDetail[i]&&orderDetail[i].goodsStatus==='FAILRETURN'">退货失败</div>-->
+                                <!--<div *ngIf="orderDetail&&orderDetail[i]&&orderDetail[i].goodsStatus==='SUCCESS'">交易成功</div>-->
+                                <!--<div *ngIf="orderDetail&&orderDetail[i]&&orderDetail[i].goodsStatus==='SUCCESSRETURN'">退货成功</div>-->
+                                <!--<div *ngIf="orderDetail&&orderDetail[i]&&orderDetail[i].goodsStatus==='SUCCESSREFUNDPART'">交易成功(部分退款)</div>-->
+                                <!--<div *ngIf="orderDetail&&orderDetail[i]&&orderDetail[i].goodsStatus==='SUCCESSRETURNPART'">交易成功(部分退货)</div>-->
+
+
+                                <div *ngIf="orderDetail&&orderDetail[i]&&orderDetail[i].goodsStatus==='NOTPAY'">待支付</div>
+                                <div *ngIf="orderDetail&&orderDetail[i]&&orderDetail[i].goodsStatus==='CANCEL'||orderDetail&&orderDetail[i]&&orderDetail[i].goodsStatus==='FAILURE'">未支付取消</div>
+                                <div *ngIf="orderDetail&&orderDetail[i]&&orderDetail[i].goodsStatus==='NOTSEND'">待发货</div>
+                                <div *ngIf="orderDetail&&orderDetail[i]&&orderDetail[i].goodsStatus==='REFUNDABLE'">可申请退款</div>
+                                <div *ngIf="orderDetail&&orderDetail[i]&&orderDetail[i].goodsStatus==='APPLYREFUND'">已申请退款</div>
+                                <div *ngIf="orderDetail&&orderDetail[i]&&orderDetail[i].goodsStatus==='REFUSEREFUND'">已拒绝退款</div>
+                                <div *ngIf="orderDetail&&orderDetail[i]&&orderDetail[i].goodsStatus==='AGREEREFUND'">已同意退款</div>
+                                <div *ngIf="orderDetail&&orderDetail[i]&&orderDetail[i].goodsStatus==='SUCCESSREFUND'||orderDetail&&orderDetail[i]&&orderDetail[i].goodsStatus==='REFUNDSUCCESS'">退款成功</div>
+                                <div *ngIf="orderDetail&&orderDetail[i]&&orderDetail[i].goodsStatus==='FAILREFUND'||orderDetail&&orderDetail[i]&&orderDetail[i].goodsStatus==='REFUNDFAIL'">退款失败</div>
+                                <div *ngIf="orderDetail&&orderDetail[i]&&orderDetail[i].goodsStatus==='DELIVERY'">已发货</div>
+                                <div *ngIf="orderDetail&&orderDetail[i]&&orderDetail[i].goodsStatus==='RETURNABLE'">可申请退货</div>
+                                <div *ngIf="orderDetail&&orderDetail[i]&&orderDetail[i].goodsStatus==='APPLYRETURN'">已申请退货</div>
+                                <div *ngIf="orderDetail&&orderDetail[i]&&orderDetail[i].goodsStatus==='REFUSERETURN'">已拒绝退货</div>
+                                <div *ngIf="orderDetail&&orderDetail[i]&&orderDetail[i].goodsStatus==='AGREERETURN'">已同意退货</div>
+                                <div *ngIf="orderDetail&&orderDetail[i]&&orderDetail[i].goodsStatus==='APPLYRETURNNUMBER'">买家已发货</div>
+                                <div *ngIf="orderDetail&&orderDetail[i]&&orderDetail[i].goodsStatus==='CONFIRMRECEIVED'">卖家已签收</div>
+                                <div *ngIf="orderDetail&&orderDetail[i]&&orderDetail[i].goodsStatus==='FAILRETURN'||orderDetail&&orderDetail[i]&&orderDetail[i].goodsStatus==='RETURNFAIL'">退货失败</div>
+                                <div *ngIf="orderDetail&&orderDetail[i]&&orderDetail[i].goodsStatus==='SUCCESS'||orderDetail&&orderDetail[i]&&orderDetail[i].goodsStatus==='RECEIVED'">交易成功</div>
+                                <div *ngIf="orderDetail&&orderDetail[i]&&orderDetail[i].goodsStatus==='SUCCESSRETURN'||orderDetail&&orderDetail[i]&&orderDetail[i].goodsStatus==='RETURNSUCCESS'">退货成功</div>
+                                <div *ngIf="orderDetail&&orderDetail[i]&&orderDetail[i].goodsStatus==='SUCCESSREFUNDPART'">交易成功(部分退款)</div>
+                                <div *ngIf="orderDetail&&orderDetail[i]&&orderDetail[i].goodsStatus==='SUCCESSRETURNPART'">交易成功(部分退货)</div>
+                                
+                      
+                            </div>
+                            <div class="col-md-2 py-md-3 d-flex justify-content-center align-items-center border-right border-bottom">
+                                {{item.goodsPrice ? toFixed(item.goodsPrice) + '元' : ''}}
+                            </div>
+                            <div class="col-md-2 py-md-3 d-flex justify-content-center align-items-center border-right border-bottom">
+                                {{item.goodsAmount}}
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-2 ">
+                        <div class="row" style="height: 100%">
+                            <div class="col-md-4 d-flex justify-content-center align-items-center border-right border-bottom py-md-3">
+                                {{orderDetail && orderDetail[0] && orderDetail[0].totalPrice ? toFixed(orderDetail[0].totalPrice) + '元' : ''}}
+                            </div>
+                            <div class="col-md-8 d-flex flex-column justify-content-center align-items-center border-right border-bottom py-md-3">
+                                <div class="d-block">
+                                    <!--<div *ngIf="orderDetail&&orderDetail[0]&&orderDetail[0].status==='NOTPAY'">待支付</div>-->
+                                    <!--<div *ngIf="orderDetail&&orderDetail[0]&&orderDetail[0].status==='CANCEL'">未支付取消</div>-->
+                                    <!--<div *ngIf="orderDetail&&orderDetail[0]&&orderDetail[0].status==='NOTSEND'">待发货</div>-->
+                                    <!--<div *ngIf="orderDetail&&orderDetail[0]&&orderDetail[0].status==='REFUNDABLE'">可申请退款</div>-->
+                                    <!--<div *ngIf="orderDetail&&orderDetail[0]&&orderDetail[0].status==='APPLYREFUND'">已申请退款</div>-->
+                                    <!--<div *ngIf="orderDetail&&orderDetail[0]&&orderDetail[0].status==='REFUSEREFUND'">已拒绝退款</div>-->
+                                    <!--<div *ngIf="orderDetail&&orderDetail[0]&&orderDetail[0].status==='AGREEREFUND'">已同意退款</div>-->
+                                    <!--<div *ngIf="orderDetail&&orderDetail[0]&&orderDetail[0].status==='SUCCESSREFUND'">退款成功</div>-->
+                                    <!--<div *ngIf="orderDetail&&orderDetail[0]&&orderDetail[0].status==='FAILREFUND'">退款失败</div>-->
+                                    <!--<div *ngIf="orderDetail&&orderDetail[0]&&orderDetail[0].status==='DELIVERY'">已发货</div>-->
+                                    <!--<div *ngIf="orderDetail&&orderDetail[0]&&orderDetail[0].status==='RETURNABLE'">可申请退货</div>-->
+                                    <!--<div *ngIf="orderDetail&&orderDetail[0]&&orderDetail[0].status==='APPLYRETURN'">已申请退货</div>-->
+                                    <!--<div *ngIf="orderDetail&&orderDetail[0]&&orderDetail[0].status==='REFUSERETURN'">已拒绝退货</div>-->
+                                    <!--<div *ngIf="orderDetail&&orderDetail[0]&&orderDetail[0].status==='AGREERETURN'">已同意退货</div>-->
+                                    <!--<div *ngIf="orderDetail&&orderDetail[0]&&orderDetail[0].status==='APPLYRETURNNUMBER'">买家已发货</div>-->
+                                    <!--<div *ngIf="orderDetail&&orderDetail[0]&&orderDetail[0].status==='CONFIRMRECEIVED'">卖家已签收</div>-->
+                                    <!--<div *ngIf="orderDetail&&orderDetail[0]&&orderDetail[0].status==='FAILRETURN'">退货失败</div>-->
+                                    <!--<div *ngIf="orderDetail&&orderDetail[0]&&orderDetail[0].status==='SUCCESS'">交易成功</div>-->
+                                    <!--<div *ngIf="orderDetail&&orderDetail[0]&&orderDetail[0].status==='SUCCESSRETURN'">退货成功</div>-->
+                                    <!--<div *ngIf="orderDetail&&orderDetail[0]&&orderDetail[0].status==='SUCCESSREFUNDPART'">交易成功(部分退款)</div>-->
+                                    <!--<div *ngIf="orderDetail&&orderDetail[0]&&orderDetail[0].status==='SUCCESSRETURNPART'">交易成功(部分退货)</div>-->
+
+
+
+
+                                    <div *ngIf="orderDetail&&orderDetail[0]&&orderDetail[0].status==='NOTPAY'">待支付</div>
+                                    <div *ngIf="orderDetail&&orderDetail[0]&&orderDetail[0].status==='CANCEL'||orderDetail&&orderDetail[0]&&orderDetail[0].status==='FAILURE'">未支付取消</div>
+                                    <div *ngIf="orderDetail&&orderDetail[0]&&orderDetail[0].status==='NOTSEND'">待发货</div>
+                                    <div *ngIf="orderDetail&&orderDetail[0]&&orderDetail[0].status==='REFUNDABLE'">可申请退款</div>
+                                    <div *ngIf="orderDetail&&orderDetail[0]&&orderDetail[0].status==='APPLYREFUND'">已申请退款</div>
+                                    <div *ngIf="orderDetail&&orderDetail[0]&&orderDetail[0].status==='REFUSEREFUND'">已拒绝退款</div>
+                                    <div *ngIf="orderDetail&&orderDetail[0]&&orderDetail[0].status==='AGREEREFUND'">已同意退款</div>
+                                    <div *ngIf="orderDetail&&orderDetail[0]&&orderDetail[0].status==='SUCCESSREFUND'||orderDetail&&orderDetail[0]&&orderDetail[0].status==='REFUNDSUCCESS'">退款成功</div>
+                                    <div *ngIf="orderDetail&&orderDetail[0]&&orderDetail[0].status==='FAILREFUND'||orderDetail&&orderDetail[0]&&orderDetail[0].status==='REFUNDFAIL'">退款失败</div>
+                                    <div *ngIf="orderDetail&&orderDetail[0]&&orderDetail[0].status==='DELIVERY'">已发货</div>
+                                    <div *ngIf="orderDetail&&orderDetail[0]&&orderDetail[0].status==='RETURNABLE'">可申请退货</div>
+                                    <div *ngIf="orderDetail&&orderDetail[0]&&orderDetail[0].status==='APPLYRETURN'">已申请退货</div>
+                                    <div *ngIf="orderDetail&&orderDetail[0]&&orderDetail[0].status==='REFUSERETURN'">已拒绝退货</div>
+                                    <div *ngIf="orderDetail&&orderDetail[0]&&orderDetail[0].status==='AGREERETURN'">已同意退货</div>
+                                    <div *ngIf="orderDetail&&orderDetail[0]&&orderDetail[0].status==='APPLYRETURNNUMBER'">买家已发货</div>
+                                    <div *ngIf="orderDetail&&orderDetail[0]&&orderDetail[0].status==='CONFIRMRECEIVED'">卖家已签收</div>
+                                    <div *ngIf="orderDetail&&orderDetail[0]&&orderDetail[0].status==='FAILRETURN'||orderDetail&&orderDetail[0]&&orderDetail[0].status==='RETURNFAIL'">退货失败</div>
+                                    <div *ngIf="orderDetail&&orderDetail[0]&&orderDetail[0].status==='SUCCESS'||orderDetail&&orderDetail[0]&&orderDetail[0].status==='RECEIVED'">交易成功</div>
+                                    <div *ngIf="orderDetail&&orderDetail[0]&&orderDetail[0].status==='SUCCESSRETURN'||orderDetail&&orderDetail[0]&&orderDetail[0].status==='RETURNSUCCESS'">退货成功</div>
+                                    <div *ngIf="orderDetail&&orderDetail[0]&&orderDetail[0].status==='SUCCESSREFUNDPART'">交易成功(部分退款)</div>
+                                    <div *ngIf="orderDetail&&orderDetail[0]&&orderDetail[0].status==='SUCCESSRETURNPART'">交易成功(部分退货)</div>
+                                    
+                                    
+                                    
+                                </div>
+
+                                <button *ngIf="(orderDetail&&orderDetail[0]&&orderDetail[0].status==='DELIVERY')||(orderDetail&&orderDetail[0]&&orderDetail[0].status==='RETURNABLE')"
+                                        class="btn btn-hero-primary px-md-2 py-md-1 d-block" type="button"
+                                        (click)="delayDeliveryDealine()">延长收货
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-5">
+                        <div class="row" [ngStyle]="{'height': 100 / orderDetail.length+'%'}"
+                             *ngFor="let item of orderDetail">
+                            <div class="col-md-2 d-flex justify-content-center align-items-center border-right border-bottom py-md-3">
+                                {{item.myselfProfit ? toFixed(item.myselfProfit) + '元' : ''}}
+                            </div>
+                            <div class="col-md-2 d-flex justify-content-center align-items-center border-right border-bottom py-md-3">
+                                {{item.inviteProfit ? toFixed(item.inviteProfit) + '元' : ''}}
+                            </div>
+                            <div class="col-md-2 d-flex justify-content-center align-items-center border-right border-bottom py-md-3">
+                                {{item.linkProfit ? toFixed(item.linkProfit) + '元' : ''}}
+                            </div>
+                            <div class="col-md-3 d-flex justify-content-center align-items-center border-right border-bottom py-md-3">
+                                {{item.trainProfit ? toFixed(item.trainProfit) + '元' : ''}}
+                            </div>
+                            <div class="col-md-3 d-flex justify-content-center align-items-center border-right border-bottom py-md-3">
+                                {{item.teamProfit ? toFixed(item.teamProfit) + '元' : ''}}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row py-md-3 mt-md-5 bg-light">
+                    <div class="col-md-5">
+                        发货地址
+                    </div>
+                </div>
+                <div class="row border-top border-left border-right border-bottom">
+                    <div class="col-md-12">
+                        <div class="row py-md-2">
+                            <div class="col-md-3">
+                                买家ID：{{orderDetail && orderDetail[0] && orderDetail[0].buyerUserId ? orderDetail[0].buyerUserId : ''}}
+                            </div>
+                            <div class="col-md-3">
+                                买家用户名：{{orderDetail && orderDetail[0] && orderDetail[0].buyerUsername ? orderDetail[0].buyerUsername : ''}}
+                            </div>
+                        </div>
+                        <div class="row py-md-2">
+                            <div class="col-md-6">
+                                <label>收件人信息：</label>
+                                <button type="button" (click)="clipAddress()">复制</button>
+                            </div>
+                        </div>
+                        <div class="row py-md-2">
+                            <div class="col-md-6">
+                                {{orderDetail && orderDetail[0] ? orderDetail[0].addressData.province + ' ' + orderDetail[0].addressData.city + ' ' + orderDetail[0].addressData.area + ' ' + orderDetail[0].addressData.detail : ''}}
+                            </div>
+                        </div>
+                        <div class="row py-md-2">
+                            <div class="col-md-6">
+                                {{orderDetail && orderDetail[0] ? orderDetail[0].addressData.receiver : ''}}
+                            </div>
+                        </div>
+                        <div class="row py-md-2">
+                            <div class="col-md-6">
+                                {{orderDetail && orderDetail[0] ? orderDetail[0].addressData.mobileNumber : ''}}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row border-left py-md-3 border-bottom border-right"
+                     *ngIf="(orderDetail&&orderDetail[0]&&orderDetail[0].status==='NOTSEND')||(orderDetail&&orderDetail[0]&&orderDetail[0].status==='REFUNDABLE')||
+                     (orderDetail&&orderDetail[0]&&orderDetail[0].status==='REFUSEREFUND')||(orderDetail&&orderDetail[0]&&orderDetail[0].status==='APPLYREFUND')">
+                    <div class="col-md-12">
+                        <form #e='ngForm' (ngSubmit)="send(e)">
+                            <div class="row">
+                                <div class="col-md-3">
+                                    <label>快递公司</label>
+                                    <input type="text" class="form-control" ngModel placeholder="快递公司"
+                                           name="logisticsCompany"
+                                           onkeyup="this.value=this.value.replace(/\s+/g,'')"
+                                           onafterpaste="this.value=this.value.replace(/\s+/g,'')">
+                                </div>
+                                <div class="col-md-3">
+                                    <label>快递单号</label>
+                                    <input type="text" class="form-control" ngModel placeholder="快递单号"
+                                           name="logisticsNumber"
+                                           onkeyup="this.value=this.value.replace(/\s+/g,'');"
+                                           onafterpaste="this.value=this.value.replace(/\s+/g,'');">
+                                </div>
+                                <div class="col-md-3">
+                                    <label class="d-block">&nbsp;</label>
+                                    <button class="btn btn-hero-success" type="submit">发货</button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+
+                <div class="row border-left py-md-3 border-bottom border-right"
+                     *ngIf="orderDetail&&orderDetail[0]&&orderDetail[0].status!=='NOTSEND'&&orderDetail[0].status!=='NOTPAY'&&orderDetail[0].status!=='FAILURE'&&orderDetail[0].status!=='REFUNDABLE'">
+                    <div class="col-md-3">
+                        <label>快递公司：{{orderDetail && orderDetail[0] && orderDetail[0].logisticsCompany ? orderDetail[0].logisticsCompany : ''}}</label>
+                    </div>
+                    <div class="col-md-3">
+                        <label>快递单号：{{orderDetail && orderDetail[0] && orderDetail[0].logisticsNumber ? orderDetail[0].logisticsNumber : ''}}</label>
+                    </div>
+                    <div class="col-md-3">
+                        <label class="d-block">当前物流状态：{{orderDetail && orderDetail[0] && orderDetail[0].logisticsStatus ? orderDetail[0].logisticsStatus : ''}}</label>
+                    </div>
+                </div>
+
+                <div class="row mt-md-5 py-md-2">
+                    <div class="col-md-12">
+                        创建时间：{{orderDetail && orderDetail[0] && orderDetail[0].createTime ? dataService.timeStamp2formDta(orderDetail[0].createTime) : ''}}
+                    </div>
+                </div>
+                <div class="row py-md-2">
+                    <div class="col-md-12">
+                        支付时间：{{orderDetail && orderDetail[0] && orderDetail[0].payTime ? dataService.timeStamp2formDta(orderDetail[0].payTime) : ''}}
+                    </div>
+                </div>
+                <div class="row py-md-2">
+                    <div class="col-md-12">
+                        发货时间：{{orderDetail && orderDetail[0] && orderDetail[0].deliveryTime ? dataService.timeStamp2formDta(orderDetail[0].deliveryTime) : ''}}
+                    </div>
+                </div>
+                <div class="row py-md-2">
+                    <div class="col-md-12">
+                        完成时间：{{orderDetail && orderDetail[0] && orderDetail[0].endTime ? dataService.timeStamp2formDta(orderDetail[0].endTime) : ''}}
+                    </div>
+                </div>
+                <div class="row py-md-2">
+                    <div class="col-md-3">
+                        支付流水号：{{orderDetail && orderDetail[0] && orderDetail[0].payNumber ? orderDetail[0].payNumber : ''}}
+                    </div>
+                    <div class="col-md-3">
+                        支付渠道：{{orderDetail && orderDetail[0] && orderDetail[0].payType ? orderDetail[0].payType : ''}}
+                    </div>
+                </div>
+                <div class="row py-md-2">
+                    <div class="col-md-12">
+                        退款流水号：{{orderDetail && orderDetail[0] && orderDetail[0].refundNumber ? orderDetail[0].refundNumber : ''}}
+                    </div>
+                </div>
+                <div class="row py-md-2">
+                    <div class="col-md-12">
+                        退款时间：{{orderDetail && orderDetail[0] && orderDetail[0].refundTime ? dataService.timeStamp2formDta(orderDetail[0].refundTime) : ''}}
+                    </div>
+                </div>
+
+
+                <!--<form #o="ngForm" (ngSubmit)="onSubmit(o)">-->
+                <!--<div class="row">-->
+                <!--<div class="col-md-2 offset-md-1">-->
+                <!--<label>订单号</label>-->
+                <!--<input type="text" disabled class="form-control" placeholder="订单号" name="orderId"-->
+                <!--[ngModel]="orderDetail&&orderDetail[0]&&orderDetail.orderId?orderDetail.orderId:''">-->
+                <!--</div>-->
+                <!--<div class="col-md-2">-->
+                <!--<label>支付单号</label>-->
+                <!--<input type="text" disabled class="form-control" placeholder="支付单号" name="payment"-->
+                <!--[ngModel]="orderDetail&&orderDetail[0]&&orderDetail.paymoneyData&&orderDetail.paymoneyData.paymoneyId?orderDetail.paymoneyData.paymoneyId:''">-->
+                <!--</div>-->
+                <!--<div class="col-md-2">-->
+                <!--<label>退款单号</label>-->
+                <!--<input type="text" disabled class="form-control" placeholder="退款单号" name="returnId"-->
+                <!--[ngModel]="orderDetail&&orderDetail[0]&&orderDetail.returnId?orderDetail.returnId:''">-->
+                <!--</div>-->
+                <!--<div class="col-md-2">-->
+                <!--<label>订单状态</label>-->
+                <!--<select class="form-control" [disabled]="isEdit" name="status"-->
+                <!--[ngModel]="orderDetail&&orderDetail[0]&&orderDetail.status?orderDetail.status:''">-->
+                <!--<option></option>-->
+                <!--<option value="NOTPAY">待支付</option>-->
+                <!--<option value="CANCEL">已取消</option>-->
+                <!--<option value="FAILURE">交易失败</option>-->
+                <!--<option value="NOTSEND">待发货</option>-->
+                <!--<option value="REFUNDABLE">可申请退款</option>-->
+                <!--<option value="AGAINREFUNDABLE">可再次申请退款</option>-->
+                <!--<option value="APPLYREFUND">已申请退款</option>-->
+                <!--<option value="AGREEREFUND">已同意退款</option>-->
+                <!--<option value="DELIVERY">已发货</option>-->
+                <!--<option value="RECEIVED">买家已收货</option>-->
+                <!--<option value="RETURNABLE">可申请退货</option>-->
+                <!--<option value="APPLYRETURN">已申请退货</option>-->
+                <!--<option value="AGREERETURN">已同意退货</option>-->
+                <!--<option value="APPLYRETURNNUMBER">已填写退货单号</option>-->
+                <!--<option value="CONFIRMRECEIVED">卖家已确认收货</option>-->
+                <!--</select>-->
+                <!--</div>-->
+                <!--<div class="col-md-2">-->
+                <!--<label>订单锁定状态</label>-->
+                <!--<select class="form-control" [disabled]="isEdit" name="lock"-->
+                <!--[ngModel]="orderDetail&&orderDetail[0]&&orderDetail.lock!==''?orderDetail.lock:''">-->
+                <!--<option></option>-->
+                <!--<option value="true">锁定</option>-->
+                <!--<option value="false">未锁定</option>-->
+                <!--</select>-->
+                <!--</div>-->
+                <!--</div>-->
+                <!--<div class="row mt-md-2">-->
+                <!--<div class="col-md-2 offset-md-1">-->
+                <!--<label>买家用户ID</label>-->
+                <!--<input type="text" disabled class="form-control" placeholder="买家用户名" name="buyerId"-->
+                <!--[ngModel]="orderDetail&&orderDetail[0]&&orderDetail.buyerMySetting&&orderDetail.buyerMySetting.userId?orderDetail.buyerMySetting.userId:''">-->
+                <!--</div>-->
+                <!--<div class="col-md-2">-->
+                <!--<label>手机号</label>-->
+                <!--<input type="text" disabled class="form-control" placeholder="手机号" name="telephone"-->
+                <!--[ngModel]="orderDetail&&orderDetail[0]&&orderDetail.buyerMySetting&&orderDetail.buyerMySetting.telephone?orderDetail.buyerMySetting.telephone:''">-->
+                <!--</div>-->
+                <!--<div class="col-md-2 offset-md-1">-->
+                <!--<label>卖家用户ID</label>-->
+                <!--<input type="text" disabled class="form-control" placeholder="买家用户名" name="sellerId"-->
+                <!--[ngModel]="orderDetail&&orderDetail[0]&&orderDetail.sellerMySetting&&orderDetail.sellerMySetting.userId?orderDetail.sellerMySetting.userId:''">-->
+                <!--</div>-->
+                <!--</div>-->
+
+                <!--&lt;!&ndash;此处应有循环&ndash;&gt;-->
+                <!--<div class="row mt-md-2" *ngFor="let item of goodsList;let index = index">-->
+                <!--<div class="col-md-2 offset-md-1">-->
+                <!--<label>商品类目</label>-->
+                <!--<input type="text" disabled class="form-control" placeholder="商品类目"-->
+                <!--[name]="index+'categoryName'" [ngModel]="item.categoryName?item.categoryName:''">-->
+                <!--</div>-->
+                <!--<div class="col-md-2">-->
+                <!--<label>商品单价</label>-->
+                <!--<input type="text" disabled class="form-control" placeholder="商品单价"-->
+                <!--[name]="index+'retailPrice'" [ngModel]="item.retailPrice?item.retailPrice:''">-->
+                <!--</div>-->
+                <!--<div class="col-md-2">-->
+                <!--<label>购买数量</label>-->
+                <!--<input type="text" disabled class="form-control" placeholder="购买数量" [name]="index+'amount'"-->
+                <!--[ngModel]="item.amount?item.amount:''">-->
+                <!--</div>-->
+                <!--<div class="col-md-2">-->
+                <!--<label>商品属性</label>-->
+                <!--<input type="text" disabled class="form-control" placeholder=""-->
+                <!--[name]="index+'goodsAuthority'" [ngModel]="item.goodsAuthority===1?'会员商品':'非会员商品'">-->
+                <!--</div>-->
+                <!--</div>-->
+
+
+                <!--<div class="row mt-md-2">-->
+                <!--<div class="col-md-2 offset-md-1">-->
+                <!--<label>物流公司</label>-->
+                <!--<input type="text" [disabled]="isEdit" class="form-control" placeholder="物流方式"-->
+                <!--name="logisticsCompany"-->
+                <!--[ngModel]="orderDetail&&orderDetail[0]&&orderDetail.logisticsCompany!==''?orderDetail.logisticsCompany:''">-->
+                <!--</div>-->
+                <!--<div class="col-md-2">-->
+                <!--<label>物流单号</label>-->
+                <!--<input type="text" class="form-control" [disabled]="isEdit" placeholder="物流单号"-->
+                <!--name="logisticsId"-->
+                <!--[ngModel]="orderDetail&&orderDetail[0]&&orderDetail.logisticsId!==''?orderDetail.logisticsId:''">-->
+                <!--</div>-->
+                <!--</div>-->
+
+                <!--<div class="row mt-md-2">-->
+                <!--<div class="col-md-2 offset-md-1">-->
+                <!--<label>支付金额</label>-->
+                <!--<input type="text" disabled class="form-control" placeholder="支付金额" name="money"-->
+                <!--[ngModel]="orderDetail&&orderDetail[0]&&orderDetail.paymoneyData&&orderDetail.paymoneyData.money!==''?orderDetail.paymoneyData.money:''">-->
+                <!--</div>-->
+                <!--<div class="col-md-2">-->
+                <!--<label>订单总金额</label>-->
+                <!--<input type="text" disabled class="form-control" placeholder="订单总金额" name="totalPrice"-->
+                <!--[ngModel]="orderDetail&&orderDetail[0]&&orderDetail.totalPrice!==''?orderDetail.totalPrice:''">-->
+                <!--</div>-->
+                <!--</div>-->
+                <!--<div class="row mt-md-2">-->
+                <!--<div class="col-md-2 offset-md-1">-->
+                <!--<label>返佣总金额</label>-->
+                <!--<input type="text" disabled class="form-control" placeholder="返佣总金额" name="totalCommission"-->
+                <!--[ngModel]="orderDetail&&orderDetail[0]&&orderDetail.profits&&orderDetail.profits.totalCommission?orderDetail.profits.totalCommission:''">-->
+                <!--</div>-->
+                <!--<div class="col-md-2">-->
+                <!--<label>推荐返佣</label>-->
+                <!--<input type="text" disabled class="form-control" placeholder="推荐返佣" name="inviteProfit"-->
+                <!--[ngModel]="orderDetail&&orderDetail[0]&&orderDetail.profits&&orderDetail.profits.inviteProfit?orderDetail.profits.inviteProfit:''">-->
+                <!--</div>-->
+                <!--<div class="col-md-2">-->
+                <!--<label>推广返佣</label>-->
+                <!--<input type="text" disabled class="form-control" placeholder="推广返佣" name="linkProfit"-->
+                <!--[ngModel]="orderDetail&&orderDetail[0]&&orderDetail.profits&&orderDetail.profits.linkProfit?orderDetail.profits.linkProfit:''">-->
+                <!--</div>-->
+                <!--<div class="col-md-2">-->
+                <!--<label>培训费</label>-->
+                <!--<input type="text" disabled class="form-control" placeholder="培训费" name="trainProfit"-->
+                <!--[ngModel]="orderDetail&&orderDetail[0]&&orderDetail.profits&&orderDetail.profits.trainProfit?orderDetail.profits.trainProfit:''">-->
+                <!--</div>-->
+                <!--<div class="col-md-2">-->
+                <!--<label>团队返佣</label>-->
+                <!--<input type="text" disabled class="form-control" placeholder="团队返佣" name="teamProfit"-->
+                <!--[ngModel]="orderDetail&&orderDetail[0]&&orderDetail.profits&&orderDetail.profits.teamProfit?orderDetail.profits.teamProfit:''">-->
+                <!--</div>-->
+                <!--</div>-->
+                <!--<div class="row mt-md-2">-->
+                <!--<div class="col-md-2 offset-md-1">-->
+                <!--<label>收货地区</label>-->
+                <!--<ngx-address [(ngModel)]="address.id" [values]="address.values" [options]="address.options"-->
+                <!--name="address" [disabled]="isEdit"></ngx-address>-->
+                <!--</div>-->
+                <!--<div class="col-md-2">-->
+                <!--<label>收货详细地址</label>-->
+                <!--<input type="text" [disabled]="isEdit" class="form-control" placeholder="收货详细地址"-->
+                <!--name="detail" [(ngModel)]="addressForSubmit.detail">-->
+                <!--</div>-->
+                <!--<div class="col-md-2">-->
+                <!--<label>收货人</label>-->
+                <!--<input type="text" [disabled]="isEdit" class="form-control" placeholder="收货人"-->
+                <!--name="receiver" [(ngModel)]="addressForSubmit.receiver">-->
+                <!--</div>-->
+                <!--<div class="col-md-2">-->
+                <!--<label>收货手机号</label>-->
+                <!--<input type="text" [disabled]="isEdit" class="form-control" placeholder="收货手机号"-->
+                <!--name="mobileNumber" [(ngModel)]="addressForSubmit.mobileNumber">-->
+                <!--</div>-->
+                <!--</div>-->
+                <!--<div class="row mt-md-2">-->
+                <!--<div class="col-md-2 offset-md-1">-->
+                <!--<label>支付渠道</label>-->
+                <!--<input type="text" disabled class="form-control" placeholder="支付渠道" value="微信">-->
+                <!--</div>-->
+                <!--</div>-->
+                <!--&lt;!&ndash;<div class="row mt-md-2">&ndash;&gt;-->
+                <!--&lt;!&ndash;<div class="col-md-12">&ndash;&gt;-->
+                <!--&lt;!&ndash;<label>操作历史</label>&ndash;&gt;-->
+                <!--&lt;!&ndash;<ng2-smart-table [settings]="settings" [source]="source"></ng2-smart-table>&ndash;&gt;-->
+                <!--&lt;!&ndash;</div>&ndash;&gt;-->
+                <!--&lt;!&ndash;</div>&ndash;&gt;-->
+
+                <!--<div class="row mt-md-2">-->
+                <!--<div class="col-md-2 offset-md-6" *ngIf="isEdit">-->
+                <!--<button nbButton hero class="btn btn-danger full-width" status="danger" type="button"-->
+                <!--(click)="closeModal()">返回-->
+                <!--</button>-->
+                <!--</div>-->
+                <!--<div class="col-md-2 offset-md-4" *ngIf="!isEdit">-->
+                <!--<button nbButton hero class="btn btn-danger full-width" status="danger" type="button"-->
+                <!--(click)="closeModal()">返回-->
+                <!--</button>-->
+                <!--</div>-->
+                <!--<div class="col-md-2" *ngIf="!isEdit">-->
+                <!--&lt;!&ndash;<button nbButton hero class="btn btn-primary full-width" *ngIf="!isEdit" (click)="goToEdit()">编辑</button>&ndash;&gt;-->
+                <!--<button nbButton hero class="btn btn-primary full-width" status="success" type="submit">保存-->
+                <!--</button>-->
+                <!--</div>-->
+                <!--</div>-->
+                <!--</form>-->
+            </nb-card-body>
+        </nb-card>
+    </div>
+</div>

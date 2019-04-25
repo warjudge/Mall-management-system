@@ -1,0 +1,92 @@
+<div class="row">
+    <div class="col-md-12">
+        <nb-card class="mb-0">
+            <nb-card-header>
+                <span>{{ modalHeader }}</span>
+                <button class="close" aria-label="Close" (click)="closeModal()">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </nb-card-header>
+            <nb-card-body>
+                <form #d="ngForm" (ngSubmit)="onSubmit(d)">
+                    <div class="row">
+                        <div class="col-md-2 offset-md-1">
+                            <label>仓库序号</label>
+                            <input type="text" class="form-control" name="id"
+                                   [ngModel]="data&&data.id?data.id:''" [disabled]="true"
+                                   placeholder="xxx">
+                        </div>
+                        <div class="col-md-2">
+                            <label>仓库名称</label>
+                            <input type="text" class="form-control" name="warehouseName"
+                                   [ngModel]="data&&data.warehouseName?data.warehouseName:''"
+                                   placeholder="xxx">
+                        </div>
+                        <div class="col-md-2">
+                            <label>仓库备注</label>
+                            <input type="text" class="form-control" name="remarks"
+                                   [ngModel]="data&&data.remarks?data.remarks:''"
+                                   placeholder="xxx">
+                        </div>
+                        <div class="col-md-2">
+                            <label>用户ID</label>
+                            <input type="text" class="form-control {{user?'':'border-danger'}}" name="seller"
+                                   [ngModel]="data&&data.sellerId?data.sellerId:''" [disabled]="true"
+                                   (change)="updateUser($event)"
+                                   placeholder="">
+                        </div>
+                        <div class="col-md-2">
+                            <label>仓库总库存:{{data.sumCount}}</label>
+                        </div>
+                    </div>
+
+                    <!--<div class="row">-->
+                    <!--&lt;!&ndash;此处应有循环&ndash;&gt;-->
+                    <!--<div class="col-md-2 offset-md-1">-->
+                    <!--<label>商品类目</label>-->
+                    <!--<input type="text" disabled class="form-control" placeholder="">-->
+                    <!--</div>-->
+                    <!--<div class="col-md-2">-->
+                    <!--<label>商品编号</label>-->
+                    <!--<input type="text" disabled class="form-control" placeholder="10">-->
+                    <!--</div>-->
+                    <!--<div class="col-md-2">-->
+                    <!--<label>商品标题</label>-->
+                    <!--<input type="text" disabled class="form-control" placeholder="10">-->
+                    <!--</div>-->
+                    <!--<div class="col-md-2">-->
+                    <!--<label>库存数量</label>-->
+                    <!--<input type="text" disabled class="form-control" placeholder="10">-->
+                    <!--</div>-->
+                    <!--</div>-->
+
+                    <div class="row mt-md-3">
+                        <div class="col-md-12">
+                            <label>库存详情</label>
+                            <ng2-smart-table [settings]="settings" [source]="source"
+                                             (deleteConfirm)="onDeleteConfirm($event)"
+                                             (editConfirm)="onSaveConfirm($event)">
+                            </ng2-smart-table>
+                        </div>
+                    </div>
+
+                    <div class="row mt-md-3">
+                        <div class="col-md-2 offset-md-4 d-flex justify-content-center align-items-center">
+                            <button nbButton hero class="btn btn-danger full-width" status="danger" type="button"
+                                    (click)="cancel()"
+                                    *ngIf="!isEdit">返回
+                            </button>
+                        </div>
+                        <div class="col-md-2  d-flex justify-content-center align-items-center">
+                            <button nbButton hero class="btn btn-danger full-width" status="success" type="submit"
+                                    [disabled]="!user"
+                                    *ngIf="!isEdit">保存修改
+                            </button>
+                        </div>
+                    </div>
+                </form>
+
+            </nb-card-body>
+        </nb-card>
+    </div>
+</div>

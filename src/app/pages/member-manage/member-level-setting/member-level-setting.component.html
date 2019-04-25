@@ -1,0 +1,46 @@
+<div class="row">
+    <div class="col-md-12">
+        <nb-card class="mb-0">
+            <nb-card-header>
+                会员等级
+                <button class="close" aria-label="Close" (click)="refresh()">
+                    <div class="icon">
+                        <i class="eva-icon-container">
+                            <i [innerHTML]="icon | eva: { animationType: 'pulse' }"></i>
+                        </i>
+                    </div>
+                </button>
+            </nb-card-header>
+            <nb-card-body>
+                <form #f="ngForm" (ngSubmit)="onSubmit(f)">
+                    <div class="row">
+                        <div class="col-md-1 offset-md-1">
+                            <input name="inviteTimeLimit" type="tel" class="form-control"
+                                   [ngModel]="data&&data.inviteTimeLimit?data.inviteTimeLimit:''"/>
+                        </div>
+                        <div class="col-md-2 d-flex align-items-md-center">
+                            <div>小时内，被邀请人计入邀请人的成员</div>
+                        </div>
+                    </div>
+                    <div class="row mt-md-2">
+                        <div class="col-md-2 offset-md-1 d-flex align-items-md-center">
+                            <div>注册用户→会员:成功购买</div>
+                        </div>
+                        <div class="col-md-1">
+                            <input name="buyGoodsLimit" type="tel" class="form-control"
+                                   [ngModel]="data&&data.buyGoodsLimit?data.buyGoodsLimit:''"/>
+                        </div>
+                        <div class="col-md-2 d-flex align-items-md-center">
+                            <div>笔会员商品</div>
+                        </div>
+                    </div>
+                    <div class="row mt-md-2">
+                        <div class="col-md-2 offset-md-1">
+                            <button type="submit" class="btn btn-primary mt-4">保存</button>
+                        </div>
+                    </div>
+                </form>
+            </nb-card-body>
+        </nb-card>
+    </div>
+</div>

@@ -1,0 +1,135 @@
+<div class="row">
+    <div class="col-md-12">
+        <nb-card class="mb-0">
+            <nb-card-header>
+                <span>{{ modalHeader }}</span>
+                <button class="close" aria-label="Close" (click)="closeModal()">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </nb-card-header>
+            <nb-card-body>
+
+                <form #e="ngForm" (ngSubmit)="onSubmit(e)">
+                    <div class="row">
+                        <div class="col-md-4 offset-md-1">
+                            <label><span style="color: red;">*</span>广告标题</label>
+                            <input type="text" ngModel name="advertName" class="form-control" placeholder="请输入广告标题">
+                        </div>
+                    </div>
+
+                    <div class="row mt-md-2">
+                        <div class="col-md-4 offset-md-1">
+                            <label>广告位置</label>
+                            <select class="form-control" (change)="selectAdvertPosition($event)">
+                                <!--<select class="form-control" name="location" ngModel>-->
+                                <option></option>
+                                <option *ngFor="let item of advertPositionIdList"
+                                        [(value)]="item.id">{{item.name}}</option>
+                                <!--<option>轮播</option>-->
+                                <!--<option>左</option>-->
+                                <!--<option>右上</option>-->
+                                <!--<option>右下</option>-->
+                            </select>
+                        </div>
+                    </div>
+                    <div *ngFor="let item of advertPositionIdList">
+                        <div *ngIf="item.id===currentId">
+                            <div class="row mt-md-2">
+                                <div class="col-md-2 offset-md-1">
+                                    <label>广告长度</label>
+                                    <input type="text" name="length" disabled class="form-control"
+                                           [(ngModel)]="item.length">
+                                </div>
+                                <div class="col-md-2">
+                                    <label>广告宽度</label>
+                                    <input type="text" name="width" disabled class="form-control"
+                                           [(ngModel)]="item.width">
+                                </div>
+                                <div class="col-md-2">
+                                    <label>广告展示顺序</label>
+                                    <input type="tel" name="seq" disabled class="form-control" [(ngModel)]="item.seq"
+                                           onkeyup="this.value=this.value.replace(/[^\d]/g,'');this.value = this.value.replace(/^0{2,}/g, '0'); this.value=this.value.replace(/^0(\d+)/g,'$1');"
+                                           onafterpaste="this.value=this.value.replace(/[^\d]/g,'');this.value = this.value.replace(/^0{2,}/g, '0'); this.value=this.value.replace(/^0*(\d*)/g,'$1');">
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-md-4 offset-md-1">
+                                    <label>样式</label>
+                                    <input type="text" name="location" disabled class="form-control"
+                                           [(ngModel)]="item.location">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+
+                    <div class="row mt-md-2">
+                        <div class="col-md-4 offset-md-1">
+                            <label>广告图片</label>
+                            <div class="secondBorder">
+                                <div class="imgBorder" *ngFor="let t of showFileList">
+                                    <button class="imgButton" (click)="delImg(t)">
+
+                                    </button>
+                                    <img src="{{ t.src }}" class="img">
+                                    <label class="imgName">{{t.name}}</label>
+                                </div>
+                                <div class="imgBorder" *ngIf="showFileList.length===0">
+                                    <img src="assets/images/add.png" class="add">
+                                    <input (change)="fileChange($event)" class="selectFile" type="file"
+                                           placeholder="Upload file"
+                                           accept=".jpg,.gif,.png,.jpeg"/>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row mt-md-4">
+                        <div class="col-md-6 offset-md-1">
+                            <label>跳转链接(商品id或活动id)</label>
+                            <input type="text" class="form-control" name="advertLinkUrl" ngModel>
+                        </div>
+                    </div>
+
+                    <div class="row mt-md-2">
+                        <div class="col-md-2 offset-md-1">
+                            <label>启用时间</label>
+                            <input nbInput class="form-control" placeholder="开始时间" [owlDateTime]="formpicker1"
+                                   [owlDateTimeTrigger]="formpicker1" name="formpicker1" ngModel>
+                            <owl-date-time style="margin: 0" #formpicker1></owl-date-time>
+
+                        </div>
+                        <div class="col-md-2">
+                            <label>-</label>
+                            <input nbInput class="form-control" placeholder="结束时间" [owlDateTime]="formpicker2"
+                                   [owlDateTimeTrigger]="formpicker2" name="formpicker2" ngModel>
+                            <owl-date-time style="margin: 0" #formpicker2></owl-date-time>
+                        </div>
+                    </div>
+
+                    <div class="row mt-md-2">
+                        <div class="col-md-4 offset-md-1">
+                            <label>启用状态</label>
+                            <select class="form-control" ngModel name="isEnabled">
+                                <option></option>
+                                <option value="1">开启</option>
+                                <option value="0">关闭</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="row mt-md-4">
+                        <div class="col-md-2 offset-md-4">
+                            <button class="btn btn-hero-danger" type="button" (click)="closeModal()">返回</button>
+                        </div>
+                        <div class="col-md-2 ">
+                            <button class="btn btn-hero-success" type="submit">创建</button>
+                        </div>
+                    </div>
+                </form>
+
+            </nb-card-body>
+        </nb-card>
+    </div>
+</div>

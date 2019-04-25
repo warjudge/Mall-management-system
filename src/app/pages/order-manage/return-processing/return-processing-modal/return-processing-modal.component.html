@@ -1,0 +1,216 @@
+<div class="row">
+    <div class="col-md-12">
+        <nb-card class="mb-0">
+            <nb-card-header>
+                <span>{{ modalHeader }}</span>
+                <button class="close" aria-label="Close" (click)="closeModal()">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </nb-card-header>
+            <nb-card-body>
+                <form #l="ngForm" (ngSubmit)="onSubmit(l)">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <select class="form-control" ngModel name="address">
+                                <option></option>
+                                <option *ngFor="let i of this.data"
+                                        value="{{stringify(i)}}">{{i.receiver + ' ' + i.mobileNumber + ' ' + i.province + ' ' + i.city + ' ' + i.area + ' ' + i.detail}}</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="row mt-md-4">
+                        <div class="col-md-6 d-flex align-items-center justify-content-center">
+                            <button class="btn btn-hero-danger" type="button" (click)="cancel()">取消</button>
+                        </div>
+                        <div class="col-md-6 d-flex align-items-center justify-content-center">
+                            <button class="btn btn-hero-success" type="submit">同意退货</button>
+                        </div>
+                    </div>
+                </form>
+                <!--<div class="row">-->
+                <!--<div class="col-md-2 offset-md-1">-->
+                <!--<label>订单号</label>-->
+                <!--<input type="text" disabled class="form-control" name="orderId"-->
+                <!--[ngModel]="returnDetail&&returnDetail.orderId?returnDetail.orderId:''">-->
+                <!--</div>-->
+                <!--<div class="col-md-2">-->
+                <!--<label>退款单号</label>-->
+                <!--<input type="text" disabled class="form-control" name="returnId"-->
+                <!--[ngModel]="returnDetail&&returnDetail.returnId?returnDetail.returnId:''">-->
+                <!--</div>-->
+                <!--<div class="col-md-2">-->
+                <!--<label>退款类型</label>-->
+                <!--<input type="text" disabled class="form-control" name="returnState"-->
+                <!--[ngModel]="returnDetail&&returnDetail.returnState?returnDetail.returnState:''">-->
+                <!--</div>-->
+                <!--<div class="col-md-2">-->
+                <!--<label>退款退货状态</label>-->
+                <!--<select class="form-control" [disabled]="isEdit" name="status"-->
+                <!--[ngModel]="returnDetail&&returnDetail.status?returnDetail.status:''">-->
+                <!--<option value="REFUNDING">退款中</option>-->
+                <!--<option value="REFUNDSUCCESS">退款成功</option>-->
+                <!--<option value="REFUNDFAIL">退款失败</option>-->
+                <!--&lt;!&ndash;<option value="AGREEREFUND">已同意退款</option>&ndash;&gt;-->
+                <!--&lt;!&ndash;<option value="AGREERETURN">已同意退货</option>&ndash;&gt;-->
+                <!--&lt;!&ndash;<option value="AGAINREFUNDABLE">可再次申请退款</option>&ndash;&gt;-->
+                <!--&lt;!&ndash;<option value="AGAINRETURNABLE">可再次申请退货</option>&ndash;&gt;-->
+                <!--&lt;!&ndash;<option value="AGREERETURN">已同意退货</option>&ndash;&gt;-->
+                <!--&lt;!&ndash;<option value="APPLYRETURNNUMBER">已填写退货单号</option>&ndash;&gt;-->
+                <!--&lt;!&ndash;<option value="CONFIRMRECEIVED">卖家已确认收货</option>&ndash;&gt;-->
+                <!--</select>-->
+                <!--</div>-->
+                <!--<div class="col-md-2">-->
+                <!--<label>卖家同意退款退货状态</label>-->
+                <!--<select class="form-control" [disabled]="isEdit" name="sellerStatus"-->
+                <!--[ngModel]="returnDetail&&returnDetail.sellerStatus?returnDetail.sellerStatus:''">-->
+                <!--<option value="AGREEREFUND">已同意退款</option>-->
+                <!--<option value="AGREERETURN">已同意退货</option>-->
+                <!--<option value="AGAINREFUNDABLE">可再次申请退款</option>-->
+                <!--<option value="AGAINRETURNABLE">可再次申请退货</option>-->
+                <!--</select>-->
+                <!--</div>-->
+                <!--</div>-->
+                <!--<div class="row">-->
+                <!--&lt;!&ndash;<div class="col-md-2 offset-md-1">&ndash;&gt;-->
+                <!--&lt;!&ndash;<label>退货物流状态</label>&ndash;&gt;-->
+                <!--&lt;!&ndash;<select class="form-control" [disabled]="isEdit" name="expressStatus" [ngModel]="returnDetail&&returnDetail.status?returnDetail.status:''">&ndash;&gt;-->
+                <!--&lt;!&ndash;<option value="AGREERETURN">已同意退货</option>&ndash;&gt;-->
+                <!--&lt;!&ndash;<option value="APPLYRETURNNUMBER">已填写退货单号</option>&ndash;&gt;-->
+                <!--&lt;!&ndash;<option value="CONFIRMRECEIVED">卖家已确认收货</option>&ndash;&gt;-->
+                <!--&lt;!&ndash;</select>&ndash;&gt;-->
+                <!--&lt;!&ndash;</div>&ndash;&gt;-->
+                <!--<div class="col-md-2 offset-md-1">-->
+                <!--<label>买家用户ID</label>-->
+                <!--<input type="text" disabled class="form-control" name="buyer"-->
+                <!--[ngModel]="returnDetail&&returnDetail.buyer?returnDetail.buyer:''">-->
+                <!--</div>-->
+                <!--<div class="col-md-2">-->
+                <!--<label>手机号</label>-->
+                <!--<input type="text" disabled class="form-control" name="buyerPhone"-->
+                <!--[ngModel]="returnDetail&&returnDetail.buyerPhone?returnDetail.buyerPhone:''">-->
+                <!--</div>-->
+                <!--<div class="col-md-2">-->
+                <!--<label>卖家用户ID</label>-->
+                <!--<input type="text" disabled class="form-control" name="seller"-->
+                <!--[ngModel]="returnDetail&&returnDetail.seller?returnDetail.seller:''">-->
+                <!--</div>-->
+                <!--</div>-->
+                <!--<div class="row">-->
+                <!--<div class="col-md-2 offset-md-1">-->
+                <!--<label>退款退货总件数</label>-->
+                <!--<input type="text" disabled class="form-control" name="returnCount"-->
+                <!--[ngModel]="returnDetail&&returnDetail.returnGoodsData&&returnDetail.returnGoodsData.returnCount?returnDetail.returnGoodsData.returnCount:''">-->
+                <!--</div>-->
+                <!--<div class="col-md-2">-->
+                <!--<label>退货总金额</label>-->
+                <!--<input type="text" disabled class="form-control" name="totalPrice"-->
+                <!--[ngModel]="returnDetail&&returnDetail.refundData&&returnDetail.refundData.refundCount?returnDetail.refundData.refundCount:''">-->
+                <!--</div>-->
+                <!--</div>-->
+
+
+                <!--&lt;!&ndash;此处应有循环&ndash;&gt;-->
+                <!--<div class="row" *ngFor="let item of goodsVoList;let index = index">-->
+                <!--<div class="col-md-2 offset-md-1">-->
+                <!--<label>退款商品类目</label>-->
+                <!--<input type="text" disabled class="form-control" [name]="index+'categoryName'"-->
+                <!--[ngModel]="item.categoryName?item.categoryName:''">-->
+                <!--</div>-->
+                <!--<div class="col-md-2">-->
+                <!--<label>退款商品单价</label>-->
+                <!--<input type="text" disabled class="form-control" [name]="index+'retailPrice'"-->
+                <!--[ngModel]="item.retailPrice?item.retailPrice:''">-->
+                <!--</div>-->
+                <!--<div class="col-md-2">-->
+                <!--<label>退款退货件数</label>-->
+                <!--<input type="text" disabled class="form-control" [name]="index+'returnAmount'"-->
+                <!--[ngModel]="item.returnAmount?item.returnAmount:''">-->
+                <!--</div>-->
+                <!--</div>-->
+
+
+                <!--<div class="row">-->
+                <!--<div class="col-md-2 offset-md-1">-->
+                <!--<label>物流公司</label>-->
+                <!--<input type="text" [disabled]="isEdit" class="form-control" name="logisticsCompany"-->
+                <!--[ngModel]="returnDetail&&returnDetail.logisticsCompany?returnDetail.logisticsCompany:''">-->
+                <!--&lt;!&ndash;<label>物流方式</label>&ndash;&gt;-->
+                <!--&lt;!&ndash;<select class="form-control" [disabled]="isEdit">&ndash;&gt;-->
+                <!--&lt;!&ndash;<option></option>&ndash;&gt;-->
+                <!--&lt;!&ndash;<option>全部</option>&ndash;&gt;-->
+                <!--&lt;!&ndash;<option>退款</option>&ndash;&gt;-->
+                <!--&lt;!&ndash;<option>退款退货</option>&ndash;&gt;-->
+                <!--&lt;!&ndash;</select>&ndash;&gt;-->
+                <!--</div>-->
+                <!--<div class="col-md-2">-->
+                <!--<label>买家退货物流单号</label>-->
+                <!--<input type="text" [disabled]="isEdit" class="form-control" name="logisticsId"-->
+                <!--[ngModel]="returnDetail&&returnDetail.logisticsId?returnDetail.logisticsId:''">-->
+                <!--</div>-->
+                <!--</div>-->
+
+                <!--<div class="row">-->
+                <!--<div class="col-md-2 offset-md-1">-->
+                <!--<label>退货地区</label>-->
+                <!--<select class="form-control" [disabled]="isEdit" (onSelect)="selectAddress($event)"-->
+                <!--name="address">-->
+                <!--&lt;!&ndash;此处应有循环&ndash;&gt;-->
+                <!--<option *ngFor="let item of sellerAddressList;let index = index" [value]="index">-->
+                <!--(item.province?item.province:'')+(item.city?item.city:'')+(item.area?item.area:'')-->
+                <!--</option>-->
+                <!--</select>-->
+                <!--</div>-->
+                <!--<div *ngFor="let item of sellerAddressList;let index = index">-->
+                <!--<div class="col-md-2" *ngIf="currentIndex === index">-->
+                <!--<label>收货人</label>-->
+                <!--<input type="text" disabled class="form-control" [name]="index+'receiver'"-->
+                <!--[ngModel]="item.receiver?item.receiver:''">-->
+                <!--</div>-->
+                <!--<div class="col-md-2" *ngIf="currentIndex === index">-->
+                <!--<label>收货手机号</label>-->
+                <!--<input type="text" disabled class="form-control" [name]="index+'mobileNumber'"-->
+                <!--[ngModel]="item.mobileNumber?item.mobileNumber:''">-->
+                <!--</div>-->
+                <!--</div>-->
+                <!--</div>-->
+
+
+                <!--<div class="row">-->
+                <!--<div class="col-md-2 offset-md-1">-->
+                <!--<label>退款理由</label>-->
+                <!--<input type="text" disabled class="form-control" name="refundReason"-->
+                <!--[ngModel]="returnDetail&&returnDetail.refundData&&returnDetail.refundData.reason?returnDetail.refundData.reason:''">-->
+                <!--</div>-->
+                <!--<div class="col-md-2">-->
+                <!--<label>退货理由</label>-->
+                <!--<input type="text" disabled class="form-control" name="returnReason"-->
+                <!--[ngModel]="returnDetail&&returnDetail.returnGoodsData&&returnDetail.returnGoodsData.reason?returnDetail.returnGoodsData.reason:''">-->
+                <!--</div>-->
+                <!--</div>-->
+
+
+                <!--&lt;!&ndash;<div class="row">&ndash;&gt;-->
+                <!--&lt;!&ndash;<div class="col-md-12">&ndash;&gt;-->
+                <!--&lt;!&ndash;<label>操作历史</label>&ndash;&gt;-->
+                <!--&lt;!&ndash;<ng2-smart-table [settings]="settings" [source]="source"></ng2-smart-table>&ndash;&gt;-->
+                <!--&lt;!&ndash;</div>&ndash;&gt;-->
+                <!--&lt;!&ndash;</div>&ndash;&gt;-->
+
+                <!--<div class="row">-->
+                <!--<div class="col-md-2 offset-md-4">-->
+                <!--<button nbButton hero class="btn btn-danger full-width" *ngIf="!isEdit" type="submit">保存修改-->
+                <!--</button>-->
+                <!--</div>-->
+                <!--<div class="col-md-2">-->
+                <!--<button nbButton hero class="btn btn-danger full-width" (click)="closeModal()"-->
+                <!--type="button">-->
+                <!--返回-->
+                <!--</button>-->
+                <!--</div>-->
+                <!--</div>-->
+                <!--</form>-->
+
+            </nb-card-body>
+        </nb-card>
+    </div>
+</div>

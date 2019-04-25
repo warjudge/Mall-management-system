@@ -1,0 +1,56 @@
+<div class="row">
+    <div class="col-md-12">
+        <nb-card class="mb-0">
+            <nb-card-header>
+                <span>{{ modalHeader }}</span>
+                <button class="close" aria-label="Close" (click)="closeModal()">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </nb-card-header>
+            <nb-card-body>
+
+                <form #d="ngForm" (ngSubmit)="onSubmit(d)">
+                    <div class="row">
+                        <div class="col-md-2 offset-md-1">
+                            <label>运营者名称</label>
+                            <input type="text" name="nickname" class="form-control"
+                                   [ngModel]="dataUser&&dataUser.nickname?dataUser.nickname:''">
+                        </div>
+                        <div class="col-md-2">
+                            <label>登录账号</label>
+                            <input type="text" name="username" class="form-control"
+                                   [ngModel]="dataUser&&dataUser.username?data.username:''">
+                        </div>
+                        <div class="col-md-2">
+                            <label>登录密码</label>
+                            <input type="password" name="password" ngModel class="form-control" placeholder="修改密码">
+                        </div>
+                    </div>
+
+
+                    <div class="row">
+                        <div class="col-md-12">
+                            <label>运营者权限配置</label>
+                            <ng2-smart-table [settings]="settings" [source]="source"
+                                             (editConfirm)="onSaveConfirm($event)">
+                            </ng2-smart-table>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-2 offset-md-2 d-flex justify-content-center align-items-center">
+                            <button nbButton hero class="btn btn-danger full-width" *ngIf="!isEdit" type="submit">保存修改
+                            </button>
+                        </div>
+                        <div class="col-md-2 offset-md-4 d-flex justify-content-center align-items-center">
+                            <button nbButton hero class="btn btn-danger full-width" *ngIf="!isEdit" (click)="cancel()">
+                                返回
+                            </button>
+                        </div>
+                    </div>
+                </form>
+
+            </nb-card-body>
+        </nb-card>
+    </div>
+</div>

@@ -1,0 +1,72 @@
+<div class="row">
+    <div class="col-md-12">
+        <nb-card class="mb-0">
+            <nb-card-header>
+                <span>{{ modalHeader }}</span>
+                <button class="close" aria-label="Close" (click)="closeModal()">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </nb-card-header>
+            <nb-card-body>
+                <div class="row">
+                    <div class="col-md-2 offset-md-1">
+                        <label>结算周期</label>
+                        <input type="text" disabled class="form-control"
+                               [ngModel]="settlementDetail&&settlementDetail.cycleTime?settlementDetail.cycleTime:''">
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-3 offset-md-1">
+                        <label>结算单号</label>
+                        <input type="text" disabled class="form-control"
+                               [ngModel]="settlementDetail&&settlementDetail.settleNumber?settlementDetail.settleNumber:''">
+                    </div>
+                    <div class="col-md-2">
+                        <label>结算状态</label>
+                        <input type="text" disabled class="form-control"
+                               [ngModel]="settlementDetail&&settlementDetail.settleStatus?settlementDetail.settleStatus:''">
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-2 offset-md-1">
+                        <label>用户ID</label>
+                        <input type="text" disabled class="form-control"
+                               [ngModel]="settlementDetail&&settlementDetail.userId?settlementDetail.userId:''">
+                    </div>
+                    <div class="col-md-2">
+                        <label>户名</label>
+                        <input type="text" disabled class="form-control"
+                               [ngModel]="data&&data.realName?data.realName:''">
+                    </div>
+                    <div class="col-md-2">
+                        <label>银行</label>
+                        <input type="text" disabled class="form-control"
+                               [ngModel]="data&&data.bank?data.bank:''">
+                    </div>
+                    <div class="col-md-2">
+                        <label>银行卡号</label>
+                        <input type="text" disabled class="form-control"
+                               [ngModel]="data&&data.bankCard?data.bankCard:''">
+                    </div>
+                </div>
+
+                <div class="row mt-md-3">
+                    <div class="col-md-12">
+                        <ng2-smart-table [settings]="settings" [source]="source"></ng2-smart-table>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-2 offset-md-4">
+                        <button nbButton hero class="btn btn-danger full-width" *ngIf="!isEdit" (click)="closeModal()">
+                            返回
+                        </button>
+                    </div>
+                </div>
+
+            </nb-card-body>
+        </nb-card>
+    </div>
+</div>

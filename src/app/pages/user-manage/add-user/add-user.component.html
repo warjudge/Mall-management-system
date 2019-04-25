@@ -1,0 +1,214 @@
+<div class="row">
+    <div class="col-md-12">
+        <nb-card class="mb-0">
+            <nb-card-header>
+                <span>{{ modalHeader }}</span>
+                <button class="close" aria-label="Close" (click)="closeModal()">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </nb-card-header>
+            <nb-card-body>
+                <div class="row">
+                    <div class="col-md-2 offset-md-1">
+                        <label><span style="color: red">*</span>用户id</label>
+                        <input type="text" class="form-control" placeholder="xxx" [(ngModel)]="id">
+                    </div>
+                    <div class="col-md-2">
+                        <label><span style="color: red">*</span>用户名</label>
+                        <input type="text" class="form-control" placeholder="xxx" [(ngModel)]="nickName">
+                    </div>
+                    <div class="col-md-2">
+                        <label>用户头像</label>
+                        <input type="text" class="form-control" placeholder="图片地址" [(ngModel)]="avatar">
+                    </div>
+                    <!--<div class="col-md-2">-->
+                    <!--<label>订单状态</label>-->
+                    <!--<select class="form-control" disabled="!isEdit">-->
+                    <!--<option></option>-->
+                    <!--<option>未支付</option>-->
+                    <!--<option>待发货</option>-->
+                    <!--<option>已发货</option>-->
+                    <!--<option>交易成功</option>-->
+                    <!--<option>未支付取消</option>-->
+                    <!--<option>退货中</option>-->
+                    <!--<option>已退款</option>-->
+                    <!--<option>交易成功部分退款</option>-->
+                    <!--</select>-->
+                    <!--</div>-->
+                    <!--<div class="col-md-2">-->
+                    <!--<label>订单锁定状态</label>-->
+                    <!--<select class="form-control" disabled="!isEdit">-->
+                    <!--<option></option>-->
+                    <!--<option>锁定</option>-->
+                    <!--<option>未锁定</option>-->
+                    <!--</select>-->
+                    <!--</div>-->
+                </div>
+                <div class="row">
+                    <div class="col-md-2 offset-md-1">
+                        <label>真实姓名</label>
+                        <input type="text" class="form-control" placeholder="xxx" [(ngModel)]="actualName">
+                    </div>
+                    <div class="col-md-2">
+                        <label>身份证号</label>
+                        <input type="text" class="form-control" placeholder="xxx" [(ngModel)]="identityNumber">
+                    </div>
+                </div>
+
+
+                <div class="row">
+                    <div class="col-md-2 offset-md-1">
+                        <label>绑定手机号</label>
+                        <input type="text" class="form-control" placeholder="xxx" [(ngModel)]="phoneNumber">
+                    </div>
+                    <div class="col-md-2">
+                        <label><span style="color: red">*</span>绑定微信号</label>
+                        <input type="text" class="form-control" placeholder="xxx" [(ngModel)]="wxUnionId">
+                    </div>
+                    <!--<div class="col-md-2">-->
+                    <!--<label>购买数量</label>-->
+                    <!--<input type="text" disabled class="form-control" placeholder="购买数量">-->
+                    <!--</div>-->
+                </div>
+
+
+                <div class="row">
+                    <div class="col-md-2 offset-md-1">
+                        <label>用户余额</label>
+                        <input type="text" class="form-control" placeholder="xxx" [(ngModel)]="overage">
+                    </div>
+                    <div class="col-md-2">
+                        <label><span style="color: red">*</span>用户身份</label>
+                        <input type="text" class="form-control" placeholder="买家" [(ngModel)]="userRole">
+                    </div>
+                    <div class="col-md-2">
+                        <label><span style="color: red">*</span>会员等级</label>
+                        <select class="form-control" [(ngModel)]="level">
+                            <option>普通用户</option>
+                            <option>会员</option>
+                            <option>合伙人</option>
+                        </select>
+                    </div>
+                    <div class="col-md-2">
+                        <label><span style="color: red">*</span>用户状态</label>
+                        <select class="form-control" [(ngModel)]="status">
+                            <option>正常</option>
+                            <option>冻结资金</option>
+                            <option>冻结登录</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-2 offset-md-1">
+                        <label><span style="color: red">*</span>用户创建时间</label>
+                        <input type="text" class="form-control" placeholder="2018/10/25 10:00"
+                               [(ngModel)]="creationTime">
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-2 offset-md-1">
+                        <label>提现银行1</label>
+                        <input type="text" class="form-control" placeholder="xxx">
+                    </div>
+                    <div class="col-md-2">
+                        <label>银行卡号</label>
+                        <input type="text" class="form-control" placeholder="xxx">
+                    </div>
+                    <div class="col-md-1">
+                        <label>-</label>
+                        <button nbButton hero class="btn btn-danger full-width">添加提现银行</button>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-2 offset-md-1">
+                        <label>提现银行2</label>
+                        <input type="text" class="form-control" placeholder="xxx">
+                    </div>
+                    <div class="col-md-2">
+                        <label>银行卡号</label>
+                        <input type="text" class="form-control" placeholder="xxx">
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-1 offset-md-1">
+                        <label>收货地址1</label>
+                        <input type="text" class="form-control" placeholder="省">
+                    </div>
+                    <div class="col-md-1">
+                        <label>-</label>
+                        <input type="text" class="form-control" placeholder="市">
+                    </div>
+                    <div class="col-md-1">
+                        <label>-</label>
+                        <input type="text" class="form-control" placeholder="区">
+                    </div>
+                    <div class="col-md-1">
+                        <label>-</label>
+                        <input type="text" class="form-control" placeholder="详细地址">
+                    </div>
+                    <div class="col-md-1">
+                        <label>-</label>
+                        <input type="text" class="form-control" placeholder="收货手机">
+                    </div>
+                    <div class="col-md-1">
+                        <label>-</label>
+                        <input type="text" class="form-control" placeholder="收件人">
+                    </div>
+                    <div class="col-md-1">
+                        <label>-</label>
+                        <button nbButton hero class="btn btn-danger full-width">添加收货地址</button>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-1 offset-md-1">
+                        <label>收货地址2</label>
+                        <input type="text" class="form-control" placeholder="省">
+                    </div>
+                    <div class="col-md-1">
+                        <label>-</label>
+                        <input type="text" class="form-control" placeholder="市">
+                    </div>
+                    <div class="col-md-1">
+                        <label>-</label>
+                        <input type="text" class="form-control" placeholder="区">
+                    </div>
+                    <div class="col-md-1">
+                        <label>-</label>
+                        <input type="text" class="form-control" placeholder="详细地址">
+                    </div>
+                    <div class="col-md-1">
+                        <label>-</label>
+                        <input type="text" class="form-control" placeholder="收货手机">
+                    </div>
+                    <div class="col-md-1">
+                        <label>-</label>
+                        <input type="text" class="form-control" placeholder="收件人">
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-12">
+                        <label>登录历史</label>
+                        <ng2-smart-table [settings]="settings" [source]="source"
+                                         (deleteConfirm)="onDeleteConfirm($event)">
+                        </ng2-smart-table>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-2 offset-md-4">
+                        <button nbButton hero class="btn btn-danger full-width">添加</button>
+                    </div>
+                    <div class="col-md-2">
+                        <button nbButton hero class="btn btn-danger full-width">返回</button>
+                    </div>
+                </div>
+
+            </nb-card-body>
+        </nb-card>
+    </div>
+</div>
+

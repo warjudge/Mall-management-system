@@ -1,0 +1,191 @@
+<div class="row">
+    <div class="col-md-12">
+        <nb-card>
+            <nb-card-header>
+                商品管理
+                <button class="close" aria-label="Close" (click)="refresh()">
+                    <div class="icon">
+                        <i class="eva-icon-container">
+                            <i [innerHTML]="icon | eva: { animationType: 'pulse' }"></i>
+                        </i>
+                    </div>
+                </button>
+            </nb-card-header>
+            <nb-card-body>
+                <form #f="ngForm" (ngSubmit)="onSubmit(f,'search')">
+                    <div class="row mt-2" *ngIf="dataService.permissionData.GOODS.search">
+                        <div class="col-md-2 ">
+                            <label>商品创建时间</label>
+                            <input nbInput class="form-control" placeholder="开始时间" ngModel name="createTimeLower"
+                                   [owlDateTime]="formpicker"
+                                   [owlDateTimeTrigger]="formpicker">
+                            <owl-date-time #formpicker></owl-date-time>
+
+                        </div>
+                        <div class="col-md-2">
+                            <label>-</label>
+                            <input nbInput class="form-control" placeholder="结束时间" ngModel name="createTimeUpper"
+                                   [owlDateTime]="formpicker1"
+                                   [owlDateTimeTrigger]="formpicker1">
+                            <owl-date-time #formpicker1></owl-date-time>
+                        </div>
+                        <div class="col-md-2">
+                            <label>商品id</label>
+                            <input type="text" class="form-control" placeholder="商品编号" ngModel name="goodsNumberLike"
+                                   onkeyup="this.value=this.value.replace(/\s+/g,'')"
+                                   onafterpaste="this.value=this.value.replace(/\s+/g,'')">
+                        </div>
+                        <!--<div class="col-md-2">-->
+                        <!--<label>商品条形码</label>-->
+                        <!--<input type="text" class="form-control" name="goodsCodeLike" ngModel placeholder="商品条形码"-->
+                        <!--onkeyup="this.value=this.value.replace(/\s+/g,'')"-->
+                        <!--onafterpaste="this.value=this.value.replace(/\s+/g,'')">-->
+                        <!--</div>-->
+                        <div class="col-md-1">
+                            <label>商品类目(一级)</label>
+                            <select class="form-control" ngModel name="primaryCategory"
+                                    (change)="selectCategory($event)">
+                                <option></option>
+                                <option *ngFor="let c of primaryCategory">{{c.categoryName}}</option>
+                            </select>
+                        </div>
+                        <div class="col-md-1">
+                            <label>商品类目(二级)</label>
+                            <select class="form-control" ngModel name="secondCategory">
+                                <option></option>
+                                <option *ngFor="let c of secondaryCategory">{{c.categoryName}}</option>
+                            </select>
+                        </div>
+                        <div class="col-md-2">
+                            <label>卖家用户名</label>
+                            <input type="text" class="form-control" name="sellerLike" ngModel placeholder="卖家用户名"
+                                   onkeyup="this.value=this.value.replace(/\s+/g,'')"
+                                   onafterpaste="this.value=this.value.replace(/\s+/g,'')">
+                        </div>
+                    </div>
+
+                    <div class="row mt-2" *ngIf="dataService.permissionData.GOODS.search">
+                        <div class="col-md-2">
+                            <label>商品标题</label>
+                            <input type="text" class="form-control" name="simpleNameLike" ngModel placeholder="商品标题">
+                        </div>
+                        <!--<div class="col-md-1">-->
+                        <!--<label>商品库存</label>-->
+                        <!--<input type="tel" class="form-control" name="skuCountLower" min="0" ngModel-->
+                        <!--value="0"-->
+                        <!--onafterpaste="this.value=this.value.replace(/\D/g,'')">-->
+                        <!--</div>-->
+                        <div class="col-md-1">
+                            <label>商品库存</label>
+                            <input type="tel" class="form-control" name="skuCountUpper" ngModel
+                                   onkeyup="this.value=this.value.replace(/\D/g,'')"
+                                   onafterpaste="this.value=this.value.replace(/\D/g,'')">
+                        </div>
+                        <div class="col-md-2">
+                            <label>所属仓库名</label>
+                            <input type="text" class="form-control" name="warehouseLike" ngModel placeholder="所属仓库名">
+                        </div>
+                        <div class="col-md-1">
+                            <label>零售价</label>
+                            <input type="tel" class="form-control" name="retailPriceLower" min="0" ngModel
+                                   placeholder="0" onkeyup="this.value=this.value.replace(/\D/g,'')"
+                                   onafterpaste="this.value=this.value.replace(/\D/g,'')">
+                        </div>
+                        <div class="col-md-1">
+                            <label>-</label>
+                            <input type="tel" class="form-control" name="retailPriceUpper" ngModel placeholder="100"
+                                   onkeyup="this.value=this.value.replace(/\D/g,'')"
+                                   onafterpaste="this.value=this.value.replace(/\D/g,'')">
+                        </div>
+                        <div class="col-md-1">
+                            <label>供货价</label>
+                            <input type="tel" class="form-control" min="0" name="supplyCommodityPriceLower" ngModel
+                                   placeholder="0" onkeyup="this.value=this.value.replace(/\D/g,'')"
+                                   onafterpaste="this.value=this.value.replace(/\D/g,'')">
+                        </div>
+                        <div class="col-md-1">
+                            <label>-</label>
+                            <input type="tel" class="form-control" name="supplyCommodityPriceUpper" ngModel
+                                   placeholder="100" onkeyup="this.value=this.value.replace(/\D/g,'')"
+                                   onafterpaste="this.value=this.value.replace(/\D/g,'')">
+                        </div>
+                        <div class="col-md-1">
+                            <label>成本价</label>
+                            <input type="tel" class="form-control" name="costPriceLower" ngModel min="0"
+                                   placeholder="0" onkeyup="this.value=this.value.replace(/\D/g,'')"
+                                   onafterpaste="this.value=this.value.replace(/\D/g,'')">
+                        </div>
+                        <div class="col-md-1">
+                            <label>-</label>
+                            <input type="tel" class="form-control" name="costPriceUpper" ngModel placeholder="100"
+                                   onkeyup="this.value=this.value.replace(/\D/g,'')"
+                                   onafterpaste="this.value=this.value.replace(/\D/g,'')">
+                        </div>
+                    </div>
+
+                    <div class="row mt-2" *ngIf="dataService.permissionData.GOODS.search">
+                        <div class="col-md-2">
+                            <label>商品状态</label>
+                            <select class="form-control " name="goodsStateEquals" ngModel>
+                                <option></option>
+                                <option>上架</option>
+                                <option>下架</option>
+                            </select>
+                        </div>
+                        <div class="col-md-2">
+                            <label>会员商品</label>
+                            <select class="form-control" name="memberGoodsEquals" ngModel>
+                                <option></option>
+                                <option>会员商品</option>
+                                <option>非会员商品</option>
+                            </select>
+
+                        </div>
+                        <div class="col-md-2">
+                            <label>包邮</label>
+                            <select class="form-control" name="freePriceEquals" ngModel>
+                                <option></option>
+                                <option>支持包邮</option>
+                                <option>不支持包邮</option>
+                            </select>
+                        </div>
+                        <div class="col-md-2">
+                            <label>退款退货</label>
+                            <select class="form-control" name="isRemoveGoodsEquals" ngModel>
+                                <option></option>
+                                <option>支持退款退货</option>
+                                <option>不支持退款退货</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="row mt-2">
+                        <div class="col-md-5">
+                            <button type="submit" class="btn btn-primary"
+                                    *ngIf="dataService.permissionData.GOODS.search">查询
+                            </button>
+                            <button type="button" class="btn btn-primary ml-2"
+                                    *ngIf="dataService.permissionData.GOODS.output" (click)="onSubmit(f,'export')">导出报表
+                            </button>
+                            <button type="button" class="btn btn-primary ml-2"
+                                    *ngIf="dataService.permissionData.GOODS.add" (click)="add()">创建商品
+                            </button>
+                        </div>
+                    </div>
+
+                </form>
+
+            </nb-card-body>
+        </nb-card>
+
+        <nb-card>
+            <nb-card-body>
+                <ng2-smart-table [settings]="settings" [source]="source" (deleteConfirm)="onDeleteConfirm($event)">
+                </ng2-smart-table>
+            </nb-card-body>
+            <nb-card-footer>
+                已筛选数据{{count}}条。
+            </nb-card-footer>
+        </nb-card>
+
+    </div>
+</div>

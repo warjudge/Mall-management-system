@@ -1,0 +1,319 @@
+<div class="row">
+    <div class="col-md-12">
+        <nb-card>
+            <nb-card-header>
+                退货管理
+                <button class="close" aria-label="Close" (click)="refresh()">
+                    <div class="icon">
+                        <i class="eva-icon-container">
+                            <i [innerHTML]="icon | eva: { animationType: 'pulse' }"></i>
+                        </i>
+                    </div>
+                </button>
+            </nb-card-header>
+            <nb-card-body>
+                <form class="form" #e='ngForm' (ngSubmit)="onSubmit(e)">
+                    <div class="row" *ngIf="dataService.permissionData.ORDER.search">
+                        <div class="col-md-2 ">
+                            <label>退款订单创建时间</label>
+                            <input nbInput class="form-control" placeholder="选择时间" ngModel name="createTimeLower"
+                                   [owlDateTime]="formpicker"
+                                   [owlDateTimeTrigger]="formpicker">
+                            <owl-date-time style="margin: 0" #formpicker></owl-date-time>
+
+                        </div>
+                        <div class="col-md-2">
+                            <label>-</label>
+                            <input nbInput class="form-control" placeholder="选择时间" ngModel name="createTimeUpper"
+                                   [owlDateTime]="formpicker1"
+                                   [owlDateTimeTrigger]="formpicker1">
+                            <owl-date-time style="margin: 0" #formpicker1></owl-date-time>
+                        </div>
+                        <div class="col-md-2">
+                            <label>订单号</label>
+                            <input type="text" class="form-control" placeholder="订单号" ngModel name="orderIdLike">
+                        </div>
+                        <div class="col-md-2">
+                            <label>退款单号</label>
+                            <input type="text" class="form-control" placeholder="退款单号" ngModel
+                                   name="refundNumberLike">
+                        </div>
+                        <!--<div class="col-md-2">-->
+                            <!--<label>买家用户ID</label>-->
+                            <!--<input type="text" class="form-control" placeholder="买家用户ID" ngModel name="buyerLike">-->
+                        <!--</div>-->
+                        <div class="col-md-2">
+                            <label>卖家用户ID</label>
+                            <input type="text" class="form-control" placeholder="卖家用户ID" ngModel name="sellerLike">
+                        </div>
+                    </div>
+                    <div class="row mt-md-2" *ngIf="dataService.permissionData.ORDER.search">
+                        <div class="col-md-2">
+                            <label>退款金额</label>
+                            <input type="number" class="form-control" placeholder="退款金额" ngModel name="refundMoneyLower">
+                        </div>
+                        <div class="col-md-2">
+                            <label>-</label>
+                            <input type="number" class="form-control" placeholder="" ngModel name="refundMoneyUpper">
+                        </div>
+                        <div class="col-md-2">
+                            <label>退货物流单号</label>
+                            <input type="text" class="form-control" placeholder="退货物流单号" ngModel
+                                   name="logisticsNumberLike">
+                        </div>
+
+                        <div class="col-md-2">
+                            <label>退款退货状态</label>
+                            <select class="form-control" ngModel name="goodsStatusLike">
+                                <option value=""></option>
+                                <!--<option value="NOTPAY">未支付</option>-->
+                                <!--<option value="FAILURE">交易失败</option>-->
+                                <!--<option value="CANCEL">未支付取消</option>-->
+                                <!--<option value="NOTSEND">待发货</option>-->
+
+
+
+
+                                <!--<option value="REFUNDABLE">可申请退款</option>-->
+                                <!--<option value="REFUSEREFUND">可再次申请退款</option>-->
+                                <!--<option value="APPLYREFUND">已申请退款</option>-->
+                                <!--<option value="AGREEREFUND">已同意退款</option>-->
+                                <!--<option value="REFUNDSUCCESS">退款成功</option>-->
+                                <!--<option value="REFUNDFAIL">退款失败</option>-->
+                                <!--<option value="DELIVERY">已发货</option>-->
+                                <!--<option value="RECEIVED">买家已收货</option>-->
+                                <!--<option value="RETURNABLE">可申请退货</option>-->
+                                <!--<option value="REFUSERETURN">可再次申请退货</option>-->
+                                <!--<option value="APPLYRETURN">已申请退货</option>-->
+                                <!--<option value="AGREERETURN">已同意退货</option>-->
+                                <!--<option value="APPLYRETURNNUMBER">买家已发货</option>-->
+                                <!--<option value="CONFIRMRECEIVED">卖家已签收</option>-->
+
+
+
+                                <!--<option value="SUCCESSREFUNDPART">交易成功部分退款</option>-->
+                                <!--<option value="SUCCESSREFUTURNART">交易成功部分退货</option>-->
+                                <option value='NOTPAY'>待支付</option>
+                                <option value='CANCEL'>未支付取消</option>
+                                <option value='NOTSEND'>待发货</option>
+                                <option value='REFUNDABLE'>可申请退款</option>
+                                <option value='APPLYREFUND'>已申请退款</option>
+                                <option value='REFUSEREFUND'>已拒绝退款</option>
+                                <option value='AGREEREFUND'>已同意退款</option>
+                                <option value='SUCCESSREFUND'>退款成功</option>
+                                <option value='FAILREFUND'>退款失败</option>
+                                <option value='DELIVERY'>已发货</option>
+                                <option value='RETURNABLE'>可申请退货</option>
+                                <option value='APPLYRETURN'>已申请退货</option>
+                                <option value='REFUSERETURN'>已拒绝退货</option>
+                                <option value='AGREERETURN'>已同意退货</option>
+                                <option value='APPLYRETURNNUMBER'>买家已发货</option>
+                                <option value='CONFIRMRECEIVED'>卖家已签收</option>
+                                <option value='FAILRETURN'>退货失败</option>
+                                <option value='SUCCESS'>交易成功</option>
+                                <option value='SUCCESSRETURN'>退货成功</option>
+                                <option value='SUCCESSREFUNDPART'>交易成功(部分退款)</option>
+                                <option value='SUCCESSRETURNPART'>交易成功(部分退货)</option>
+                                
+                                
+                            </select>
+                        </div>
+
+                        <div class="col-md-2">
+                            <label>退款退货理由</label>
+                            <select class="form-control" ngModel name="reasonLike">
+                                <option></option>
+                                <!--<option>拍错了/不想要</option>-->
+                                <!--<option>卖家缺货</option>-->
+                                <!--<option>卖家未按时间发货</option>-->
+                                <!--<option>与卖家协商退货</option>-->
+                                <!--<option>系统理由：当前商品已售罄，金额已原路退回账户</option>-->
+                                <option>7天无理由</option>
+                                <option>描述不符</option>
+                                <option>未收到货</option>
+                                <option>其他</option>
+
+                            </select>
+                        </div>
+
+
+                    </div>
+                    <div class="row mt-md-2">
+                        <div class="col-md-2" *ngIf="dataService.permissionData.ORDER.search">
+                            <button type="submit" class="btn btn-hero-primary">查询</button>
+                        </div>
+                        <!--<div class="col-md-2" *ngIf="dataService.permissionData.ORDER.output">-->
+                        <!--<button type="button" class="btn btn-primary mt-4">导出报表</button>-->
+                        <!--</div>-->
+                    </div>
+                </form>
+            </nb-card-body>
+        </nb-card>
+        <nb-card>
+            <nb-card-body>
+                <div class="row py-md-3 bg-light">
+                    <div class="col-md-4 d-flex justify-content-center align-items-center">
+                        商品标题
+                    </div>
+                    <div class="col-md-1 d-flex justify-content-center align-items-center">
+                        单价
+                    </div>
+                    <div class="col-md-1 d-flex justify-content-center align-items-center">
+                        购买件数
+                    </div>
+                    <div class="col-md-1 d-flex justify-content-center align-items-center">
+                        退货件数
+                    </div>
+                    <div class="col-md-1 d-flex justify-content-center align-items-center">
+                        退货金额
+                    </div>
+                    <div class="col-md-1 d-flex justify-content-center align-items-center">
+                        退款、退货原因
+                    </div>
+                    <div class="col-md-1 d-flex justify-content-center align-items-center">
+                        状态
+                    </div>
+                    <div class="col-md-2 d-flex justify-content-center align-items-center">
+                        操作
+                    </div>
+                </div>
+
+                <div class="mt-md-5" *ngFor="let item of data | paginate: { itemsPerPage: 5, currentPage: p }">
+                    <div class="row py-md-3 border-top border-left border-right border-bottom border-dark">
+                        <div class="col-md-3">
+                            退款退货编号：{{item.refundNumber}}
+                        </div>
+                        <div class="col-md-3">
+                            订单编号：{{item.orderId}}
+                        </div>
+                        <div class="col-md-3">
+                            创建时间：{{dataService.timeStamp2formDta(item.createTime)}}
+                        </div>
+                        <div class="col-md-3">
+                            卖家ID：{{item.seller}}
+                        </div>
+                    </div>
+                    <div class="row  border-left border-right border-dark" *ngFor="let t of item.goodsBeans">
+                        <div class="col-md-4 border-right border-bottom border-dark py-md-3  align-items-center">
+                            <div class="row ">
+                                <div class="col-md-3 d-flexalign-items-center">
+                                    <img *ngIf="t.goodsImg.indexOf('?')===-1"
+                                         src="{{t.goodsImg+'?imageView2/1/w/64/h/64/q/75|imageslim'}}">
+                                    <img *ngIf="t.goodsImg.indexOf('?')!==-1"
+                                         src="{{t.goodsImg+'&imageView2/1/w/64/h/64/q/75|imageslim'}}">
+                                </div>
+                                <div class="col-md-9 d-flex justify-content-start align-items-center">
+                                    {{t.goodsTitle}}
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-1 border-right border-bottom py-md-3 d-flex justify-content-center align-items-center border-dark">
+                            {{t.goodsPrice ? toFixed(t.goodsPrice) : ''}}元
+                        </div>
+                        <div class="col-md-1 border-right border-bottom py-md-3 d-flex justify-content-center align-items-center border-dark">
+                            {{t.goodsAmount ? t.goodsAmount : ''}}
+                        </div>
+                        <div class="col-md-1 border-right border-bottom py-md-3 d-flex justify-content-center align-items-center border-dark">
+                            {{t.goodsReturnAmount ? t.goodsReturnAmount : ''}}
+                        </div>
+                        <div class="col-md-1 border-right border-bottom py-md-3 d-flex justify-content-center align-items-center border-dark">
+                            {{t.refundMoney ? toFixed(t.refundMoney) : ''}}元
+                        </div>
+                        <div class="col-md-1 border-right border-bottom py-md-3 d-flex justify-content-center align-items-center border-dark">
+                            {{t.reason && t.reason !== 'null' ? t.reason : ''}}
+                        </div>
+                        <div class="col-md-1 border-right border-bottom py-md-3 d-flex flex-column justify-content-center align-items-center border-dark">
+                            <div *ngIf="t.goodsStatus==='NOTPAY'">待支付</div>
+                            <div *ngIf="t.goodsStatus==='CANCEL'||t.goodsStatus==='FAILURE'">未支付取消</div>
+                            <div *ngIf="t.goodsStatus==='NOTSEND'">待发货</div>
+                            <div *ngIf="t.goodsStatus==='REFUNDABLE'">可申请退款</div>
+                            <div *ngIf="t.goodsStatus==='APPLYREFUND'">已申请退款</div>
+                            <div *ngIf="t.goodsStatus==='REFUSEREFUND'">已拒绝退款</div>
+                            <div *ngIf="t.goodsStatus==='AGREEREFUND'">已同意退款</div>
+                            <div *ngIf="t.goodsStatus==='SUCCESSREFUND'||t.goodsStatus==='REFUNDSUCCESS'">退款成功</div>
+                            <div *ngIf="t.goodsStatus==='FAILREFUND'||t.goodsStatus==='REFUNDFAIL'">退款失败</div>
+                            <div *ngIf="t.goodsStatus==='DELIVERY'">已发货</div>
+                            <div *ngIf="t.goodsStatus==='RETURNABLE'">可申请退货</div>
+                            <div *ngIf="t.goodsStatus==='APPLYRETURN'">已申请退货</div>
+                            <div *ngIf="t.goodsStatus==='REFUSERETURN'">已拒绝退货</div>
+                            <div *ngIf="t.goodsStatus==='AGREERETURN'">已同意退货</div>
+                            <div *ngIf="t.goodsStatus==='APPLYRETURNNUMBER'">买家已发货</div>
+                            <div *ngIf="t.goodsStatus==='CONFIRMRECEIVED'">卖家已签收</div>
+                            <div *ngIf="t.goodsStatus==='FAILRETURN'||t.goodsStatus==='RETURNFAIL'">退货失败</div>
+                            <div *ngIf="t.goodsStatus==='SUCCESS'||t.goodsStatus==='RECEIVED'">交易成功</div>
+                            <div *ngIf="t.goodsStatus==='SUCCESSRETURN'||t.goodsStatus==='RETURNSUCCESS'">退货成功</div>
+                            <div *ngIf="t.goodsStatus==='SUCCESSREFUNDPART'">交易成功(部分退款)</div>
+                            <div *ngIf="t.goodsStatus==='SUCCESSRETURNPART'">交易成功(部分退货)</div>
+                            
+                            <!--<div *ngIf="t.goodsStatus==='NOTPAY'">待支付</div>-->
+                            <!--<div *ngIf="t.goodsStatus==='CANCEL'">已取消</div>-->
+                            <!--<div *ngIf="t.goodsStatus==='FAILURE'">交易失败</div>-->
+                            <!--<div *ngIf="t.goodsStatus==='NOTSEND'">待发货</div>-->
+                            <!--<div *ngIf="t.goodsStatus==='REFUNDABLE'">可申请退款</div>-->
+                            <!--<div *ngIf="t.goodsStatus==='AGAINREFUNDABLE'">可再次申请退款</div>-->
+                            <!--<div *ngIf="t.goodsStatus==='APPLYREFUND'">已申请退款</div>-->
+                            <!--<div *ngIf="t.goodsStatus==='AGREEREFUND'">已同意退款</div>-->
+                            <!--<div *ngIf="t.goodsStatus==='REFUNDSUCCESS'">退款成功</div>-->
+                            <!--<div *ngIf="t.goodsStatus==='REFUNDFAIL'">退款失败</div>-->
+                            <!--<div *ngIf="t.goodsStatus==='DELIVERY'">已发货</div>-->
+                            <!--<div *ngIf="t.goodsStatus==='RECEIVED'">买家已收货</div>-->
+                            <!--<div *ngIf="t.goodsStatus==='RETURNABLE'">可申请退货</div>-->
+                            <!--<div *ngIf="t.goodsStatus==='APPLYRETURN'">已申请退货</div>-->
+                            <!--<div *ngIf="t.goodsStatus==='AGAINRETURNABLE'">可再次申请退货</div>-->
+
+                            <!--&lt;!&ndash;<div *ngIf="t.goodsStatus==='APPLYRETURNNUMBER'">已填写退货单号</div>&ndash;&gt;-->
+                            <!--<div *ngIf="t.goodsStatus==='CONFIRMRECEIVED'">卖家已签收</div>-->
+
+                            <!--<div *ngIf="t.goodsStatus==='REFUNDING'">退款中</div>-->
+                            <!--<div *ngIf="t.goodsStatus==='REFUNDFAUL'">退款成功</div>-->
+                            <!--<div *ngIf="t.goodsStatus==='RETURNSUCCESS'">退货成功</div>-->
+                            <!--<div *ngIf="t.goodsStatus==='RETURNFAIL'">退货失败</div>-->
+                            <!--<div *ngIf="t.goodsStatus==='REFUSEREFUND'">拒绝退款</div>-->
+                            <!--<div *ngIf="t.goodsStatus==='REFUSERETURN'">拒绝退货</div>-->
+                            <!--<div *ngIf="t.goodsStatus==='AGREERETURN'">等待买家退货</div>-->
+                            <!--<div *ngIf="t.goodsStatus==='APPLYRETURNNUMBER'">买家已发货</div>-->
+                            <!--<div *ngIf="t.goodsStatus==='REFUNDPART'">部分退款</div>-->
+                            <!--<div *ngIf="t.goodsStatus==='RETURNPART'">部分退货</div>-->
+                        </div>
+                        <div class="col-md-2  border-bottom py-md-3 d-flex justify-content-center align-items-center border-dark">
+                            <div *ngIf="t.goodsStatus==='APPLYREFUND'"
+                                 class="d-flex flex-column justify-content-center align-items-center">
+                                <button type="button" class="btn btn-hero-primary px-md-2 py-md-1"
+                                        (click)="agreeRefund(t)">同意退款
+                                </button>
+                                <button type="button" class="btn btn-hero-primary px-md-2 py-md-1 mt-md-2"
+                                        (click)="refuseRefund(t)">拒绝
+                                </button>
+                            </div>
+
+                            <div *ngIf="t.goodsStatus==='APPLYRETURN'"
+                                 class="d-flex flex-column justify-content-center align-items-center">
+                                <button type="button" class="btn btn-hero-primary px-md-2 py-md-1"
+                                        (click)="agreeReturnGoods(t)">同意退货
+                                </button>
+                                <button type="button" class="btn btn-hero-primary px-md-2 py-md-1 mt-md-2"
+                                        (click)="refuseReturnGoods(t)">拒绝
+                                </button>
+                            </div>
+                            <div *ngIf="t.goodsStatus==='APPLYRETURNNUMBER'"
+                                 class="d-flex flex-column justify-content-center align-items-center">
+                                <button type="button" class="btn btn-hero-primary px-md-2 py-md-1"
+                                        (click)="confirmReceive(t)">签收
+                                </button>
+                                <div class="d-block">
+                                    退货物流公司：{{t.logisticsCompany && t.logisticsCompany !== 'null' ? t.logisticsCompany : ''}}</div>
+                                <div class="d-block">
+                                    退货物流单号：{{t.logisticsNumber && t.logisticsNumber !== 'null' ? t.logisticsNumber : ''}}</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row mt-md-4  d-flex justify-content-center align-items-center">
+                    <pagination-controls (pageChange)="p = $event" previousLabel="上一页"
+                                         nextLabel="下一页"></pagination-controls>
+                </div>
+                <!--<ng2-smart-table [settings]="settings" [source]="source"></ng2-smart-table>-->
+            </nb-card-body>
+        </nb-card>
+    </div>
+</div>

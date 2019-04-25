@@ -1,0 +1,50 @@
+<div class="row">
+    <div class="col-md-12">
+        <nb-card class="mb-0">
+            <nb-card-header>
+                会员权益
+                <button class="close" aria-label="Close" (click)="refresh()">
+                    <div class="icon">
+                        <i class="eva-icon-container">
+                            <i [innerHTML]="icon | eva: { animationType: 'pulse' }"></i>
+                        </i>
+                    </div>
+                </button>
+            </nb-card-header>
+            <nb-card-body>
+                <form #f="ngForm" (ngSubmit)="onSubmit(f)">
+                    <div class="row">
+                        <div class="col-md-2 offset-md-1 d-flex align-items-md-center">
+                            <div>会员：购买金额=零售价-商品利润 &nbsp;&nbsp;*</div>
+                        </div>
+                        <div class="col-md-1">
+                            <input name="memberDiscount" type="text" class="form-control"
+                                   [ngModel]="data&&data.memberDiscount?data.memberDiscount:''"/>
+                        </div>
+                        <div class="col-md-2 d-flex align-items-md-center">
+                            <div>%</div>
+                        </div>
+                    </div>
+                    <div class="row" style="margin-top: 10px;">
+                        <div class="col-md-2 offset-md-1 d-flex align-items-md-center">
+                            <div>合伙人 ：购买金额=零售价-商品利润 &nbsp;*</div>
+                        </div>
+                        <div class="col-md-1">
+                            <input name="partnerDiscount" type="text" class="form-control"
+                                   [ngModel]="data&&data.partnerDiscount?data.partnerDiscount:''"/>
+                        </div>
+                        <div class="col-md-2 d-flex align-items-md-center">
+                            <div>%</div>
+                        </div>
+                    </div>
+
+                    <div class="row" style="margin-top: 10px;">
+                        <div class="col-md-2 offset-md-1">
+                            <button type="submit" class="btn btn-primary mt-4">保存</button>
+                        </div>
+                    </div>
+                </form>
+            </nb-card-body>
+        </nb-card>
+    </div>
+</div>

@@ -1,0 +1,76 @@
+<div class="row">
+    <div class="col-md-12">
+        <nb-card>
+            <nb-card-header>
+                活动管理
+                <button class="close" aria-label="Close" (click)="refresh()">
+                    <div class="icon">
+                        <i class="eva-icon-container">
+                            <i [innerHTML]="icon | eva: { animationType: 'pulse' }"></i>
+                        </i>
+                    </div>
+                </button>
+            </nb-card-header>
+            <nb-card-body>
+                <form #f="ngForm" (ngSubmit)="onSubmit(f)">
+
+                    <div class="row" *ngIf="dataService.permissionData.ACTIVITY.search">
+                        <div class="col-md-2 ">
+                            <label>启用时间</label>
+                            <input nbInput class="form-control" placeholder="选择时间" [owlDateTime]="formpicker"
+                                   [owlDateTimeTrigger]="formpicker" name="start" ngModel>
+                            <owl-date-time style="margin: 0" #formpicker></owl-date-time>
+
+                        </div>
+                        <div class="col-md-2">
+                            <label>-</label>
+                            <input nbInput class="form-control" placeholder="选择时间" [owlDateTime]="formpicker1"
+                                   [owlDateTimeTrigger]="formpicker1" name="end" ngModel>
+                            <owl-date-time style="margin: 0" #formpicker1></owl-date-time>
+                        </div>
+                        <div class="col-md-2">
+                            <label>活动id</label>
+                            <input type="text" class="form-control" placeholder="" name="activityId" ngModel
+                                   onkeyup="this.value=this.value.replace(/\s+/g,'')"
+                                   onafterpaste="this.value=this.value.replace(/\s+/g,'')">
+                        </div>
+                        <div class="col-md-2">
+                            <label>活动标题</label>
+                            <input type="text" class="form-control" placeholder="" name="activityTitle" ngModel
+                                   onkeyup="this.value=this.value.replace(/\s+/g,'')"
+                                   onafterpaste="this.value=this.value.replace(/\s+/g,'')">
+                        </div>
+                        <div class="col-md-2">
+                            <label>启用状态</label>
+                            <select class="form-control" name="state" ngModel>
+                                <option value=""></option>
+                                <option value="1">开启</option>
+                                <option value="0">关闭</option>
+                            </select>
+                        </div>
+                    </div>
+
+
+                    <div class="row">
+                        <div class="col-md-2">
+                            <button type="submit" class="btn btn-primary mt-4"
+                                    *ngIf="dataService.permissionData.ACTIVITY.search">查询
+                            </button>
+                        </div>
+                        <div class="col-md-2">
+                            <button type="button" class="btn btn-primary mt-4"
+                                    *ngIf="dataService.permissionData.ACTIVITY.add" (click)="createActivity()">创建活动
+                            </button>
+                        </div>
+                    </div>
+
+                </form>
+            </nb-card-body>
+        </nb-card>
+        <nb-card>
+            <nb-card-body>
+                <ng2-smart-table [settings]="settings" [source]="source"></ng2-smart-table>
+            </nb-card-body>
+        </nb-card>
+    </div>
+</div>

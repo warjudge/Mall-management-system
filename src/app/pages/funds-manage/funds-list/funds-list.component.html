@@ -1,0 +1,132 @@
+<div class="row">
+    <div class="col-md-12">
+        <nb-card>
+            <nb-card-body>
+                资金明细
+                <button class="close" aria-label="Close" (click)="refresh()">
+                    <div class="icon">
+                        <i class="eva-icon-container">
+                            <i [innerHTML]="icon | eva: { animationType: 'pulse' }"></i>
+                        </i>
+                    </div>
+                </button>
+            </nb-card-body>
+            <nb-card-body>
+                <form #f="ngForm" (ngSubmit)="onSubmit(f,'search')">
+
+                    <div class="row" *ngIf="dataService.permissionData.FUNDS.search">
+                        <div class="col-md-2 ">
+                            <label>资金结算创建时间</label>
+                            <input nbInput class="form-control" placeholder="选择时间" [owlDateTime]="formpicker"
+                                   [owlDateTimeTrigger]="formpicker" name="createTimeLower" ngModel>
+                            <owl-date-time style="margin: 0" #formpicker></owl-date-time>
+
+                        </div>
+                        <div class="col-md-2">
+                            <label>-</label>
+                            <input nbInput class="form-control" placeholder="选择时间" [owlDateTime]="formpicker1"
+                                   [owlDateTimeTrigger]="formpicker1" name="createTimeUpper" ngModel>
+                            <owl-date-time style="margin: 0" #formpicker1></owl-date-time>
+                        </div>
+                        <!--<div class="col-md-2">-->
+                            <!--<label>资金结算结束时间</label>-->
+                            <!--<input nbInput class="form-control" placeholder="选择时间" [owlDateTime]="formpicker2"-->
+                                   <!--[owlDateTimeTrigger]="formpicker2" name="endTimeLower" ngModel>-->
+                            <!--<owl-date-time style="margin: 0" #formpicker2></owl-date-time>-->
+
+                        <!--</div>-->
+                        <!--<div class="col-md-2">-->
+                            <!--<label>-</label>-->
+                            <!--<input nbInput class="form-control" placeholder="选择时间" [owlDateTime]="formpicker3"-->
+                                   <!--[owlDateTimeTrigger]="formpicker3" name="endTimeUpper" ngModel>-->
+                            <!--<owl-date-time style="margin: 0" #formpicker3></owl-date-time>-->
+                        <!--</div>-->
+                    </div>
+
+
+                    <div class="row" *ngIf="dataService.permissionData.FUNDS.search">
+                        <div class="col-md-2">
+                            <label>资金流水单号</label>
+                            <input type="text" class="form-control" name="orderIdLike" ngModel>
+                        </div>
+                        <div class="col-md-2">
+                            <label>用户ID</label>
+                            <input type="text" class="form-control" name="userIdLike" ngModel>
+                        </div>
+                        <div class="col-md-2">
+                            <label>用户名</label>
+                            <input type="text" class="form-control" name="usernameLike" ngModel>
+                        </div>
+                    </div>
+
+                    <div class="row" *ngIf="dataService.permissionData.FUNDS.search">
+                        <div class="col-md-2">
+                            <label>处理状态</label>
+                            <select class="form-control" name="statusEquals" ngModel>
+                                <option value="">全部</option>
+                                <option value="NOTPAY">待支付</option>
+                                <option value="CANCEL">已取消</option>
+                                <option value="FAILURE">交易失败</option>
+                                <option value="NOTSEND">待发货</option>
+                                <option value="REFUNDABLE">可申请退款</option>
+                                <option value="AGAINREFUNDABLE">可再次申请退款</option>
+                                <option value="APPLYREFUND">已申请退款</option>
+                                <option value="AGREEREFUND">已同意退款</option>
+                                <option value="DELIVERY">已发货</option>
+                                <option value="RECEIVED">买家已收货</option>
+                                <option value="RETURNABLE">可申请退货</option>
+                                <option value="APPLYRETURN">已申请退货</option>
+                                <option value="AGAINRETURNABLE">可再次申请退货</option>
+                                <option value="AGREERETURN">已同意退货</option>
+                                <option value="APPLYRETURNNUMBER">已填写退货单号</option>
+                                <option value="CONFIRMRECEIVED">卖家已确认收货</option>
+                            </select>
+                        </div>
+                        <div class="col-md-2">
+                            <label>资金类型</label>
+                            <select class="form-control" name="fundTypeEquals" ngModel>
+                                <option value="">全部</option>
+                                <option value="PAY">支付</option>
+                                <option value="EEFUND">退款</option>
+                                <option value="MEMBERPROFIT">会员返佣</option>
+                                <option value="INVITEPROFIT">推荐返佣</option>
+                                <option value="LINKPROFIT">推广返佣</option>
+                                <option value="TEAMPROFIT">团队返佣</option>
+                                <option value="TRAINPROFIT">培训费</option>
+                            </select>
+                        </div>
+                        <div class="col-md-1">
+                            <label>资金金额</label>
+                            <input type="text" class="form-control" name="fundLower" ngModel>
+                        </div>
+                        <div class="col-md-1">
+                            <label>-</label>
+                            <input type="text" class="form-control" name="fundUpper" ngModel>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-2">
+                            <button type="submit" class="btn btn-primary mt-4"
+                                    *ngIf="dataService.permissionData.FUNDS.search">搜索
+                            </button>
+                        </div>
+                        <div class="col-md-2">
+                            <button type="button" class="btn btn-primary mt-4"
+                                    *ngIf="dataService.permissionData.FUNDS.output"
+                                    (click)="onSubmit(f,'export')">导出报表
+                            </button>
+                        </div>
+                    </div>
+
+                </form>
+            </nb-card-body>
+        </nb-card>
+        <nb-card>
+            <nb-card-body>
+                <ng2-smart-table [settings]="settings" [source]="source">
+                </ng2-smart-table>
+            </nb-card-body>
+        </nb-card>
+    </div>
+</div>

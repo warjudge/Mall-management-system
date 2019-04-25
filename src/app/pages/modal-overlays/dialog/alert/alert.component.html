@@ -1,0 +1,11 @@
+<nb-card>
+    <nb-card-header>注意</nb-card-header>
+    <nb-card-body>
+        <!--<input #name nbInput placeholder="Name">-->
+        <label>{{message}}</label>
+    </nb-card-body>
+    <nb-card-footer>
+        <button nbButton status="danget" (click)="cancel()">取消</button>
+        <button nbButton status="success" (click)="submit()">确认</button>
+    </nb-card-footer>
+</nb-card>

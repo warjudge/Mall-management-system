@@ -1,0 +1,98 @@
+<div class="row">
+    <div class="col-md-12">
+        <nb-card class="mb-0">
+            <nb-card-header>
+                <span>{{ modalHeader }}</span>
+                <button class="close" aria-label="Close" (click)="closeModal()">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </nb-card-header>
+            <nb-card-body>
+                <div class="row">
+                    <div class="col-md-2 offset-md-1">
+                        <label>活动id</label>
+                        <input type="text" disabled class="form-control" placeholder="xxx">
+                    </div>
+                    <!--<div class="col-md-2">-->
+                        <!--<label>活动链接</label>-->
+                        <!--<input type="text" disabled class="form-control" placeholder="xxx">-->
+                    <!--</div>-->
+                    <!--<div class="col-md-1">-->
+                        <!--<label>-</label>-->
+                        <!--<button class="btn btn-small btn-primary mt-md-1" (click)="copyUrl()">复制活动链接</button>-->
+                    <!--</div>-->
+                </div>
+
+                <div class="row">
+                    <div class="col-md-2 offset-md-1">
+                        <label>活动标题</label>
+                        <input type="text" disabled class="form-control" placeholder="特价活动">
+                    </div>
+                    <div class="col-md-2">
+                        <label>活动图片比例</label>
+                        <input type="text" disabled class="form-control" placeholder="375*155pixel">
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-4 offset-md-1">
+                        <label>活动图片</label>
+                        <div class="secondBorder">
+                            <div class="imgBorder" *ngFor="let t of showFileList">
+                                <button class="imgButton" (click)="delImg(t)">
+
+                                </button>
+                                <img src="{{ t.src }}" class="img">
+                                <label class="imgName">{{t.name}}</label>
+                            </div>
+                            <div class="imgBorder">
+                                <img src="assets/images/add.png" class="add">
+                                <input (change)="fileChange($event)" class="selectFile" type="file"
+                                       placeholder="Upload file"
+                                       accept=".jpg,.gif,.png,.jpeg"/>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-2 offset-md-1">
+                        <label>启用时间</label>
+                        <input nbInput class="form-control" placeholder="Form Picker" [owlDateTime]="formpicker11"
+                               [owlDateTimeTrigger]="formpicker11">
+                        <owl-date-time style="margin: 0;z-index: 100000;" #formpicker11></owl-date-time>
+
+                    </div>
+                    <div class="col-md-2">
+                        <label>-</label>
+                        <input nbInput class="form-control" placeholder="Form Picker" [owlDateTime]="formpicker22"
+                               [owlDateTimeTrigger]="formpicker22">
+                        <owl-date-time style="margin: 0" #formpicker22></owl-date-time>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-4 offset-md-1">
+                        <label>启用状态</label>
+                        <select class="form-control">
+                            <option></option>
+                            <option>开启</option>
+                            <option>关闭</option>
+                        </select>
+                    </div>
+                </div>
+
+
+                <div class="row">
+                    <div class="col-md-2 offset-md-2">
+                        <button nbButton hero class="btn btn-danger full-width" *ngIf="!isEdit">保存修改</button>
+                    </div>
+                    <div class="col-md-2 offset-md-4">
+                        <button nbButton hero class="btn btn-danger full-width" *ngIf="!isEdit">返回</button>
+                    </div>
+                </div>
+
+            </nb-card-body>
+        </nb-card>
+    </div>
+</div>

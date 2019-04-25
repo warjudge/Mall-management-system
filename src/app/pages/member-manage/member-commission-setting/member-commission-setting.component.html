@@ -1,0 +1,98 @@
+<div class="row">
+    <div class="col-md-12">
+        <nb-card class="mb-0">
+            <nb-card-header>
+                会员权益
+                <button class="close" aria-label="Close" (click)="refresh()">
+                    <div class="icon">
+                        <i class="eva-icon-container">
+                            <i [innerHTML]="icon | eva: { animationType: 'pulse' }"></i>
+                        </i>
+                    </div>
+                </button>
+            </nb-card-header>
+            <nb-card-body>
+                <form #f="ngForm" (ngSubmit)="onSubmit(f)">
+                    <div class="row">
+                        <div class="col-md-2 offset-md-1 d-flex align-items-md-center">
+                            <div>会员返佣=商品利润&nbsp;&nbsp;&nbsp;&nbsp;*</div>
+                        </div>
+                        <div class="col-md-1">
+                            <input name="myselfRebate" type="text" class="form-control"
+                                   [ngModel]="data&&data.myselfRebate?data.myselfRebate:''"/>
+                        </div>
+                        <div class="col-md-2 d-flex align-items-md-center">
+                            <div>%元</div>
+                        </div>
+                    </div>
+                    <div class="row" style="margin-top: 10px;">
+                        <div class="col-md-2 offset-md-1 d-flex align-items-md-center">
+                            <div>推广返佣=商品利润&nbsp;&nbsp;&nbsp;&nbsp;*</div>
+                        </div>
+                        <div class="col-md-1">
+                            <input name="linkRebate" type="text" class="form-control"
+                                   [ngModel]="data&&data.linkRebate?data.linkRebate:''"/>
+                        </div>
+                        <div class="col-md-2 d-flex align-items-md-center">
+                            <div>%元</div>
+                        </div>
+                    </div>
+                    <div class="row" style="margin-top: 10px;">
+                        <div class="col-md-2 offset-md-1 d-flex align-items-md-center">
+                            <div>推荐返佣=商品利润&nbsp;&nbsp;&nbsp;&nbsp;*</div>
+                        </div>
+                        <div class="col-md-1">
+                            <input name="inviteRebate" type="text" class="form-control"
+                                   [ngModel]="data&&data.inviteRebate?data.inviteRebate:''"/>
+                        </div>
+                        <div class="col-md-2 d-flex align-items-md-center">
+                            <div>%元</div>
+                        </div>
+                    </div>
+                    <div class="row" style="margin-top: 10px;">
+                        <div class="col-md-2 offset-md-1 d-flex align-items-md-center">
+                            <div>团队返佣=商品利润&nbsp;&nbsp;&nbsp;&nbsp;*</div>
+                        </div>
+                        <div class="col-md-1">
+                            <input name="teamRebate" type="text" class="form-control"
+                                   [ngModel]="data&&data.teamRebate?data.teamRebate:''"/>
+                        </div>
+                        <div class="col-md-2 d-flex align-items-md-center">
+                            <div>%元</div>
+                        </div>
+                    </div>
+                    <div class="row" style="margin-top: 10px;">
+                        <div class="col-md-2 offset-md-1 d-flex align-items-md-center">
+                            <div>培训费:</div>
+                        </div>
+                        <div class="col-md-1">
+                            <input name="trainFee" type="text" class="form-control"
+                                   [ngModel]="data&&data.trainFee?data.trainFee:''"/>
+                        </div>
+                        <div class="col-md-2 d-flex align-items-md-center">
+                            <div>元</div>
+                        </div>
+                    </div>
+                    <!--<div class="row" style="margin-top: 10px;">-->
+                    <!--<div class="col-md-2 offset-md-1 d-flex align-items-md-center">-->
+                    <!--<div>人头费:</div>-->
+                    <!--</div>-->
+                    <!--<div class="col-md-1">-->
+                    <!--<input name="personnelFee" type="text" class="form-control"-->
+                    <!--[ngModel]="data&&data.personnelFee?data.personnelFee:''"/>-->
+                    <!--</div>-->
+                    <!--<div class="col-md-2 d-flex align-items-md-center">-->
+                    <!--<div>%元</div>-->
+                    <!--</div>-->
+                    <!--</div>-->
+
+                    <div class="row" style="margin-top: 10px;">
+                        <div class="col-md-2 offset-md-1">
+                            <button type="submit" class="btn btn-primary mt-4">保存</button>
+                        </div>
+                    </div>
+                </form>
+            </nb-card-body>
+        </nb-card>
+    </div>
+</div>

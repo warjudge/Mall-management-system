@@ -1,0 +1,93 @@
+<div class="row">
+    <div class="col-md-12">
+        <nb-card class="mb-0">
+            <nb-card-header>
+                <span>{{ modalHeader }}</span>
+                <button class="close" aria-label="Close" (click)="closeModal()">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </nb-card-header>
+            <nb-card-body>
+                <form #f="ngForm" (ngSubmit)="onSubmit(f)">
+                    <div class="row">
+                        <div class="col-md-2 offset-md-3 d-flex align-items-md-center">
+                            <div>后台类目名称</div>
+                        </div>
+                        <div class="col-md-4">
+                            <input name="name" [ngModel]="item?item.categoryName:''" type="text" class="form-control"
+                                   placeholder="后台类目名称">
+                        </div>
+                    </div>
+                    <div class="row mt-md-3">
+                        <div class="col-md-2 offset-md-3 d-flex align-items-md-center">
+                            <div>前台类目名称</div>
+                        </div>
+                        <div class="col-md-4">
+                            <input name="frontName" [ngModel]="item?item.frontName:''" type="text" class="form-control"
+                                   placeholder="前台类目名称">
+                        </div>
+                    </div>
+                    <div class="row mt-md-3">
+                        <div class="col-md-2 offset-md-3 d-flex align-items-md-center">
+                            <div>类目编码</div>
+                        </div>
+                        <div class="col-md-4">
+                            <input name="code" [ngModel]="item?item.categoryCode:''" type="text" class="form-control"
+                                   placeholder="类目编码">
+                        </div>
+                    </div>
+                    <div class="row mt-md-3" *ngIf="!isMain">
+                        <div class="col-md-2 offset-md-3 d-flex align-items-md-center">
+                            <div>推荐类目</div>
+                        </div>
+                        <div class="col-md-4">
+                            <ui-switch name="recommend" [checked]="false"
+                                       [ngModel]="item?item.recommend:''"></ui-switch>
+                        </div>
+                    </div>
+                    <div class="row mt-md-3">
+                        <div class="col-md-2 offset-md-3 d-flex align-items-md-center">
+                            <div>类目图片</div>
+                        </div>
+                    </div>
+
+
+                    <div class="row mt-md-3">
+                        <div class="col-md-6 offset-md-3 d-flex align-items-md-center">
+                            <div class="secondBorder">
+                                <div class="imgBorder" *ngFor="let t of showFileList">
+                                    <button class="imgButton" type="button" (click)="delImg(t)">&times;</button>
+                                    <img src="{{ t.src }}" class="img">
+                                    <label class="imgName">{{t.name}}</label>
+                                </div>
+                                <div class="imgBorder" *ngIf="showFileList.length===0">
+                                    <img src="assets/images/add.png" class="add">
+                                    <input (change)="fileChange($event)" class="selectFile" type="file"
+                                           placeholder="Upload file"
+                                           accept=".jpg,.gif,.png,.jpeg"/>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+
+                    <div class="row mt-md-4">
+                        <div class="col-md-2 offset-md-4">
+                            <button nbButton hero class="btn btn-primary full-width" status="info" (click)="cancel()">
+                                取消
+                            </button>
+                        </div>
+                        <div class="col-md-2">
+                            <!--<button nbButton hero class="btn btn-primary full-width" *ngIf="!isEdit" (click)="goToEdit()">-->
+                            <!--编辑-->
+                            <!--</button>-->
+                            <button nbButton hero class="btn btn-success full-width" status="success" type="submit">保存
+                            </button>
+
+                        </div>
+                    </div>
+                </form>
+            </nb-card-body>
+        </nb-card>
+    </div>
+</div>

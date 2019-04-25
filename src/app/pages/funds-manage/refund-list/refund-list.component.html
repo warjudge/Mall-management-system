@@ -1,0 +1,98 @@
+<div class="row">
+    <div class="col-md-12">
+        <nb-card>
+            <nb-card-header>
+                支付/退款明细
+                <button class="close" aria-label="Close" (click)="refresh()">
+                    <div class="icon">
+                        <i class="eva-icon-container">
+                            <i [innerHTML]="icon | eva: { animationType: 'pulse' }"></i>
+                        </i>
+                    </div>
+                </button>
+            </nb-card-header>
+            <nb-card-body>
+                <form #f="ngForm" (ngSubmit)="onSubmit(f,'search')">
+
+                    <div class="row" *ngIf="dataService.permissionData.FUNDS.search">
+                        <div class="col-md-2 ">
+                            <label>创建时间</label>
+                            <input nbInput class="form-control" placeholder="选择时间" [owlDateTime]="formpicker"
+                                   [owlDateTimeTrigger]="formpicker" name="createTimeLower" ngModel>
+                            <owl-date-time style="margin: 0" #formpicker></owl-date-time>
+
+                        </div>
+                        <div class="col-md-2">
+                            <label>-</label>
+                            <input nbInput class="form-control" placeholder="选择时间" [owlDateTime]="formpicker1"
+                                   [owlDateTimeTrigger]="formpicker1" name="createTimeUpper" ngModel>
+                            <owl-date-time style="margin: 0" #formpicker1></owl-date-time>
+                        </div>
+                    </div>
+
+
+                    <div class="row" *ngIf="dataService.permissionData.FUNDS.search">
+                        <div class="col-md-2">
+                            <label>业务订单号</label>
+                            <input type="text" class="form-control" name="orderIdLike" ngModel>
+                        </div>
+                        <div class="col-md-2">
+                            <label>支付流水号</label>
+                            <input type="text" class="form-control" name="payNumberLike" ngModel>
+                        </div>
+                        <div class="col-md-1">
+                            <label>支付金额</label>
+                            <input type="text" class="form-control" name="payPriceLower" ngModel>
+                        </div>
+                        <div class="col-md-1">
+                            <label>-</label>
+                            <input type="text" class="form-control" name="payPriceUpper" ngModel>
+                        </div>
+                    </div>
+
+                    <div class="row" *ngIf="dataService.permissionData.FUNDS.search">
+                        <div class="col-md-2">
+                            <label>用户id</label>
+                            <input type="text" class="form-control" name="userIdLike" ngModel>
+                        </div>
+                        <div class="col-md-2">
+                            <label>类型</label>
+                            <select class="form-control" name="typeEquals" ngModel>
+                                <option value="">全部</option>
+                                <option value="支付">支付</option>
+                                <option value="退款">退款</option>
+                            </select>
+                        </div>
+                        <div class="col-md-2">
+                            <label>支付渠道</label>
+                            <select class="form-control" name="payTypeEquals" ngModel>
+                                <option value=""></option>
+                                <option value="">微信</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-2">
+                            <button type="submit" class="btn btn-primary mt-4"
+                                    *ngIf="dataService.permissionData.FUNDS.search">查询
+                            </button>
+                        </div>
+                        <div class="col-md-2">
+                            <button type="button" class="btn btn-primary mt-4"
+                                    *ngIf="dataService.permissionData.FUNDS.output"
+                                    (click)="onSubmit(f,'export')">导出报表
+                            </button>
+                        </div>
+                    </div>
+
+                </form>
+            </nb-card-body>
+        </nb-card>
+        <nb-card>
+            <nb-card-body>
+                <ng2-smart-table [settings]="settings" [source]="source"></ng2-smart-table>
+            </nb-card-body>
+        </nb-card>
+    </div>
+</div>

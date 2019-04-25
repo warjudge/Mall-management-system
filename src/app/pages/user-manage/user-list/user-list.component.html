@@ -1,0 +1,126 @@
+<div class="row">
+    <div class="col-md-12">
+        <nb-card>
+            <nb-card-header>
+                用户列表
+                <button class="close" aria-label="Close" (click)="refresh()">
+                    <div class="icon">
+                        <i class="eva-icon-container">
+                            <i [innerHTML]="icon | eva: { animationType: 'pulse' }"></i>
+                        </i>
+                    </div>
+                </button>
+            </nb-card-header>
+            <nb-card-body>
+                <form class="form" #f="ngForm" (ngSubmit)="onSubmit(f,'search')">
+
+                    <div class="row" *ngIf="dataService.permissionData.USER.search">
+                        <div class="col-md-2">
+                            <label>用户创建时间</label>
+                            <input nbInput class="form-control input_time" placeholder="选择时间"
+                                   [owlDateTime]="formpicker1"
+                                   [owlDateTimeTrigger]="formpicker1" ngModel name="createTimeLower">
+                            <owl-date-time style="margin: 0" #formpicker1></owl-date-time>
+                        </div>
+                        <div class="col-md-2">
+                            <label>-</label>
+                            <input nbInput class="form-control input_time" placeholder="选择时间"
+                                   [owlDateTime]="formpicker2"
+                                   [owlDateTimeTrigger]="formpicker2" ngModel name="createTimeUpper">
+                            <owl-date-time style="margin: 0" #formpicker2></owl-date-time>
+                        </div>
+                        <div class="col-md-2">
+                            <label>上次登录时间</label>
+                            <input nbInput class="form-control" placeholder="选择时间" [owlDateTime]="formpicker3"
+                                   [owlDateTimeTrigger]="formpicker3" ngModel name="lastLoginTimeLower">
+                            <owl-date-time style="margin: 0" #formpicker3></owl-date-time>
+                        </div>
+                        <div class="col-md-2">
+                            <label>-</label>
+                            <input nbInput class="form-control" placeholder="选择时间" [owlDateTime]="formpicker4"
+                                   [owlDateTimeTrigger]="formpicker4" ngModel name="lastLoginTimeUpper">
+                            <owl-date-time style="margin: 0" #formpicker4></owl-date-time>
+                        </div>
+                        <div class="col-md-2">
+                            <label>用户id</label>
+                            <input type="text" class="form-control" placeholder="" ngModel name="userIdEquals">
+                        </div>
+                        <div class="col-md-2">
+                            <label>用户名</label>
+                            <input type="text" class="form-control" placeholder="" ngModel name="userNameEquals">
+                        </div>
+                    </div>
+
+                    <div class="row mt-md-2" *ngIf="dataService.permissionData.USER.search">
+                        <div class="col-md-2">
+                            <label>绑定手机号</label>
+                            <input type="text" class="form-control" placeholder="" ngModel name="phoneEquals">
+                        </div>
+                        <div class="col-md-2">
+                            <label>绑定微信号</label>
+                            <input type="text" class="form-control" placeholder="" ngModel name="weChatNumEquals">
+                        </div>
+                        <div class="col-md-2">
+                            <label>真实姓名</label>
+                            <input type="text" class="form-control" placeholder="" ngModel name="realNameEquals">
+                        </div>
+                        <div class="col-md-2">
+                            <label>身份证号</label>
+                            <input type="text" class="form-control" placeholder="" ngModel name="idCardEquals">
+                        </div>
+                        <div class="col-md-1">
+                            <label>用户余额</label>
+                            <input type="text" class="form-control" placeholder="100" ngModel name="remainMoneyLower">
+                        </div>
+                        <div class="col-md-1">
+                            <label>-</label>
+                            <input type="text" class="form-control" placeholder="200" ngModel name="remainMoneyUpper">
+                        </div>
+                    </div>
+
+                    <div class="row mt-md-2" *ngIf="dataService.permissionData.USER.search">
+                        <div class="col-md-2">
+                            <label>会员等级</label>
+                            <select class="form-control" ngModel name="rankEquals">
+                                <option></option>
+                                <option value="普通用户">普通用户</option>
+                                <option value="会员">会员</option>
+                                <option value="合伙人">合伙人</option>
+                            </select>
+                        </div>
+                        <div class="col-md-2">
+                            <label>用户状态</label>
+                            <select class="form-control" ngModel name="userStateEquals">
+                                <option></option>
+                                <option value="正常">正常</option>
+                                <option value="冻结资金">冻结资金</option>
+                                <!--<option value="冻结登录">冻结登录</option>-->
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="row mt-md-2">
+                        <div class="col-md-4">
+                            <button type="submit" class="btn btn-hero-primary"
+                                    *ngIf="dataService.permissionData.USER.search">查询
+                            </button>
+                            <button class="btn btn-hero-primary ml-md-4" type="button"
+                                    *ngIf="dataService.permissionData.USER.output" (click)="onSubmit(f,'export')">
+                                导出报表
+                            </button>
+                        </div>
+                    </div>
+
+
+                </form>
+            </nb-card-body>
+        </nb-card>
+        <nb-card>
+            <nb-card-body>
+                <ng2-smart-table [settings]="settings" [source]="source"></ng2-smart-table>
+                <div class="table_tip">已筛选数据{{total}}条，累计用户余额{{amount}}元。</div>
+            </nb-card-body>
+        </nb-card>
+    </div>
+</div>
+

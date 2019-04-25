@@ -1,0 +1,69 @@
+<div class="row">
+    <div class="col-md-12">
+        <nb-card class="mb-0">
+            <nb-card-header>
+                <span>{{ modalHeader }}</span>
+                <button class="close" aria-label="Close" (click)="closeModal()">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </nb-card-header>
+            <nb-card-body>
+                <div class="row">
+                    <div class="col-md-2 offset-md-1">
+                        <label>创建时间</label>
+                        <input type="text" disabled class="form-control"
+                               [ngModel]="refundDetail&&refundDetail.createTime?refundDetail.createTime:''">
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-3 offset-md-1">
+                        <label>业务订单号</label>
+                        <input type="text" disabled class="form-control"
+                               [ngModel]="refundDetail&&refundDetail.orderId?refundDetail.orderId:''">
+                    </div>
+                    <div class="col-md-3">
+                        <label>支付流水号</label>
+                        <input type="text" disabled class="form-control"
+                               [ngModel]="refundDetail&&refundDetail.payNumber?refundDetail.payNumber:''">
+                    </div>
+                    <div class="col-md-2">
+                        <label>类型</label>
+                        <input type="text" disabled class="form-control"
+                               [ngModel]="refundDetail&&refundDetail.type?refundDetail.type:''">
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-2 offset-md-1">
+                        <label>用户ID</label>
+                        <input type="text" disabled class="form-control"
+                               [ngModel]="refundDetail&&refundDetail.userId?refundDetail.userId:''">
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-2 offset-md-1">
+                        <label>支付金额</label>
+                        <input type="text" disabled class="form-control"
+                               [ngModel]="refundDetail&&refundDetail.payPrice?refundDetail.payPrice:''">
+                    </div>
+                    <div class="col-md-2">
+                        <label>支付渠道</label>
+                        <input type="text" disabled class="form-control"
+                               [ngModel]="refundDetail&&refundDetail.payType?refundDetail.payType:''">
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-2 offset-md-4">
+                        <button nbButton hero class="btn btn-danger full-width" *ngIf="!isEdit" (click)="closeModal()">
+                            返回
+                        </button>
+                    </div>
+                </div>
+
+            </nb-card-body>
+        </nb-card>
+    </div>
+</div>

@@ -1,0 +1,73 @@
+<div class="row">
+    <div class="col-md-12">
+        <nb-card class="mb-0">
+            <nb-card-header>
+                <span>{{ modalHeader }}</span>
+                <button class="close" aria-label="Close" (click)="closeModal()">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </nb-card-header>
+            <nb-card-body>
+
+                <form #e="ngForm" (ngSubmit)="onSubmit(e)">
+                    <div class="row">
+                        <div class="col-md-4 offset-md-1">
+                            <label><span style="color: red">*</span>广告位标题</label>
+                            <input type="text" name="name" ngModel class="form-control" placeholder="请输入广告位标题">
+                        </div>
+                    </div>
+
+                    <div class="row mt-md-2">
+                        <div class="col-md-2 offset-md-1">
+                            <label><span style="color: red">*</span>广告长度(像素)</label>
+                            <input type="tel" name="length" ngModel class="form-control" placeholder="请输入广告长度"
+                                   onkeyup="this.value=this.value.replace(/[^\d]/g,'');this.value = this.value.replace(/^0{2,}/g, '0'); this.value=this.value.replace(/^0(\d+)/g,'$1');"
+                                   onafterpaste="this.value=this.value.replace(/[^\d]/g,'');this.value = this.value.replace(/^0{2,}/g, '0'); this.value=this.value.replace(/^0*(\d*)/g,'$1');">
+                        </div>
+                        <div class="col-md-2">
+                            <label><span style="color: red">*</span>广告宽度(像素)</label>
+                            <input type="tel" name="width" ngModel class="form-control" placeholder="请输入广告宽度"
+                                   onkeyup="this.value=this.value.replace(/[^\d]/g,'');this.value = this.value.replace(/^0{2,}/g, '0'); this.value=this.value.replace(/^0(\d+)/g,'$1');"
+                                   onafterpaste="this.value=this.value.replace(/[^\d]/g,'');this.value = this.value.replace(/^0{2,}/g, '0'); this.value=this.value.replace(/^0*(\d*)/g,'$1');">
+                        </div>
+                        <div class="col-md-2">
+                            <label><span style="color: red">*</span>顺序</label>
+                            <input type="tel" name="seq" ngModel class="form-control"
+                                   onkeyup="this.value=this.value.replace(/[^\d]/g,'');this.value = this.value.replace(/^0{2,}/g, '0'); this.value=this.value.replace(/^0(\d+)/g,'$1');"
+                                   onafterpaste="this.value=this.value.replace(/[^\d]/g,'');this.value = this.value.replace(/^0{2,}/g, '0'); this.value=this.value.replace(/^0*(\d*)/g,'$1');">
+                        </div>
+                    </div>
+
+                    <div class="row mt-md-2">
+                        <div class="col-md-4 offset-md-1">
+                            <label><span style="color: red">*</span>样式</label>
+                            <select class="form-control" name="location" ngModel>
+                                <option></option>
+                                <option>轮播</option>
+                                <option>左</option>
+                                <option>右上</option>
+                                <option>右下</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="row mt-md-4">
+                        <div class="col-md-4 offset-md-1">
+                            <label>备注</label>
+                            <input type="text" name="remarks" ngModel class="form-control" placeholder="请输入备注">
+                        </div>
+                    </div>
+
+                    <div class="row mt-md-2">
+                        <div class="col-md-2 offset-md-4">
+                            <button class="btn btn-hero-danger" type="button" (click)="closeModal()">返回</button>
+                        </div>
+                        <div class="col-md-2 ">
+                            <button class="btn btn-hero-success" type="submit">创建</button>
+                        </div>
+                    </div>
+                </form>
+
+            </nb-card-body>
+        </nb-card>
+    </div>
+</div>

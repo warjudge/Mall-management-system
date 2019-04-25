@@ -1,0 +1,56 @@
+<div class="row">
+    <div class="col-md-12">
+        <nb-card class="mb-0">
+            <nb-card-header>
+                <span>{{ modalHeader }}</span>
+                <button class="close" aria-label="Close" (click)="closeModal()">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </nb-card-header>
+            <nb-card-body>
+                <form #f="ngForm" (ngSubmit)="onSubmit(f)">
+                    <div class="row">
+                        <div class="col-md-2 offset-md-1">
+                            <label>运营者名称</label>
+                            <input name="nickname" type="text" class="form-control" placeholder="请输入运营者名称"
+                                   [(ngModel)]="nickname">
+                        </div>
+                        <div class="col-md-2">
+                            <label>登录账号</label>
+                            <input name="username" type="text" class="form-control" placeholder="请输入登录账号"
+                                   [(ngModel)]="username">
+                        </div>
+                        <div class="col-md-2">
+                            <label>登录密码</label>
+                            <input name="password" type="password" class="form-control" placeholder="请输入登录密码"
+                                   [(ngModel)]="password">
+                        </div>
+                        <div class="col-md-2 d-flex align-items-md-center justify-content-center">
+                            <button nbButton hero class="btn btn-danger full-width" *ngIf="create" type="submit">创建</button>
+                        </div>
+                    </div>
+                </form>
+
+
+                <div class="row">
+                    <div class="col-md-12">
+                        <label>运营者权限配置</label>
+                        <ng2-smart-table [settings]="settings" [source]="source"
+                                         (editConfirm)="onSaveConfirm($event)">
+                        </ng2-smart-table>
+                    </div>
+                </div>
+
+                <div class="row mt-md-2">
+                    <!--<div  class="col-md-2 offset-md-2">-->
+                    <!--<button nbButton hero class="btn btn-danger full-width">创建</button>-->
+                    <!--</div>-->
+                    <div class="col-md-2 offset-md-5">
+                        <button nbButton hero class="btn btn-danger full-width" (click)="closeModal()">返回</button>
+                    </div>
+                </div>
+
+            </nb-card-body>
+        </nb-card>
+    </div>
+</div>

@@ -1,0 +1,377 @@
+<div class="row">
+    <div class="col-md-12">
+        <nb-card class="mb-0">
+            <nb-card-header>
+                <span>{{modalHeader}}</span>
+                <button class="close" aria-label="Close" (click)="closeModal()">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </nb-card-header>
+            <nb-card-body>
+                <form #f="ngForm" (ngSubmit)="onSubmit(f)">
+                    <div class="row">
+                        <div class="col-md-2" *ngIf="rowData">
+                            <label>商品编号</label>
+                            <input type="text" class="form-control" disabled
+                                   [ngModel]="rowData&&rowData.goodsId?rowData.goodsId:''" name="goodsId"
+                                   placeholder="商品编号">
+                        </div>
+                        <div class="col-md-2 ">
+                            <label>卖家ID</label>
+                            <input type="text" class="form-control" (change)="sellerChange($event)" disabled
+                                   (afterpaste)="sellerChange($event)" [disabled]="!isEdit"
+                                   [ngModel]="rowData&&rowData.sellerId?rowData.sellerId:defaultUid" name="vendorId"
+                                   placeholder="卖家用户名">
+                        </div>
+                        <!--<div class="col-md-2">-->
+                        <!--<label>商品条形码</label>-->
+                        <!--<input type="text" class="form-control" disabled-->
+                        <!--[ngModel]="rowData&&rowData.goodsCode?rowData.goodsCode:''" name="barCode"-->
+                        <!--placeholder="商品条形码">-->
+                        <!--</div>-->
+                    </div>
+                    <div class="row mt-md-2">
+                        <div class="col-md-2">
+                            <label>商品类目(一级类目)</label>
+                            <select class="form-control"
+                                    [ngModel]="rowData&&rowData.primaryCategory?rowData.primaryCategory:''"
+                                    (change)="selectCategory($event)" [disabled]="!isEdit"
+                                    name="primaryCategory">
+                                <option></option>
+                                <option *ngFor="let c of primaryCategory">{{c.categoryName}}</option>
+                            </select>
+                        </div>
+                        <div class="col-md-2">
+                            <label>商品类目(二级类目)</label>
+                            <select class="form-control" [disabled]="!isEdit"
+                                    [ngModel]="rowData&&rowData.secondaryCategory?rowData.secondaryCategory:''"
+                                    name="secondaryCategory">
+                                <option></option>
+                                <option *ngFor="let c of secondaryCategory">{{c.categoryName}}</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="row mt-md-2">
+                        <div class="col-md-6">
+                            <label>商品标题</label>
+                            <input type="text" class="form-control" maxlength="30" [disabled]="!isEdit"
+                                   [ngModel]="rowData&&rowData.simpleName?rowData.simpleName:''" name="simpleName"
+                                   placeholder="商品标题">
+                        </div>
+                    </div>
+                    <div class="row mt-md-2">
+                        <div class="col-md-2 ">
+                            <label>成本价(元)</label>
+                            <input type="tel" class="form-control" [(ngModel)]="costPrice" name="costPrice"
+                                   placeholder="成本价" [disabled]="!isEdit"
+                                   (keyup)="checkNumber($event,'costPrice')"
+                                   (afterpaste)="checkNumber($event,'costPrice')">
+                        </div>
+                        <!--<div class="col-md-2">-->
+                        <!--<label>成本价</label>-->
+                        <!--<div class="input-group">-->
+                        <!--<input type="tel" class="form-control" placeholder="成本价" [(ngModel)]="costPrice" name="costPrice"-->
+                        <!--placeholder="成本价" [disabled]="!isEdit"-->
+                        <!--(keyup)="checkNumber($event,'costPrice')"-->
+                        <!--(afterpaste)="checkNumber($event,'costPrice')">-->
+                        <!--<span class="input-group-append">-->
+                        <!--<button class="btn input-group-text" disabled style="color: #000;">-->
+                        <!--元-->
+                        <!--</button>-->
+                        <!--</span>-->
+                        <!--</div>-->
+                        <!--</div>-->
+                        <div class="col-md-2">
+                            <label>供货价(元)</label>
+                            <input type="tel" class="form-control" [(ngModel)]="supplyCommodityPrice"
+                                   name="supplyCommodityPrice"
+                                   placeholder="供货价" [disabled]="!isEdit"
+                                   (keyup)="checkNumber($event,'supplyCommodityPrice')"
+                                   (afterpaste)="checkNumber($event,'supplyCommodityPrice')"
+                                   (change)="tranForRule($event)">
+                        </div>
+                        <div class="col-md-2">
+                            <label>零售价(元)</label>
+                            <input type="tel" class="form-control" [(ngModel)]="retailPrice" name="retailPrice"
+                                   placeholder="零售价" [disabled]="!isEdit"
+                                   (keyup)="checkNumber($event,'retailPrice')"
+                                   (afterpaste)="checkNumber($event,'retailPrice')"
+                                   (change)="tranForRule($event)">
+                        </div>
+                    </div>
+                    <div class="row mt-md-2">
+                        <div class="col-md-2">
+                            <label>会员商品</label>
+                            <select class="form-control" [disabled]="!isEdit"
+                                    [ngModel]="rowData&&rowData.goodsAuthority?rowData.goodsAuthority:''"
+                                    (change)="memberCommodityChange($event)"
+                                    name="memberCommodity">
+                                <option></option>
+                                <option>非会员商品</option>
+                                <option>会员商品</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="row mt-md-2">
+                        <div class="col-md-2" *ngIf="isShowTrainFee">
+                            <label>培训费(元)</label>
+                            <input type="tel" class="form-control" [disabled]="benefitSetting" [(ngModel)]="trainFee"
+                                   name="trainFee"
+                                   placeholder="xxx"
+                                   (keyup)="checkNumber($event,'trainFee')"
+                                   (afterpaste)="checkNumber($event,'trainFee')"
+                                   (change)="isWithRule($event)">
+                        </div>
+                    </div>
+                    <div class="row mt-md-2" *ngIf="benefitSetting">
+                        <div class="col-md-2 ">
+                            <label>会员返佣比例（0%-100%）</label>
+                            <input type="text" class="form-control" [(ngModel)]="myselfRebate"
+                                   name="myselfRebate"
+                                   [disabled]="!isEdit"
+                                   (keyup)="checkNumber1($event,'myselfRebate')"
+                                   (afterpaste)="checkNumber1($event,'myselfRebate')">
+                        </div>
+                        <div class="col-md-2">
+                            <label>推荐返佣比例（0%-100%）</label>
+                            <input type="text" class="form-control" [(ngModel)]="inviteRebate"
+                                   name="inviteRebate"
+                                   [disabled]="!isEdit"
+                                   (keyup)="checkNumber1($event,'inviteRebate')"
+                                   (afterpaste)="checkNumber1($event,'inviteRebate')">
+                        </div>
+                        <div class="col-md-2">
+                            <label>推广返佣比例（0%-100%）</label>
+                            <input type="text" class="form-control" [(ngModel)]="linkRebate"
+                                   name="linkRebate"
+                                   [disabled]="!isEdit"
+                                   (keyup)="checkNumber1($event,'linkRebate')"
+                                   (afterpaste)="checkNumber1($event,'linkRebate')">
+                        </div>
+                        <div class="col-md-2">
+                            <label>团队返佣比例（0%-100%）</label>
+                            <input type="text" class="form-control" [(ngModel)]="teamRebate"
+                                   name="teamRebate"
+                                   [disabled]="!isEdit"
+                                   (keyup)="checkNumber1($event,'teamRebate')"
+                                   (afterpaste)="checkNumber1($event,'teamRebate')">
+                        </div>
+                    </div>
+                    <div class="row mt-md-2" *ngIf="benefitSetting">
+                        <div class="col-md-2">
+                            <label>会员返佣：</label>
+                            <label>{{myselfRebateYuan}}元</label>
+                        </div>
+                        <div class="col-md-2">
+                            <label>推荐返佣：</label>
+                            <label>{{inviteRebateYuan}}元</label>
+                        </div>
+                        <div class="col-md-2">
+                            <label>推广返佣：</label>
+                            <label>{{linkRebateYuan}}元</label>
+                        </div>
+                        <div class="col-md-2">
+                            <label>团队返佣：</label>
+                            <label>{{teamRebateYuan}}元</label>
+                        </div>
+                        <div class="col-md-2">
+                            <label>返佣总金额：</label>
+                            <label>{{totalRebateYuan}}元</label>
+                        </div>
+                    </div>
+                    <div class="row mt-md-2">
+                        <div class="col-md-4">
+                            <button hero nbButton [disabled]="!isEdit" class="btn" status="success" style="width: 100%"
+                                    type="button"
+                                    (click)="addSku()">添加库存
+                            </button>
+                        </div>
+                        <div class="col-md-2  d-flex align-items-center">
+                            <label class="title">商品总库存：{{skuSum}}</label>
+                        </div>
+                    </div>
+                    <div class="row mt-md-2 flex-wrap" *ngFor="let item of arrayOne(skuList);let i = index">
+                        <div class="col-md-2 ">
+                            <label>所属仓库</label>
+                            <!--<input type="text" class="form-control" ngModel name="warehouseName0{{i}}"-->
+                            <!--id="warehouseName0{{i}}"-->
+                            <!--placeholder="所属仓库">-->
+                            <select class="form-control"
+                                    name="warehouseName0{{i}}" [disabled]="!isEdit"
+                                    [value]="rowData&&rowData.warehousesList1[i]&&rowData.warehousesList1[i].right?rowData.warehousesList1[i].right:''"
+                                    [ngModel]="rowData&&rowData.warehousesList1[i]&&rowData.warehousesList1[i].right?rowData.warehousesList1[i].right:''"
+                                    (change)="warehouseChange('warehouseName0'+i,$event)"
+                                    id="warehouseName0{{i}}">
+                                <option></option>
+                                <option *ngFor="let w of warehouseList" id="{{w.id}}"
+                                        value="{{w.id}}">{{w.warehouseName}}</option>
+                            </select>
+                        </div>
+                        <div class="col-md-2">
+                            <label>仓库库存</label>
+                            <input type="tel" class="form-control" [disabled]="!isEdit"
+                                   [ngModel]="rowData&&rowData.warehousesList1[i]&&rowData.warehousesList1[i].middle?rowData.warehousesList1[i].middle:''"
+                                   name="skuCount0{{i}}" id="skuCount0{{i}}"
+                                   placeholder="仓库库存" (change)="skuChange($event)"
+                                   onkeyup="this.value=this.value.replace(/\D/g,'');this.value = this.value.replace(/^0{2,}/g, '0'); this.value=this.value.replace(/^0(\d+)/g,'$1');"
+                                   onafterpaste="this.value=this.value.replace(/\D/g,'');this.value = this.value.replace(/^0{2,}/g, '0'); this.value=this.value.replace(/^0*(\d*)/g,'$1');">
+                        </div>
+                    </div>
+                    <div class="row mt-md-2">
+                        <div class="col-md-12">
+                            <label>商品轮播图</label>
+                            <div class="secondBorder">
+                                <div class="imgBorder" *ngFor="let t of entrance[0].showFileList">
+                                    <button class="imgButton" [hidden]="!isEdit" (click)="delImg(t,'bigImg',$event)">
+                                        &times;
+                                    </button>
+                                    <img src="{{ t.src }}" class="img">
+                                    <label class="imgName">{{t.name}}</label>
+                                </div>
+                                <div class="imgBorder" [hidden]="!isEdit" *ngIf="entrance[0].showFileList.length<5">
+                                    <img src="assets/images/add.png" class="add">
+                                    <input (change)="fileChange($event,'bigImg',5)" class="selectFile" type="file"
+                                           multiple
+                                           name="img1"
+                                           placeholder="Upload file"
+                                           accept=".jpg,.gif,.png,.jpeg"/>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row mt-md-4">
+                        <div class="col-md-12">
+                            <label>商品描述</label>
+                            <textarea autosize type="text" class="form-control" [disabled]="!isEdit"
+                                      [ngModel]="rowData&&rowData.describeFont?rowData.describeFont:''"
+                                      name="describeFont"
+                                      placeholder="商品描述"></textarea>
+                            <!--<input type="text" class="form-control" [disabled]="!isEdit"-->
+                            <!--[ngModel]="rowData&&rowData.describeFont?rowData.describeFont:''" name="describeFont"-->
+                            <!--placeholder="商品描述">-->
+                            <!--<ckeditor [ngModel]="rowData&&rowData.describeFont?rowData.describeFont:''"-->
+                            <!--name="describeFont" [config]="config"></ckeditor>-->
+                            <!--<ngx-ckeditor (outputvalue)="onOutput($event)"></ngx-ckeditor>-->
+                        </div>
+                    </div>
+                    <div class="row mt-md-4">
+                        <div class="col-md-12">
+                            <label>商品详情图</label>
+                            <div class="secondBorder">
+                                <div class="imgBorder mt-md-4" *ngFor="let t of entrance[1].showFileList">
+                                    <button class="imgButton" [hidden]="!isEdit"
+                                            (click)="delImg(t,'describeImg',$event)">
+                                        &times;
+                                    </button>
+                                    <img src="{{ t.src }}" class="img">
+                                    <label class="imgName">{{t.name}}</label>
+                                </div>
+                                <div class="imgBorder mt-md-4" [hidden]="!isEdit">
+                                    <img src="assets/images/add.png" class="add">
+                                    <input (change)="fileChange($event,'describeImg',0)" class="selectFile" type="file"
+                                           multiple
+                                           placeholder="Upload file"
+                                           accept=".jpg,.gif,.png,.jpeg"/>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row mt-md-4">
+                        <div class="col-md-2">
+                            <label>包邮</label>
+                            <select class="form-control" [ngModel]="rowData&&rowData.freePrice?rowData.freePrice:'支持包邮'"
+                                    [disabled]="!isEdit" name="shipping">
+                                <!--<option></option>-->
+                                <option>支持包邮</option>
+                                <!--<option>不支持包邮</option>-->
+                            </select>
+                        </div>
+                        <div class="col-md-2">
+                            <label>退货退款</label>
+                            <select class="form-control" [disabled]="!isEdit"
+                                    [ngModel]="rowData&&rowData.isRemoveGoods?rowData.isRemoveGoods:''"
+                                    name="isRemoveGoods">
+                                <option></option>
+                                <option>支持退货</option>
+                                <option>不支持退货</option>
+                            </select>
+                        </div>
+                        <div class="col-md-2">
+                            <label>商品状态</label>
+                            <select class="form-control" [ngModel]="rowData&&rowData.isShow?rowData.isShow:''"
+                                    [disabled]="!isEdit" name="isShow">
+                                <option></option>
+                                <option>上架</option>
+                                <option>下架</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <!--<div class="row mt-md-2">-->
+                    <!--<div class="col-md-4 ">-->
+                    <!--<label>商品简述</label>-->
+                    <!--<input type="text" class="form-control" [disabled]="!isEdit"-->
+                    <!--[ngModel]="rowData&&rowData.fullName?rowData.fullName:''" name="fullName"-->
+                    <!--placeholder="商品简述">-->
+                    <!--</div>-->
+                    <!--</div>-->
+
+                    <!--<div class="row mt-md-2">-->
+                    <!--<div class="col-md-12">-->
+                    <!--<label>商品描述</label>-->
+                    <!--<ckeditor [ngModel]="rowData&&rowData.describeFont?rowData.describeFont:''"-->
+                    <!--name="describeFont" [config]="config"></ckeditor>-->
+                    <!--&lt;!&ndash;<ngx-ckeditor (outputvalue)="onOutput($event)"></ngx-ckeditor>&ndash;&gt;-->
+                    <!--</div>-->
+                    <!--</div>-->
+
+                    <!--<div class="row mt-md-4">-->
+                    <!--<div class="col-md-12">-->
+                    <!--<label>商品缩略图</label>-->
+                    <!--<div class="secondBorder">-->
+                    <!--<div class="imgBorder" *ngFor="let t of entrance[2].showFileList">-->
+                    <!--<button class="imgButton" [hidden]="!isEdit" (click)="delImg(t,'showGoodsImg')">-->
+                    <!--&times;-->
+                    <!--</button>-->
+                    <!--<img src="{{ t.src }}" class="img">-->
+                    <!--<label class="imgName">{{t.name}}</label>-->
+                    <!--</div>-->
+                    <!--<div class="imgBorder" [hidden]="!isEdit" *ngIf="entrance[2].showFileList.length===0">-->
+                    <!--<img src="assets/images/add.png" class="add">-->
+                    <!--<input (change)="fileChange($event,'showGoodsImg')" class="selectFile" type="file"-->
+                    <!--placeholder="Upload file"-->
+                    <!--accept=".jpg,.gif,.png,.jpeg"/>-->
+                    <!--</div>-->
+                    <!--</div>-->
+                    <!--</div>-->
+                    <!--</div>-->
+
+                    <div class="row mt-md-4" [hidden]="!isEdit">
+                        <div class="col-md-2 offset-md-4">
+                            <button nbButton hero class="btn-demo btn-danger" type="button" (click)="closeModal()"
+                                    status="danger" style="width: 100%">取消
+                            </button>
+
+                        </div>
+                        <div class="col-md-2">
+                            <button nbButton hero class="btn-demo btn-primary" type="submit" style="width: 100%">保存
+                            </button>
+
+                        </div>
+                    </div>
+                    <div class="row mt-md-4" [hidden]="isEdit">
+                        <div class="col-md-2 offset-md-5">
+                            <button nbButton hero class="btn-demo btn-danger" type="button" (click)="closeModal()"
+                                    status="danger" style="width: 100%">
+                                返回
+                            </button>
+                        </div>
+                    </div>
+
+                </form>
+
+            </nb-card-body>
+        </nb-card>
+    </div>
+</div>

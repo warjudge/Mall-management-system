@@ -1,0 +1,99 @@
+<div class="row">
+    <div class="col-md-12">
+        <nb-card class="mb-0">
+            <nb-card-header>
+                <span>{{ modalHeader }}</span>
+                <button class="close" aria-label="Close" (click)="closeModal()">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </nb-card-header>
+            <nb-card-body>
+
+                <div class="row">
+                    <div class="col-md-2 offset-md-1">
+                        <label><span style="color: red">*</span>用户id</label>
+                        <input type="text" class="form-control" placeholder="xxx">
+                    </div>
+                    <div class="col-md-2">
+                        <label><span style="color: red">*</span>用户名</label>
+                        <input type="text" class="form-control" placeholder="支付单号">
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-2 offset-md-1">
+                        <label>用户余额</label>
+                        <input type="text" class="form-control" placeholder="xxx">
+                    </div>
+                    <div class="col-md-2">
+                        <label><span style="color: red">*</span>用户身份</label>
+                        <input type="text" class="form-control" placeholder="买家">
+                    </div>
+                    <div class="col-md-2">
+                        <label><span style="color: red">*</span>会员等级</label>
+                        <input type="text" class="form-control" placeholder="会员">
+                    </div>
+                    <div class="col-md-2">
+                        <label><span style="color: red">*</span>用户状态</label>
+                        <select class="form-control">
+                            <option></option>
+                            <option>正常</option>
+                            <option>冻结资金</option>
+                            <option>冻结登录</option>
+                        </select>
+                    </div>
+                </div>
+
+
+                <div class="row">
+                    <div class="col-md-2 offset-md-1">
+                        <label>会员返佣金额</label>
+                        <input type="text" class="form-control" placeholder="xxx">
+                    </div>
+                    <div class="col-md-2">
+                        <label>推荐返佣金额</label>
+                        <input type="text" class="form-control" placeholder="xxx">
+                    </div>
+                    <div class="col-md-2">
+                        <label>推广返佣金额</label>
+                        <input type="text" class="form-control" placeholder="xxx">
+                    </div>
+                    <div class="col-md-2">
+                        <label>培训费</label>
+                        <input type="text" class="form-control" placeholder="xxx">
+                    </div>
+                </div>
+
+
+                <div class="row">
+                    <div class="col-md-12">
+                        <label>邀请会员数</label>
+                        <ng2-smart-table [settings]="settings" [source]="source1"
+                                         (deleteConfirm)="onDeleteConfirm($event)">
+                        </ng2-smart-table>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-12">
+                        <label>邀请用户数</label>
+                        <ng2-smart-table [settings]="settings" [source]="source2"
+                                         (deleteConfirm)="onDeleteConfirm($event)">
+                        </ng2-smart-table>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-2 offset-md-4">
+                        <button nbButton hero class="btn btn-danger full-width">添加</button>
+
+                    </div>
+                    <div class="col-md-2">
+                        <button nbButton hero class="btn btn-danger full-width">返回</button>
+                    </div>
+                </div>
+
+            </nb-card-body>
+        </nb-card>
+    </div>
+</div>

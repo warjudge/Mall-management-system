@@ -1,0 +1,112 @@
+<div class="row">
+    <div class="col-md-12">
+        <nb-card class="mb-0">
+            <nb-card-header>
+                <span>{{ modalHeader }}</span>
+                <button class="close" aria-label="Close" (click)="closeModal()">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </nb-card-header>
+            <nb-card-body>
+                <form #l="ngForm" (ngSubmit)="onSubmit(l)">
+                    <div class="row">
+                        <div class="col-md-2 offset-md-1">
+                            <label>模板序号</label>
+                            <input type="text" class="form-control" placeholder="请输入模板序号" name="id" ngModel>
+                        </div>
+                        <div class="col-md-2">
+                            <label>微信模板id</label>
+                            <input type="text" class="form-control" placeholder="请输入微信模板id" name="templateId" ngModel>
+                        </div>
+                    </div>
+
+                    <div class="row mt-md-2">
+                        <div class="col-md-4 offset-md-1">
+                            <label>消息标题</label>
+                            <input type="text" class="form-control" placeholder="请输入消息模板" name="title" ngModel>
+                        </div>
+                    </div>
+
+                    <div class="row mt-md-2">
+                        <div class="col-md-4 offset-md-1">
+                            <div>消息详细内容</div>
+                        </div>
+                    </div>
+
+                    <div class="row mt-md-2">
+                        <div class="col-md-2 offset-md-1">
+                            <input type="text" class="form-control" placeholder="下单时间" name="key1" ngModel>
+                        </div>
+                        <div class="col-md-6">
+                            <input type="text" class="form-control" placeholder="" name="val1" ngModel>
+                        </div>
+                    </div>
+                    <div class="row mt-md-2">
+                        <div class="col-md-2 offset-md-1">
+                            <input type="text" class="form-control" placeholder="订单编号" name="key2" ngModel>
+                        </div>
+                        <div class="col-md-6">
+                            <input type="text" class="form-control" placeholder="" name="val2" ngModel>
+                        </div>
+                    </div>
+                    <div class="row mt-md-2">
+                        <div class="col-md-2 offset-md-1">
+                            <input type="text" class="form-control" placeholder="订单金额" name="key3" ngModel>
+                        </div>
+                        <div class="col-md-6">
+                            <input type="text" class="form-control" placeholder="" name="val3" ngModel>
+                        </div>
+                    </div>
+                    <div class="row mt-md-2">
+                        <div class="col-md-2 offset-md-1">
+                            <input type="text" class="form-control" placeholder="订单状态" name="key4" ngModel>
+                        </div>
+                        <div class="col-md-6">
+                            <input type="text" class="form-control" placeholder="" name="val4" ngModel>
+                        </div>
+                    </div>
+                    <div class="row mt-md-2">
+                        <div class="col-md-2 offset-md-1">
+                            <input type="text" class="form-control" placeholder="商品标题" name="key5" ngModel>
+                        </div>
+                        <div class="col-md-6">
+                            <input type="text" class="form-control" placeholder="" name="val5" ngModel>
+                        </div>
+                    </div>
+
+                    <div class="row mt-md-2">
+                        <div class="col-md-6 offset-md-1">
+                            <label>消息备注</label>
+                            <input type="text" class="form-control" placeholder="" name="remark" ngModel>
+                        </div>
+                    </div>
+
+                    <div class="row mt-md-2">
+                        <div class="col-md-4 offset-md-1">
+                            <label>跳转链接</label>
+                            <input type="text" class="form-control" placeholder="" name="url" ngModel>
+                        </div>
+                    </div>
+
+                    <div class="row mt-md-2">
+                        <div class="col-md-2 offset-md-1">
+                            <label>通知用户类型</label>
+                            <nb-checkbox ngModel name="userType">买家</nb-checkbox>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-2 offset-md-4">
+                            <button class="btn btn-hero-danger" type="button"
+                                    (click)="closeModal()">返回
+                            </button>
+                        </div>
+                        <div class="col-md-2 ">
+                            <button class="btn btn-hero-success" type="submit">创建</button>
+                        </div>
+                    </div>
+                </form>
+            </nb-card-body>
+        </nb-card>
+    </div>
+</div>

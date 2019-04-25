@@ -1,0 +1,117 @@
+<div class="row">
+    <div class="col-md-12">
+        <nb-card class="mb-0">
+            <nb-card-header>
+                <span>{{ modalHeader }}</span>
+                <button class="close" aria-label="Close" (click)="closeModal()">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </nb-card-header>
+            <nb-card-body>
+                <form #l="ngForm" (ngSubmit)="onSubmit(l)">
+                    <div class="row">
+                        <div class="col-md-2 offset-md-1">
+                            <label>用户id:{{memberDetail && memberDetail.userId ? memberDetail.userId : ''}}</label>
+                        </div>
+                        <div class="col-md-2">
+                            <label>用户身份：{{memberDetail && memberDetail.sellerOrNot === true ? '卖家' : '买家'}}
+                            </label>
+                        </div>
+                        <div class="col-md-2">
+                            <label>会员等级:会员</label>
+                        </div>
+
+                    </div>
+
+                    <div class="row mt-md-2">
+                        <div class="col-md-2 offset-md-1">
+                            <label><span style="color: red">*</span>用户名</label>
+                            <input type="text" [disabled]="isEdit" class="form-control" name="nickName"
+                                   [ngModel]="memberDetail&&memberDetail.nickName?memberDetail.nickName:''">
+                        </div>
+                        <div class="col-md-2 ">
+                            <label>用户余额</label>
+                            <input type="number" [disabled]="isEdit" class="form-control" name="balance"
+                                   [ngModel]="memberDetail&&memberDetail.balance?toFixed(memberDetail.balance):0">
+                        </div>
+
+                        <div class="col-md-2">
+                            <label><span style="color: red">*</span>用户状态</label>
+                            <select class="form-control" [disabled]="isEdit" name="userStatus"
+                                    [ngModel]="memberDetail&&memberDetail.userStatus?memberDetail.userStatus:''">
+                                <option></option>
+                                <option value="NORMAL">正常</option>
+                                <option value="FROZENFUNDS">冻结资金</option>
+                                <!--<option value="FROZENLOGIN">冻结登录</option>-->
+                            </select>
+                        </div>
+                    </div>
+
+
+                    <div class="row mt-md-2">
+                        <div class="col-md-2 offset-md-1">
+                            <label>累计会员返佣金额:{{memberDetail && memberDetail.dealerData && memberDetail.dealerData.myselfProfit ? memberDetail.dealerData.myselfProfit : 0}}
+                                元</label>
+                            <!--<input type="text" disabled class="form-control" name="myselfProfit"-->
+                            <!--[ngModel]="data&&data.dealerData&&data.dealerData.myselfProfit?data.dealerData.myselfProfit:0">-->
+                        </div>
+                        <div class="col-md-2">
+                            <label>累计推荐返佣金额:{{memberDetail && memberDetail.dealerData && memberDetail.dealerData.inviteProfit ? memberDetail.dealerData.inviteProfit : 0}}
+                                元</label>
+                            <!--<input type="text" disabled class="form-control" name="inviteProfit"-->
+                            <!--[ngModel]="data&&data.dealerData&&data.dealerData.inviteProfit?data.dealerData.inviteProfit:0">-->
+                        </div>
+                        <div class="col-md-2">
+                            <label>累计推广返佣金额:{{memberDetail && memberDetail.dealerData && memberDetail.dealerData.linkProfit ? memberDetail.dealerData.linkProfit : 0}}
+                                元</label>
+                            <!--<input type="text" disabled class="form-control" name="linkProfit"-->
+                            <!--[ngModel]="data&&data.dealerData&&data.dealerData.linkProfit?data.dealerData.linkProfit:0">-->
+                        </div>
+                        <div class="col-md-2">
+                            <label>累计培训费:{{memberDetail && memberDetail.dealerData && memberDetail.dealerData.trainProfit ? memberDetail.dealerData.trainProfit : 0}}
+                                元</label>
+                            <!--<input type="text" disabled class="form-control" name="trainProfit"-->
+                            <!--[ngModel]="data&&data.dealerData&&data.dealerData.trainProfit?data.dealerData.trainProfit:0">-->
+                        </div>
+
+                        <!--<div class="col-md-2">-->
+                        <!--<label>累计团队返佣金额:{{data && data.dealerData && data.dealerData.teamProfit ? data.dealerData.teamProfit : 0}}-->
+                        <!--元</label>-->
+                        <!--<input type="text" disabled class="form-control" name="trainProfit"-->
+                        <!--[ngModel]="data&&data.dealerData&&data.dealerData.teamProfit?data.dealerData.teamProfit:0">-->
+                        <!--</div>-->
+                    </div>
+
+
+                    <div class="row">
+                        <div class="col-md-12">
+                            <label>邀请会员数:{{agentsNumber}}人</label>
+                            <ng2-smart-table [settings]="settings" [source]="source1"></ng2-smart-table>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-12">
+                            <label>邀请粉丝数:{{fansNumber}}人</label>
+                            <ng2-smart-table [settings]="settings" [source]="source2"></ng2-smart-table>
+                        </div>
+                    </div>
+
+                    <div class="row mt-md-2">
+                        <div class="col-md-2 offset-md-4">
+                            <button class="btn btn-hero-danger" (click)="closeModal()"
+                                    type="button">返回
+                            </button>
+                        </div>
+                        <div class="col-md-2">
+                            <button class="btn btn-hero-success" *ngIf="!isEdit" type="submit">保存修改
+                            </button>
+                        </div>
+
+                    </div>
+                </form>
+
+            </nb-card-body>
+        </nb-card>
+    </div>
+</div>

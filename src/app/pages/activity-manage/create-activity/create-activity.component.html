@@ -1,0 +1,112 @@
+<div class="row">
+    <div class="col-md-12">
+        <nb-card class="mb-0">
+            <nb-card-header>
+                <span>{{ modalHeader }}</span>
+                <button class="close" aria-label="Close" (click)="closeModal()">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </nb-card-header>
+            <nb-card-body>
+                <form #f='ngForm' (ngSubmit)="onSubmit(f)">
+                    <div class="row" *ngIf="rowData">
+                        <div class="col-md-3 offset-md-1">
+                            <label>活动id：</label>
+                            <label>{{rowData && rowData.id ? rowData.id : ''}}</label>
+                        </div>
+                        <!--<div class="col-md-3">-->
+                            <!--<label>活动链接：</label>-->
+                            <!--<label>{{rowData && rowData.activityUrl ? rowData.activityUrl : ''}}</label>-->
+                        <!--</div>-->
+                        <!--<div class="col-md-2">-->
+                            <!--&lt;!&ndash;<label>-</label>&ndash;&gt;-->
+                            <!--<button type="button" class="btn btn-small btn-primary mt-md-1" (click)="copyUrl()">复制活动链接-->
+                            <!--</button>-->
+                        <!--</div>-->
+                    </div>
+
+                    <div class="row mt-md-2">
+                        <div class="col-md-2 offset-md-1">
+                            <label>活动标题</label>
+                            <input type="text" class="form-control"
+                                   [ngModel]="rowData&&rowData.activityName?rowData.activityName:''" name="activityName"
+                                   [disabled]="!isEdit"
+                                   placeholder="活动标题">
+                        </div>
+                        <div class="col-md-4 ">
+                            <label>活动图片</label>
+                            <div class="secondBorder">
+                                <div class="imgBorder" *ngFor="let t of entrance[0].showFileList">
+                                    <button class="imgButton" (click)="delImg(t,'activityShowImg')" type="button"
+                                            *ngIf="isEdit">
+                                        &times;
+                                    </button>
+                                    <img src="{{ t.src }}" class="img">
+                                    <label class="imgName">{{t.name}}</label>
+                                </div>
+                                <div class="imgBorder" *ngIf="entrance[0].showFileList.length===0">
+                                    <img src="assets/images/add.png" class="add">
+                                    <input (change)="fileChange($event,'activityShowImg')" class="selectFile"
+                                           type="file"
+                                           placeholder="Upload file"
+                                           accept=".jpg,.gif,.png,.jpeg"/>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-2">
+                            <label>活动图片比例：375*155pixel</label>
+                        </div>
+                    </div>
+
+                    <div class="row mt-md-2">
+
+                    </div>
+
+                    <div class="row mt-md-2">
+                        <div class="col-md-2 offset-md-1">
+                            <label>启用时间</label>
+                            <input nbInput class="form-control" placeholder="开启时间" [owlDateTime]="formpicker11"
+                                   [ngModel]="rowData&&rowData.start?rowData.start:''" name="start"
+                                   [disabled]="!isEdit" [owlDateTimeTrigger]="formpicker11">
+                            <owl-date-time style="margin: 0;" #formpicker11></owl-date-time>
+
+                        </div>
+                        <div class="col-md-2">
+                            <label>-</label>
+                            <input nbInput class="form-control" placeholder="关闭时间" [owlDateTime]="formpicker22"
+                                   [ngModel]="rowData&&rowData.end?rowData.end:''" name="end"
+                                   [disabled]="!isEdit" [owlDateTimeTrigger]="formpicker22">
+                            <owl-date-time style="margin: 0" #formpicker22></owl-date-time>
+                        </div>
+                    </div>
+
+                    <div class="row mt-md-2">
+                        <div class="col-md-4 offset-md-1">
+                            <label>启用状态</label>
+                            <select class="form-control" [ngModel]="rowData&&rowData.isEnabled?rowData.isEnabled:''"
+                                    name="isEnabled" [disabled]="!isEdit">
+                                <option></option>
+                                <option>开启</option>
+                                <option>关闭</option>
+                            </select>
+                        </div>
+                    </div>
+
+
+                    <div class="row mt-md-2" *ngIf="isEdit">
+                        <div class="col-md-2 offset-md-4 d-flex justify-content-center align-items-center">
+                            <button nbButton hero class="btn btn-danger full-width" (click)="closeModal()" type="button"
+                                    status="danger">返回
+                            </button>
+                        </div>
+                        <div class="col-md-2 d-flex justify-content-center align-items-center">
+                            <button nbButton hero class="btn btn-danger full-width" type="submit"
+                                    status="success">保存
+                            </button>
+                        </div>
+                    </div>
+                </form>
+            </nb-card-body>
+        </nb-card>
+    </div>
+</div>
